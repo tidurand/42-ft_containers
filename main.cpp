@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 12:12:51 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:46:37 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int main()
 	std::cout << std::endl;
 	std::cout << v.size() << std::endl;
 	std::cout << v.capacity() << std::endl;
+	std::cout << v.max_size() << std::endl;
+	std::cout << *(v.data()) << std::endl;
 	
 	}
 	catch (std::exception & e)

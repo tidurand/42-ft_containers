@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 11:41:19 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:33:07 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <iostream>
 # include <algorithm>
 # include <vector>
+#include <limits>
 
 namespace ft {
 

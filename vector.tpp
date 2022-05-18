@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 12:11:05 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:58:16 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,18 @@ const T& vector<T, Allocator>::back() const
 	return (_array[_size - 1]);
 }
 
+template <class T, class Allocator>
+T* vector<T, Allocator>::data()
+{
+	return (&_array[0]);
+}
+
+template <class T, class Allocator>
+const T* vector<T, Allocator>::data() const
+{
+	return (&_array[0]);
+}
+
 //CAPACITY
 
 template <class T, class Allocator>
@@ -156,11 +168,11 @@ size_type vector<T, Allocator>::size() const
 	return _size;
 }
 
-// template <class T, class Allocator>
-// size_type vector<T, Allocator>::max_size() const
-// {
-// 	return std::distance(begin(), end());
-// }
+template <class T, class Allocator>
+size_type vector<T, Allocator>::max_size() const
+{
+	return std::numeric_limits<difference_type>::max() / sizeof(difference_type);
+}
 
 template <class T, class Allocator>
 void vector<T, Allocator>::reserve(size_type new_cap)
@@ -214,5 +226,43 @@ void vector<T, Allocator>::pop_back()
 	_alloc.destroy(&_array[_size - 1]);
 	_size--;
 }
+
+template <class T, class Allocator>
+void resize( size_type count, T value)
+{
+	if (count < _size)
+	{
+		T *temp = new T [count];
+		for (size_type i = 0; i < count; i++)
+			_alloc.construct(&temp[i], _array[i]);
+		for (size_type i = 0; i < _size; i++)
+			_alloc.destroy(&_array[i]);
+		// if (_capacity > 0)
+		// 	_alloc.deallocate(_array, _capacity);
+		// _array = _alloc.allocate(count);
+		for (size_type i = 0; i < count; i++)
+			_alloc.construct(&_array[i], temp[i]);
+		_size = count; 
+		delete [] temp;
+	}
+	if (count > _size)
+	{
+		T *temp = new T [_size];
+		for (size_type i = 0; i < _size; i++)
+			_alloc.construct(&temp[i], _array[i]);
+		for (size_type i = 0; i < _size; i++)
+			_alloc.destroy(&_array[i]);
+		if (_capacity > 0)
+			_alloc.deallocate(_array, _capacity);
+		_array = _alloc.allocate(count);
+		for (size_type i = 0; i < _size; i++)
+			_alloc.construct(&_array[i], temp[i]);
+		for (size_type i = _size; i < count; i++)
+			_alloc.construct(&_array[i], value);
+		_capacity = count;
+		delete [] temp;
+	}
+}
+
 }
 //COMPARAISONS

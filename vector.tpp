@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 11:00:20 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 12:11:05 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ namespace ft {
 //CONSTRUCTEURS
 
 template <class T, class Allocator>
-vector<T, Allocator>::vector(): _size(0), _array(NULL){}
+vector<T, Allocator>::vector(): _size(0), _capacity(0), _array(NULL){}
 
 template <class T, class Allocator>
 vector<T, Allocator>::vector(const Allocator& alloc)
@@ -71,7 +71,7 @@ template <class T, class Allocator>
 vector<T, Allocator>::~vector()
 {
 	if (_array)
-		_alloc.deallocate(_array, _size);
+		_alloc.deallocate(_array, _capacity);
 }
 
 template <class T, class Allocator>
@@ -167,15 +167,18 @@ void vector<T, Allocator>::reserve(size_type new_cap)
 {
 	if (new_cap > _capacity)
 	{
-		T *temp = _array;
+		T *temp = new T [_size];
+		for (size_type i = 0; i < _size; i++)
+			_alloc.construct(&temp[i], _array[i]);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.destroy(&_array[i]);
-		if (_array)
+		if (_capacity > 0)
 			_alloc.deallocate(_array, _capacity);
 		_array = _alloc.allocate(new_cap);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&_array[i], temp[i]);
 		_capacity = new_cap;
+		delete [] temp;
 	}
 }
 

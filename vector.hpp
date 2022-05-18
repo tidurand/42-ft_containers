@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/17 16:30:55 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 10:22:06 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,16 @@ class vector
 		void pop_back();
 		void resize( size_type count, T value = T() );
 		void swap( vector& other );
+		class OutOfRange : public std::exception
+		{
+			public:
+				virtual const char* what() const throw()
+				{return ("vector :Out of range");}
+		};
 	
 	private:
 		size_type _size;
+		size_type _capacity;
 		T*	_array;
 		allocator_type _alloc;
 

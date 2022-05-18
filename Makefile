@@ -6,13 +6,13 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/05/17 15:52:16 by tidurand         ###   ########.fr        #
+#    Updated: 2022/05/18 08:00:46 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.cpp
 
-INCS = vector.hpp
+INCS = vector.hpp vector.tpp
 
 OBJS = $(SRCS:.cpp=.o)
 

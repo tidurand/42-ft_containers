@@ -6,13 +6,13 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 19:02:30 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:44:20 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #ifndef TYPE
-#define TYPE std
+#define TYPE ft
 #endif
 int main()
 {
@@ -30,6 +30,7 @@ int main()
 	std::cout << v.size() << std::endl;
 	std::cout << v.capacity() << std::endl;
 	std::cout << *(v.data()) << std::endl;
+	std::cout << *(v.begin()) << std::endl;
 
 	v.resize(25, 6);
 	std::cout << v.size() << std::endl;
@@ -37,8 +38,14 @@ int main()
 	for (int i = 0; i < 25; i++)
 		std::cout << v[i] << ",";
 	std::cout << std::endl;
-	std::cout << *(v.end()) << std::endl;
-		
+
+	TYPE::vector<int> cpy(v);
+	for (int i = 0; i < 20; i++)
+		std::cout << v[i] << ",";
+	std::cout << std::endl;
+	std::cout << v.size() << std::endl;
+	std::cout << v.capacity() << std::endl;
+	std::cout << *(v.data()) << std::endl;	
 	}
 	catch (std::exception & e)
 	{

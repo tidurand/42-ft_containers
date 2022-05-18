@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 19:53:10 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:40:14 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,23 @@ vector<T, Allocator>::vector(const vector& other)
 	_array = _alloc.allocate(_capacity);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&_array[i], other._array[i]);
+}
+
+template <class T, class Allocator>
+vector<T, Allocator>& vector<T, Allocator>::operator=(const vector& other)
+{
+
+	// for (size_type i = 0; i < other._size; i++) FIND A WAY TO DELETE
+	// 	other._alloc.destroy(&other._array[i]);
+	// if (other._capacity > 0)
+	// 	other._alloc.deallocate(other._array, other._capacity);
+	_size = other._size;
+	_capacity = other._capacity;
+	_alloc = other._alloc;
+	_array = _alloc.allocate(_capacity);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.construct(&_array[i], other._array[i]);
+	return (*this);
 }
 
 //DESTRUCTEUR

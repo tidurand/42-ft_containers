@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 13:33:07 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:43:04 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <algorithm>
 # include <vector>
 #include <limits>
+#include "iterator.hpp"
 
 namespace ft {
 
@@ -31,7 +32,7 @@ class vector
 		typedef	const value_type&						const_reference;
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
-		typedef	std::iterator<std::random_access_iterator_tag, T>			iterator; //NOT SURE
+		typedef	ft::iterator<T>			iterator; //NOT SURE
 		typedef	std::iterator<std::random_access_iterator_tag, const T>	const_iterator; //NOT SURE
 		typedef	std::reverse_iterator<iterator>			reverse_iterator;
 		typedef	std::reverse_iterator<const_iterator>	const_reverse_iterator;

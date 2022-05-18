@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 13:58:16 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:42:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,16 @@ const T* vector<T, Allocator>::data() const
 	return (&_array[0]);
 }
 
+//ITERATORS
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::iterator vector<T, Allocator>::begin()
+{
+	typename vector<T, Allocator>::iterator it(_array);
+
+	return (it);
+}
+
 //CAPACITY
 
 template <class T, class Allocator>
@@ -179,7 +189,7 @@ void vector<T, Allocator>::reserve(size_type new_cap)
 {
 	if (new_cap > _capacity)
 	{
-		T *temp = new T [_size];
+		T *temp = _alloc.allocate(_size);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&temp[i], _array[i]);
 		for (size_type i = 0; i < _size; i++)
@@ -190,7 +200,7 @@ void vector<T, Allocator>::reserve(size_type new_cap)
 		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&_array[i], temp[i]);
 		_capacity = new_cap;
-		delete [] temp;
+		_alloc.deallocate(temp, _size);
 	}
 }
 
@@ -228,26 +238,23 @@ void vector<T, Allocator>::pop_back()
 }
 
 template <class T, class Allocator>
-void resize( size_type count, T value)
+void vector<T, Allocator>::resize( size_type count, T value)
 {
 	if (count < _size)
 	{
-		T *temp = new T [count];
+		T *temp = _alloc.allocate(count);
 		for (size_type i = 0; i < count; i++)
 			_alloc.construct(&temp[i], _array[i]);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.destroy(&_array[i]);
-		// if (_capacity > 0)
-		// 	_alloc.deallocate(_array, _capacity);
-		// _array = _alloc.allocate(count);
 		for (size_type i = 0; i < count; i++)
 			_alloc.construct(&_array[i], temp[i]);
 		_size = count; 
-		delete [] temp;
+		_alloc.deallocate(temp, count);
 	}
 	if (count > _size)
 	{
-		T *temp = new T [_size];
+		T *temp = _alloc.allocate(count);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&temp[i], _array[i]);
 		for (size_type i = 0; i < _size; i++)
@@ -259,9 +266,17 @@ void resize( size_type count, T value)
 			_alloc.construct(&_array[i], temp[i]);
 		for (size_type i = _size; i < count; i++)
 			_alloc.construct(&_array[i], value);
-		_capacity = count;
-		delete [] temp;
+		_size = count;
+		_alloc.deallocate(temp, count);
 	}
+}
+
+template <class T, class Allocator>
+void vector<T, Allocator>::swap(vector& other)
+{
+	std::swap(_array, other._array);
+	std::swap(_size, other._size);
+	std::swap(_capacity, other._capacity);
 }
 
 }

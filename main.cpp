@@ -6,13 +6,13 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 18:44:51 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:02:30 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
 int main()
 {
@@ -37,7 +37,7 @@ int main()
 	for (int i = 0; i < 25; i++)
 		std::cout << v[i] << ",";
 	std::cout << std::endl;
-	std::cout << *(v.begin()) << std::endl;
+	std::cout << *(v.end()) << std::endl;
 		
 	}
 	catch (std::exception & e)

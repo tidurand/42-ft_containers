@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 18:42:38 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:53:10 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,12 @@ vector<T, Allocator>::~vector()
 		_alloc.deallocate(_array, _capacity);
 }
 
+//ACCESSEURS
 template <class T, class Allocator>
 Allocator vector<T, Allocator>::get_allocator() const
 {
 	return _alloc;
 }
-
-
-//ACCESSEURS
 
 template <class T, class Allocator>
 T& vector<T, Allocator>::at( size_type pos )
@@ -157,6 +155,16 @@ template< class T, class Allocator >
 typename vector<T, Allocator>::iterator vector<T, Allocator>::begin()
 {
 	typename vector<T, Allocator>::iterator it(_array);
+
+	return (it);
+}
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::iterator vector<T, Allocator>::end()
+{
+	typename vector<T, Allocator>::iterator it(_array);
+	for (size_t i = 0; i < _size; i++)
+		++it;
 
 	return (it);
 }

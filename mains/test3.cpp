@@ -6,13 +6,13 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 15:35:46 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 16:41:49 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vector.hpp"
 #ifndef TYPE
-#define TYPE std
+#define TYPE ft
 #endif
 
 //vector constructors + assign
@@ -23,7 +23,7 @@ int main()
 	{
 		
 	TYPE::vector<int> v;
-	for (int i = 1; i <= 20; i++)
+	for (int i = 12; i <= 31; i++)
 	{
 		v.push_back(i);
 	}
@@ -53,7 +53,11 @@ int main()
 	for (int i = 0; i < 20; i++)
 		std::cout << v2[i] << ",";
 	std::cout << std::endl;
-	
+	std::vector<char> characters;
+	const std::string extra(6, 'b');
+    characters.assign(extra.begin(), extra.end());
+	for (int i = 0; i < 6; i++)
+		std::cout << characters[i] << ",";
 	}
 	catch (std::exception & e)
 	{

@@ -2,3 +2,4 @@ ACCESSEURS = size or capacity
 verif max size
 verif capacity after resize
 valgrind on equal when not empty
+DO ERASE

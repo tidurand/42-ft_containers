@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 20:40:14 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:06:45 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,15 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::begin()
 	return (it);
 }
 
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const
+{
+	typename vector<T, Allocator>::const_iterator it(_array);
+
+	return (it);
+}
+
 template< class T, class Allocator >
 typename vector<T, Allocator>::iterator vector<T, Allocator>::end()
 {
@@ -183,6 +192,50 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::end()
 	for (size_t i = 0; i < _size; i++)
 		++it;
 
+	return (it);
+}
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const
+{
+	typename vector<T, Allocator>::const_iterator it(_array);
+	for (size_t i = 0; i < _size; i++)
+		++it;
+
+	return (it);
+}
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rbegin()
+{
+	typename vector<T, Allocator>::reverse_iterator it(_array);
+	for (size_t i = 0; i < _size; i++)
+		--it;
+	return (it);
+}
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rbegin() const
+{
+	typename vector<T, Allocator>::const_reverse_iterator it(_array);
+	for (size_t i = 0; i < _size; i++)
+		--it;
+	return (it);
+}
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rend()
+{
+	typename vector<T, Allocator>::reverse_iterator it(_array);
+	
+	return (it);
+}
+
+template< class T, class Allocator >
+typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const
+{
+	typename vector<T, Allocator>::const_reverse_iterator it(_array);
+	
 	return (it);
 }
 

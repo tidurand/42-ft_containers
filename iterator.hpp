@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:49:52 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/18 19:48:21 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:17:12 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ class iterator : public std::iterator<std::random_access_iterator_tag, It>
 		iterator() {_p = NULL;};
 		iterator(It *it) {_p = it;};
 		iterator( const iterator& other ) {_p = other._p;};
-		iterator& operator=(const iterator& other) {_p = other._p;};
+		iterator& operator=(const iterator& other) {_p = other._p; return (*this);};
 		~iterator(){};
+		It *	base(){return _p;};
 		It &operator*() const	{return *_p;};
 		It *operator->() const	{return _p;};
 		iterator& operator++()
@@ -49,15 +50,23 @@ class iterator : public std::iterator<std::random_access_iterator_tag, It>
 			--_p;
 			return temp;
 		};
-		iterator operator+(int n)
+		iterator operator+=(int n)
 		{
 			_p = _p + n;
 			return *this;
 		};
-		iterator operator-(int n)
+		iterator operator-=(int n)
 		{
 			_p = _p - n;
 			return *this;
+		};
+		iterator operator+(int n)
+		{
+			return (iterator(_p + n));
+		};
+		iterator operator-(int n)
+		{
+			return (iterator(_p - n));
 		};
 		iterator operator[](int n)
 		{
@@ -70,9 +79,17 @@ class iterator : public std::iterator<std::random_access_iterator_tag, It>
    		bool operator>=(const iterator& rhs) const { return _p >= rhs._p; };
 		bool operator<(const iterator& rhs) const { return _p < rhs._p; };
    		bool operator<=(const iterator& rhs) const { return _p <= rhs._p; };
-	private:
+	protected:
 		It* _p;
 };
+
+template< class T >
+iterator<T> operator+(iterator<T>& lhs, iterator<T>& rhs)
+{
+	return lhs.base() + rhs.base();
+}
+
+
 
 }
 

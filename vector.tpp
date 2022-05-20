@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 19:04:05 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 19:15:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,8 +384,6 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::erase( iterator po
 		count++;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
-	// _alloc.deallocate(_array, _size);
-	// _array = _alloc.allocate(_size);
 	for (size_type i = 0; i < count; i++)
 		_alloc.construct(&_array[i], temp[i]);
 	for (size_type i = count + 1; i < _size; i++)
@@ -394,11 +392,30 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::erase( iterator po
 	_size--;
 	return pos;
 }
-// template <class T, class Allocator>
-// iterator vector<T, Allocator>::erase( iterator first, iterator last )
-// {
-	
-// }
+template <class T, class Allocator>
+typename vector<T, Allocator>::iterator vector<T, Allocator>::erase( iterator first, iterator last )
+{
+	T *temp = _alloc.allocate(_size);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.construct(&temp[i], _array[i]);
+		
+	size_type begin = 0;
+	while (*first != _array[begin])
+		begin++;
+		
+	size_type end = 0;
+	while (*last != _array[end])
+		end++;
+	for (size_type i = 0; i < _size; i++)
+		_alloc.destroy(&_array[i]);
+	for (size_type i = 0; i < begin; i++)
+		_alloc.construct(&_array[i], temp[i]);
+	for (size_type i = begin + end; i < _size; i++)
+		_alloc.construct(&_array[i-end], temp[i]);
+	_alloc.deallocate(temp, _size);
+	_size -= end - begin;
+	return last;
+}
 		
 template <class T, class Allocator>
 void vector<T, Allocator>::clear()

@@ -6,13 +6,13 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 17:25:00 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 19:06:37 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 19:17:54 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vector.hpp"
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
 
 //vector insert + erase
@@ -31,13 +31,14 @@ int main()
 		std::cout << v[i] << ",";
 	std::cout << std::endl;
 	TYPE::vector<int>::iterator it = v.begin();
-	it++;
-	v.erase(it);
+	TYPE::vector<int>::iterator it2 = v.begin();
+	it2 = it2 + 4;
+	v.erase(it, it2);
 	it = it + 4;
 	std::cout << v.front() << std::endl;
-	std::cout << *(v.erase(it)) << std::endl;;
+	//std::cout << *(v.erase(it)) << std::endl;;
 	std::cout << v.front() << std::endl;
-	for (int i = 0; i < 19; i++)
+	for (int i = 0; i < 15; i++)
 		std::cout << v[i] << ",";
 	std::cout << std::endl;
 	}

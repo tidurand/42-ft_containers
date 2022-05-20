@@ -1,5 +1,4 @@
 ACCESSEURS = size or capacity
 verif max size
-verif capaity after resize
-verif rend rbegin + reverse iterators
+verif capacity after resize
 valgrind on equal when not empty

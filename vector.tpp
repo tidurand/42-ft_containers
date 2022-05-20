@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 14:40:55 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:36:08 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,49 @@ vector<T, Allocator>::vector(const vector& other)
 template <class T, class Allocator>
 vector<T, Allocator>& vector<T, Allocator>::operator=(const vector& other)
 {
-
-	// for (size_type i = 0; i < other._size; i++) FIND A WAY TO DELETE
-	// 	other._alloc.destroy(&other._array[i]);
-	// if (other._capacity > 0)
-	// 	other._alloc.deallocate(other._array, other._capacity);
+	if (_array)
+	{
+		for (size_type i = 0; i < _size; i++)
+			get_allocator().destroy(&_array[i]);
+		if (_capacity > 0)
+			get_allocator().deallocate(_array, _capacity);
+	}
 	_size = other._size;
-	_capacity = other._capacity;
+	_capacity = other._size;
 	_alloc = other._alloc;
 	_array = _alloc.allocate(_capacity);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&_array[i], other._array[i]);
 	return (*this);
 }
+
+template <class T, class Allocator>
+void	vector<T, Allocator>::assign(size_type count, const T& value)
+{
+	T *temp = _alloc.allocate(_size);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.construct(&temp[i], _array[i]);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.destroy(&_array[i]);
+	if (count > _capacity)
+	{
+		_alloc.deallocate(_array, _capacity);
+		_array = _alloc.allocate(count);
+	}
+	for (size_type i = 0; i < count; i++)
+		_alloc.construct(&_array[i], value);
+	for (size_type i = _size; i < _size; i++)
+		_alloc.construct(&_array[i], temp[i]);
+	_size = count;
+	_alloc.deallocate(temp, count);
+	
+}
+
+// template< class InputIt >
+// void assign( InputIt first, InputIt last )
+// {
+	
+// }
 
 //DESTRUCTEUR
 
@@ -109,7 +139,7 @@ Allocator vector<T, Allocator>::get_allocator() const
 template <class T, class Allocator>
 T& vector<T, Allocator>::at( size_type pos )
 {
-	if (pos < 0 || pos >= _capacity)
+	if (pos < 0)
 		throw OutOfRange();
 	return (_array[pos]);
 }
@@ -117,7 +147,7 @@ T& vector<T, Allocator>::at( size_type pos )
 template <class T, class Allocator>
 const T& vector<T, Allocator>::at( size_type pos ) const
 {
-	if (pos < 0 || pos >= _capacity)
+	if (pos < 0)
 		throw OutOfRange();
 	return (_array[pos]);
 }
@@ -125,7 +155,7 @@ const T& vector<T, Allocator>::at( size_type pos ) const
 template <class T, class Allocator>
 T& vector<T, Allocator>::operator[](size_type pos)
 {
-	if (pos < 0 || pos >= _capacity)
+	if (pos < 0)
 		throw OutOfRange();
 	return (_array[pos]);
 }
@@ -133,7 +163,7 @@ T& vector<T, Allocator>::operator[](size_type pos)
 template <class T, class Allocator>
 const T& vector<T, Allocator>::operator[](size_type pos) const
 {
-	if (pos < 0 || pos >= _capacity)
+	if (pos < 0)
 		throw OutOfRange();
 	return (_array[pos]);
 }

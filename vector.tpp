@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 14:06:45 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:40:55 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,18 @@ template <class T, class Allocator>
 template <class InputIt>
 vector<T, Allocator>::vector(InputIt first, InputIt last, const Allocator& alloc)
 {
-	(void)first;
-	(void)last;
-	(void)alloc;
-	//TODO
+	size_type	count = 0;
+	
+	for (InputIt it = first; it != last; it++)
+		count++;
+	_size = count;
+	_capacity = count;
+	_alloc = alloc;
+	_array = _alloc.allocate(_capacity);
+
+	count = 0;
+	for (InputIt it = first; it != last; it++)
+		_alloc.construct(&_array[*it-1], *it);
 }
 
 template <class T, class Allocator>

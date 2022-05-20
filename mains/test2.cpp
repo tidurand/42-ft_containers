@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 14:16:01 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:34:37 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #ifndef TYPE
 #define TYPE ft
 #endif
+
+//vector reverse_iterators
+
 int main()
 {
 	try 

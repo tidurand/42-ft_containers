@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 14:19:54 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:37:22 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main()
 {
 	try 
 	{
+
 	TYPE::vector<int> v;
 
 	for (int i = 1; i <= 20; i++)
@@ -39,7 +40,7 @@ int main()
 		std::cout << v[i] << ",";
 	std::cout << std::endl;
 
-	TYPE::vector<int> cpy(v);
+	TYPE::vector<int> cpy(v.begin(), v.end());
 	for (int i = 0; i < 20; i++)
 		std::cout << v[i] << ",";
 	std::cout << std::endl;

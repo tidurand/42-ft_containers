@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:49:52 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/21 14:16:02 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:50:40 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ template <class It>
 class iterator : public std::iterator<std::random_access_iterator_tag, It>
 {
 	public:
+	typedef	std::ptrdiff_t	difference_type;
+	typedef It				value_type;
+	typedef	It*				pointer;
+	typedef	It&				reference;
+	typedef	std::random_access_iterator_tag	iterator_category; 
+	
 		iterator() {_p = NULL;};
 		iterator(It *it) {_p = it;};
 		iterator( const iterator& other ) {_p = other._p;};

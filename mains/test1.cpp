@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 14:34:14 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 11:09:00 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 int main()
 {
-	try 
-	{
 	TYPE::vector<int> v;
 
 	for (int i = 1; i <= 20; i++)
@@ -42,10 +40,5 @@ int main()
 	std::cout << *it << ", ";
 	std::cout << std::endl;
 	
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
 	return 0;
 }

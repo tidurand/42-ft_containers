@@ -6,22 +6,19 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 17:25:00 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 19:17:54 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:43:48 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vector.hpp"
 #ifndef TYPE
-#define TYPE std
+#define TYPE ft
 #endif
 
 //vector insert + erase
 
 int main()
 {
-	try 
-	{
-		
 	TYPE::vector<int> v;
 	for (int i = 11; i <= 30; i++)
 	{
@@ -36,15 +33,22 @@ int main()
 	v.erase(it, it2);
 	it = it + 4;
 	std::cout << v.front() << std::endl;
-	//std::cout << *(v.erase(it)) << std::endl;;
+	std::cout << *(v.erase(it)) << std::endl;;
 	std::cout << v.front() << std::endl;
 	for (int i = 0; i < 15; i++)
 		std::cout << v[i] << ",";
 	std::cout << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	v.insert(it, (size_t)4, 68);
+	for (int i = 0; i < 32; i++)
+		std::cout << v[i] << ",";
+	std::cout << std::endl;
+	std::cout << v.size() << std::endl;
+	std::cout << v.capacity() << std::endl;
+	TYPE::vector<int> v2((size_t)3, 400);
+	v2.push_back(502);
+	v.insert(v.begin(), v2.begin(), v2.end());
+	for (int i = 0; i < 32; i++)
+		std::cout << v[i] << ",";
+	std::cout << std::endl;
 	return 0;
 }

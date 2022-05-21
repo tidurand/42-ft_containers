@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 16:41:49 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:43:56 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 
 int main()
 {
-	try 
-	{
-		
 	TYPE::vector<int> v;
 	for (int i = 12; i <= 31; i++)
 	{
@@ -58,10 +55,5 @@ int main()
     characters.assign(extra.begin(), extra.end());
 	for (int i = 0; i < 6; i++)
 		std::cout << characters[i] << ",";
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
 	return 0;
 }

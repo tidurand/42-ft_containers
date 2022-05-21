@@ -6,10 +6,12 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 19:15:38 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 11:01:55 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef VECTOR_TPP
+#define VECTOR_TPP
 #include "vector.hpp"
 
 namespace ft {
@@ -119,7 +121,7 @@ void	vector<T, Allocator>::assign(size_type count, const T& value)
 
 template <class T, class Allocator>
 template< class InputIt >
-void vector<T, Allocator>::assign( InputIt first, InputIt last )
+void vector<T, Allocator>::assign(InputIt first, InputIt last)
 {
 	size_type	count = 0;
 	
@@ -354,24 +356,79 @@ size_type vector<T, Allocator>::capacity() const
 }
 
 //MODIFIERS
-// template <class T, class Allocator>
-// iterator vector<T, Allocator>::insert( iterator pos, const T& value )
-// {
-	
-// }
 
-// template <class T, class Allocator>
-// void vector<T, Allocator>::insert( iterator pos, size_type count, const T& value )
-// {
+template <class T, class Allocator>
+typename vector<T, Allocator>::iterator vector<T, Allocator>::insert( iterator pos, const T& value )
+{
+	if (_capacity == _size)
+		reserve(_size + 1);
+	T *temp = _alloc.allocate(_size);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.construct(&temp[i], _array[i]);
+	size_type count = 0;
+	while (*pos != _array[count])
+		count++;
+	for (size_type i = 0; i < _size; i++)
+		_alloc.destroy(&_array[i]);
+	for (size_type i = 0; i < count; i++)
+		_alloc.construct(&_array[i], temp[i]);
+	_alloc.construct(&_array[count], value);
+	for (size_type i = count; i < _size ; i++)
+		_alloc.construct(&_array[i+1], temp[i]);
+	_alloc.deallocate(temp, _size);
+	_size++;
+	return pos;
+}
 
-// }
+template <class T, class Allocator>
+void vector<T, Allocator>::insert( iterator pos, size_type count, const T& value )
+{
+	if (_capacity < _size + count)
+		reserve(_size + count);
+	T *temp = _alloc.allocate(_size);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.construct(&temp[i], _array[i]);
+	size_type c = 0;
+	while (*pos != _array[c])
+		c++;
+	for (size_type i = 0; i < _size; i++)
+		_alloc.destroy(&_array[i]);
+	for (size_type i = 0; i < c; i++)
+		_alloc.construct(&_array[i], temp[i]);
+	for (size_type i = c; i < c + count; i++)
+		_alloc.construct(&_array[i], value);
+	for (size_type i = c + count; i < _size + count; i++)
+		_alloc.construct(&_array[i], temp[i - count]);
+	_alloc.deallocate(temp, _size);
+	_size+= count;
+}
 
-// template <class T, class Allocator>
-// template< class InputIt >
-// void vector<T, Allocator>::insert( iterator pos, InputIt first, InputIt last )
-// {
-	
-// }
+template <class T, class Allocator>
+template< class InputIt >
+void vector<T, Allocator>::insert( iterator pos, InputIt first, InputIt last )
+{
+	size_type count = 0;
+	for (InputIt it = first; it != last; it++)
+		count++;
+	if (_capacity < _size + count)
+		reserve(_size + count);
+	T *temp = _alloc.allocate(_size);
+	for (size_type i = 0; i < _size; i++)
+		_alloc.construct(&temp[i], _array[i]);
+	size_type c = 0;
+	while (*pos != _array[c])
+		c++;
+	for (size_type i = 0; i < _size; i++)
+		_alloc.destroy(&_array[i]);
+	for (size_type i = 0; i < c; i++)
+		_alloc.construct(&_array[i], temp[i]);
+	for (size_type i = c; i < c + count; i++)
+		_alloc.construct(&_array[i], *first++);
+	for (size_type i = c + count; i < _size + count; i++)
+		_alloc.construct(&_array[i], temp[i - count]);
+	_alloc.deallocate(temp, _size);
+	_size+= count;
+}
 
 template <class T, class Allocator>
 typename vector<T, Allocator>::iterator vector<T, Allocator>::erase( iterator pos )
@@ -487,3 +544,5 @@ void vector<T, Allocator>::swap(vector& other)
 
 }
 //COMPARAISONS
+
+#endif

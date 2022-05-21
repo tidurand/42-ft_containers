@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/20 16:37:59 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:44:03 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@
 //vector reverse_iterators
 
 int main()
-{
-	try 
-	{
-		
+{	
 	TYPE::vector<int> v;
 
 	for (int i = 5; i <= 25; i++)
@@ -44,10 +41,5 @@ int main()
 	// std::cout << *it << ", ";
 	// std::cout << std::endl;
 	
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
 	return 0;
 }

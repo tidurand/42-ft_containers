@@ -4,3 +4,4 @@ verif capacity after resize
 valgrind on equal when not empty
 verif end()
 do compare
+instead of (size_t) implement enableif

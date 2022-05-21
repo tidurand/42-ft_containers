@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/21 11:01:45 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:58:49 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class vector
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::iterator<T>							iterator;
 		typedef	ft::iterator<const T>					const_iterator;
-		typedef	std::reverse_iterator<iterator>			reverse_iterator;
+		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef	std::reverse_iterator<const_iterator>	const_reverse_iterator;
 		
 		vector();

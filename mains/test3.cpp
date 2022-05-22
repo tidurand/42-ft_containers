@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/21 10:43:56 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:03:56 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main()
 	for (int i = 0; i < 20; i++)
 		std::cout << v2[i] << ",";
 	std::cout << std::endl;
-	v2.assign((size_t)5, 8);
+	v2.assign((unsigned int)5, 8);
 	std::cout << v2.size() << std::endl;
 	std::cout << v2.capacity() << std::endl;
 	for (int i = 0; i < 20; i++)

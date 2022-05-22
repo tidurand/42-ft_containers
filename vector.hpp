@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/22 13:30:36 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 18:09:39 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class vector
 	public:
 		typedef	T										value_type;
 		typedef	Allocator								allocator_type;
-		typedef	std::size_t								size_type;
+		typedef std::size_t								size_type;
 		typedef	std::ptrdiff_t							difference_type;
 		typedef	value_type&								reference;
 		typedef	const value_type&						const_reference;

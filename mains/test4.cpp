@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 17:25:00 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/21 10:43:48 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:38:44 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define TYPE ft
 #endif
 
-//vector insert + erase
+//vector modifiers 1 (insert + erase)
 
 int main()
 {

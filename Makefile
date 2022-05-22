@@ -6,13 +6,13 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/05/22 13:45:28 by tidurand         ###   ########.fr        #
+#    Updated: 2022/05/22 18:13:21 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.cpp
 
-INCS = vector.hpp vector.tpp iterator.hpp reverse_iterator.hpp
+INCS = vector.hpp vector.tpp iterator.hpp reverse_iterator.hpp iterator_traits.hpp utils.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -22,7 +22,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 NAME = containers
 
-MAX = 4
+MAX = 6
 
 all: $(NAME)
 

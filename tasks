@@ -1,7 +1,6 @@
-ACCESSEURS = size or capacity
+ACCESSEURS = size or capacity or nothing or max_size
 verif max size
-verif capacity after resize
-valgrind on equal when not empty
-verif end()
-do compare
 instead of (size_t) implement enableif
+out of range and size_type + proteger negatifs
+do error main, big main, man modifiers 2
+comprendre lexicographical_compare

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:39:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/22 16:46:33 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 18:32:14 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int main()
 	}
 	std::cout << v.empty() << std::endl;
 	v.reserve(1);
+	std::cout << v.size() << ", " << v.capacity() << std::endl;
+	v.insert(v.begin(), 3);
 	std::cout << v.size() << ", " << v.capacity() << std::endl;
 	v.reserve(80);
 	std::cout << v.size() << ", " << v.capacity() << std::endl;

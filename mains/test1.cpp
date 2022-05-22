@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:08:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/21 11:09:00 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:40:25 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main()
 	it + 1;
 	std::cout << *it << ", ";
 	it = it - 5;
-	std::cout << *it << ", ";
+	std::cout << it[2] << ", ";
 	std::cout << std::endl;
 	
 	return 0;

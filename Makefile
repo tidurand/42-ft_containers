@@ -6,7 +6,7 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/05/21 10:55:24 by tidurand         ###   ########.fr        #
+#    Updated: 2022/05/22 13:45:28 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,16 @@ megacat:	$(OBJS) $(INCS)
 		cat ft.txt;\
 		rm ft.txt ft;\
 	done
+
+megavalgrind:	$(OBJS) $(INCS)
+	@for i in $(shell seq 1 $(MAX)); \
+	do \
+		echo $$i;\
+		$(CXX) $(CXXFLAGS) mains/test$$i.cpp -o ft;\
+		valgrind ./ft;\
+		rm ft;\
+	done
+	
 megarm:
 	rm ft std ft.txt std.txt
 

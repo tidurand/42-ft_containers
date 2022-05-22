@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/22 12:31:51 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:19:09 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -543,6 +543,5 @@ void vector<T, Allocator>::swap(vector& other)
 }
 
 }
-//COMPARAISONS
 
 #endif

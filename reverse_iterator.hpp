@@ -74,9 +74,11 @@ class reverse_iterator
 		{
 			return (reverse_iterator(_p + n));
 		};
-		reverse_iterator operator[](int n)
+		It &operator[](int n)
 		{
-			return *(*this + n);
+			It	*tmp = _p - n;
+			--tmp;
+			return (*tmp);
 		};
 		bool operator==(const reverse_iterator& rhs) const { return _p == rhs._p; };
    		bool operator!=(const reverse_iterator& rhs) const { return _p != rhs._p; };

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:49:52 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/21 15:50:40 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:40:09 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ class iterator : public std::iterator<std::random_access_iterator_tag, It>
 		{
 			return (iterator(_p - n));
 		};
-		iterator operator[](int n)
+		It &operator[](int n)
 		{
-			return _p[n];
+			It	*tmp = _p + n;
+			return (*tmp);
 		};
 		bool operator==(const iterator& rhs) const { return _p == rhs._p; };
    		bool operator!=(const iterator& rhs) const { return _p != rhs._p; };

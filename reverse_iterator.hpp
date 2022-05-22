@@ -17,13 +17,8 @@
 
 namespace ft {
 
-template <class It>	
-class reverse_iterator : public iterator
-<typename iterator_traits<It>::iterator_category,
-typename iterator_traits<It>::value_type,
-typename iterator_traits<It>::difference_type,
-typename iterator_traits<It>::pointer,
-typename iterator_traits<It>::reference>
+template <typename It>	
+class reverse_iterator
 {
 	public:
 		reverse_iterator() {_p = NULL;};
@@ -31,8 +26,13 @@ typename iterator_traits<It>::reference>
 		reverse_iterator( const reverse_iterator& other ) {_p = other._p;};
 		reverse_iterator& operator=(const reverse_iterator& other) {_p = other._p; return *this;};
 		~reverse_iterator(){};
-		It *	base(){return _p};
-		It &operator*() const	{return *--_p;};
+		It *	base(){return _p;};
+		It &operator*() const	
+		{
+			It	*tmp = _p;
+			--tmp;
+			return (*tmp);
+		};
 		It *operator->() const	{return --_p;};
 		reverse_iterator& operator++()
 		{

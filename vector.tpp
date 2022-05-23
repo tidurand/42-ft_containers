@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/22 16:03:12 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 12:27:30 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ Allocator vector<T, Allocator>::get_allocator() const
 template <class T, class Allocator>
 T& vector<T, Allocator>::at( size_type pos )
 {
-	if (pos < 0)
+	if (pos < 0 || pos > _capacity)
 		throw OutOfRange();
 	return (_array[pos]);
 }
@@ -176,7 +176,7 @@ T& vector<T, Allocator>::at( size_type pos )
 template <class T, class Allocator>
 const T& vector<T, Allocator>::at( size_type pos ) const
 {
-	if (pos < 0)
+	if (pos < 0 || pos > _capacity)
 		throw OutOfRange();
 	return (_array[pos]);
 }
@@ -184,7 +184,7 @@ const T& vector<T, Allocator>::at( size_type pos ) const
 template <class T, class Allocator>
 T& vector<T, Allocator>::operator[](size_type pos)
 {
-	if (pos < 0)
+	if (pos < 0 || pos > _capacity)
 		throw OutOfRange();
 	return (_array[pos]);
 }
@@ -192,7 +192,7 @@ T& vector<T, Allocator>::operator[](size_type pos)
 template <class T, class Allocator>
 const T& vector<T, Allocator>::operator[](size_type pos) const
 {
-	if (pos < 0)
+	if (pos < 0 || pos > _capacity)
 		throw OutOfRange();
 	return (_array[pos]);
 }

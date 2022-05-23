@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/22 18:09:39 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 11:21:12 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ class vector
 		explicit vector( const Allocator& alloc );
 		explicit vector( size_type count, const T& value = T(),
                  const Allocator& alloc = Allocator());
-		template< class InputIt >
+		template< class InputIt>
 		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator() );
 		vector( const vector& other );
 		~vector();

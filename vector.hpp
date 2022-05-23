@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 14:35:31 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:31:33 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,35 @@ class vector
 };
 
 template< class T, class Alloc >
-bool operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs == rhs;};
+bool operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+{
+	return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+};
 template< class T, class Alloc >
-bool operator!=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs != rhs;};
+bool operator!=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+{
+	return !ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+};
 template< class T, class Alloc >
-bool operator<( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs < rhs;};
+bool operator<( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+{
+	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+};
 template< class T, class Alloc >
-bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs <= rhs;};
+bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+{
+	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+};
 template< class T, class Alloc >
-bool operator>( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs > rhs;};
+bool operator>( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+{
+	return !ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+};
 template< class T, class Alloc >
-bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs >= rhs;};
+bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+{
+	return !ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+};
 
 template< class T, class Alloc >
 void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs ) 

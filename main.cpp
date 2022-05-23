@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 14:31:01 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:33:21 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int main()
 	std::cout << *(v.rend()) << std::endl;
 	std::cout << *(v.rbegin()) << std::endl;
 	std::cout << *(v.end()) << std::endl;
+	
 	}
 	catch (std::exception & e)
 	{

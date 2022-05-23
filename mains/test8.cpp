@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 17:40:30 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 17:50:15 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:08:43 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main()
 	if (v >= v2)
 		std::cout << "big equal" << std::endl;
 	if (v != v2)
-		std::cout << "diffrent" << std::endl;
+		std::cout << "different" << std::endl;
 
 	if (v == v5)
 		std::cout << "equal" << std::endl;
@@ -41,7 +41,7 @@ int main()
 	if (v >= v5)
 		std::cout << "big equal" << std::endl;
 	if (v != v5)
-		std::cout << "diffrent" << std::endl;
+		std::cout << "different" << std::endl;
 
 	if (v2 == v4)
 		std::cout << "equal" << std::endl;
@@ -50,5 +50,5 @@ int main()
 	if (v2 >= v4)
 		std::cout << "big equal" << std::endl;
 	if (v2 > v4)
-		std::cout << "diffrent" << std::endl;
+		std::cout << "different" << std::endl;
 }

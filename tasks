@@ -3,5 +3,3 @@ verif max size
 instead of (size_t) implement enableif
 out of range and size_type + proteger negatifs
 do error main, big main
-
-finir <><=>=

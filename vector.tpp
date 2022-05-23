@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 12:27:30 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:55:27 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ vector<T, Allocator>::vector(const vector& other)
 	_size = other._size;
 	_capacity = other._capacity;
 	_alloc = other._alloc;
-	_array = _alloc.allocate(_capacity);
+	if (other._capacity > 0)
+		_array = _alloc.allocate(_capacity);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&_array[i], other._array[i]);
 }
@@ -91,7 +92,8 @@ vector<T, Allocator>& vector<T, Allocator>::operator=(const vector& other)
 	_size = other._size;
 	_capacity = other._size;
 	_alloc = other._alloc;
-	_array = _alloc.allocate(_capacity);
+	if (other._capacity > 0)
+		_array = _alloc.allocate(_capacity);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&_array[i], other._array[i]);
 	return (*this);
@@ -154,6 +156,8 @@ void vector<T, Allocator>::assign(InputIt first, InputIt last)
 template <class T, class Allocator>
 vector<T, Allocator>::~vector()
 {
+	for (size_type i = 0; i < _size; i++)
+		_alloc.destroy(&_array[i]);
 	if (_array)
 		_alloc.deallocate(_array, _capacity);
 }

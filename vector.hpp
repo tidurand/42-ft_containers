@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 11:21:12 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:35:31 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <limits>
 #include "iterator.hpp"
 #include "reverse_iterator.hpp"
+#include "utils.hpp"
 
 namespace ft {
 
@@ -114,7 +115,10 @@ template< class T, class Alloc >
 bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ){return lhs >= rhs;};
 
 template< class T, class Alloc >
-void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs );
+void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs ) 
+{
+	std::swap(lhs, rhs);
+};
 
 }
 

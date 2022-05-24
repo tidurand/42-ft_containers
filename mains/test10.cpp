@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   test8.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/24 15:52:14 by tidurand         ###   ########.fr       */
+/*   Created: 2022/05/23 14:13:07 by tidurand          #+#    #+#             */
+/*   Updated: 2022/05/23 14:15:22 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "vector.hpp"
-#include "stack.hpp"
-#include <stack>
-#include <utility>
+#include "../stack.hpp"
 #ifndef TYPE
 #define TYPE ft
 #endif
+
+//stack
+
 int main()
 {
-	int n = 1;
-    int a[5] = {1, 2, 3, 4, 5};
-	ft::pair<int, int> p1;
- 	p1 = ft::make_pair(n, a[1]);
-    std::cout << "The value of p1 is " << "(" << p1.first << ", " << p1.second << ")\n";
+	TYPE::stack<int> s;
+	std::cout << s.size() << " " << s.empty() << std::endl;
+    for (int i = 0; i < 7; i++)
+        s.push(10);
+    std::cout << s.size() << " " << s.empty() << std::endl;
+	std::cout << s.top() << std::endl;
+	s.pop();
+	std::cout << s.top() << std::endl;
 }

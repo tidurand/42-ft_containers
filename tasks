@@ -1,5 +1,9 @@
 ACCESSEURS = size or capacity or nothing or max_size
 verif max size
-instead of (size_t) implement enableif
 out of range and size_type + proteger negatifs
 do error main, big main
+
+enable_if instead of size_t
+UNDERSTAND :
+void vector<T, Allocator>::assign(InputIt first, InputIt last,
+	typename ft::enable_if<InputIt::input_iter, InputIt>::type)

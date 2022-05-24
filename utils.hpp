@@ -6,9 +6,12 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:20:42 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 18:50:06 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:54:29 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef UTILS_HPP
+#define UTILS_HPP
 
 namespace ft{
     
@@ -17,8 +20,8 @@ struct enable_if {};
 template<class T>
 struct enable_if<true, T> { typedef T type; };
 
-// template< class T >
-// struct is_integral;
+template< class T >
+struct is_integral;
 
 
 template<class InputIt1, class InputIt2>
@@ -45,29 +48,31 @@ bool equal(InputIt1 first1, InputIt1 last1,
 }
 
 template<class T1,class T2>
-class pair<T1, T2>
+struct pair
 {
-    public:
 	typedef	T1 first_type;
 	typedef	T2 second_type;
     pair(): first(), second(){};
     pair( const T1& x, const T2& y ): first(x), second(y){};
     template< class U1, class U2 >
     pair( const pair<U1, U2>& p ): first(p.first), second(p.second){};
-    ~pair(){}
-    template< class T1, class T2 >
-    std::pair<T1,T2> make_pair( T1 t, T2 u )
+    pair& operator=( const pair& other )
     {
-	    return ( pair<T1,T2>(t,u));
+        first = other.first;
+        second = other.second;
+        return *this;
     };
-    private:
+    ~pair(){}
     T1 first;
     T2 second;
 };
 
-// template <class T1,class T2>
-// pair<T1,T2> make_pair (T1 x, T2 y)
-// {
-// 	return ( pair<T1,T2>(x,y) );
-// }
+template <class T1,class T2>
+pair<T1,T2> make_pair (T1 x, T2 y)
+{
+	return ( pair<T1,T2>(x,y) );
 }
+
+}
+
+#endif

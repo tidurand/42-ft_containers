@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 17:31:33 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:28:22 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <algorithm>
 # include <vector>
 #include <limits>
+#include <type_traits>
 #include "iterator.hpp"
 #include "reverse_iterator.hpp"
 #include "utils.hpp"
@@ -44,13 +45,13 @@ class vector
 		explicit vector( size_type count, const T& value = T(),
                  const Allocator& alloc = Allocator());
 		template< class InputIt>
-		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator() );
+		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator());
 		vector( const vector& other );
 		~vector();
 		vector& operator=( const vector& other );
 		void assign( size_type count, const T& value );
 		template< class InputIt >
-		void assign( InputIt first, InputIt last );
+		void assign( InputIt first, InputIt last);
 		allocator_type get_allocator() const;
 		reference at( size_type pos );
 		const_reference at( size_type pos ) const;
@@ -139,6 +140,8 @@ void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs )
 };
 
 }
+
+
 
 #include "vector.tpp"
 

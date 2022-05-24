@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/24 15:34:08 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:21:09 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ vector<T, Allocator>::vector(const Allocator& alloc)
 }
 
 template <class T, class Allocator>
-vector<T, Allocator>::vector( size_type count, const T& value, const Allocator& alloc)
+vector<T, Allocator>::vector( typename ft::enable_if<std::is_integral<T>::value, T>::type count, const T& value, const Allocator& alloc)
 {
 	_size = count;
 	_capacity = count;
@@ -100,19 +100,19 @@ vector<T, Allocator>& vector<T, Allocator>::operator=(const vector& other)
 }
 
 template <class T, class Allocator>
-void	vector<T, Allocator>::assign(size_type count, const T& value)
+void	vector<T, Allocator>::assign(typename ft::enable_if<std::is_integral<T>::value, T>::type count, const T& value)
 {
 	T *temp = _alloc.allocate(_size);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&temp[i], _array[i]);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
-	if (count > _capacity)
+	if ((size_t)count > _capacity)
 	{
 		_alloc.deallocate(_array, _capacity);
 		_array = _alloc.allocate(count);
 	}
-	for (size_type i = 0; i < count; i++)
+	for (size_type i = 0; i < (size_t)count; i++)
 		_alloc.construct(&_array[i], value);
 	for (size_type i = _size; i < _size; i++)
 		_alloc.construct(&_array[i], temp[i]);

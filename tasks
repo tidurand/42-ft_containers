@@ -3,7 +3,4 @@ verif max size
 out of range and size_type + proteger negatifs
 do error main, big main
 
-enable_if instead of size_t
-UNDERSTAND :
-void vector<T, Allocator>::assign(InputIt first, InputIt last,
-	typename ft::enable_if<InputIt::input_iter, InputIt>::type)
+recoder is integral

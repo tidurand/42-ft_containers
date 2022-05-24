@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/24 15:28:22 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:20:46 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ class vector
 		
 		vector();
 		explicit vector( const Allocator& alloc );
-		explicit vector( size_type count, const T& value = T(),
+		explicit vector( typename ft::enable_if<std::is_integral<T>::value, T>::type count, const T& value = T(),
                  const Allocator& alloc = Allocator());
 		template< class InputIt>
 		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator());
 		vector( const vector& other );
 		~vector();
 		vector& operator=( const vector& other );
-		void assign( size_type count, const T& value );
-		template< class InputIt >
+		void assign( typename ft::enable_if<std::is_integral<T>::value, T>::type count, const T& value );
+		template< class InputIt>
 		void assign( InputIt first, InputIt last);
 		allocator_type get_allocator() const;
 		reference at( size_type pos );

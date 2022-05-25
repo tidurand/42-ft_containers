@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/25 11:54:37 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:27:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,32 @@ namespace ft {
 
 //CONSTRUCTEURS
 
-template <class T, class Allocator>
-vector<T, Allocator>::vector(): _size(0), _capacity(0), _array(NULL){}
+// template <class T, class Allocator>
+// vector<T, Allocator>::vector(): _size(0), _capacity(0), _array(NULL){}
 
-template <class T, class Allocator>
-vector<T, Allocator>::vector(const Allocator& alloc)
-{
-	_size = 0;
-	_capacity = 0;
-	_alloc = alloc;
-	_array = NULL;
-}
+// template <class T, class Allocator>
+// vector<T, Allocator>::vector(const Allocator& alloc)
+// {
+// 	_size = 0;
+// 	_capacity = 0;
+// 	_alloc = alloc;
+// 	_array = NULL;
+// }
 
-template <class T, class Allocator>
-vector<T, Allocator>::vector( typename ft::enable_if<ft::is_integral<T>::value, T>::type count, const T& value, const Allocator& alloc)
-{
-	_size = count;
-	_capacity = count;
-	_alloc = alloc;
-	_array = _alloc.allocate(count);
-	for (size_type i = 0; i < _size; i++)
-		_alloc.construct(&_array[i], value);
-}
+// template <class T, class Allocator>
+// vector<T, Allocator>::vector( size_type count, const T& value, const Allocator& alloc)
+// {
+// 	_size = count;
+// 	_capacity = count;
+// 	_alloc = alloc;
+// 	_array = _alloc.allocate(count);
+// 	for (size_type i = 0; i < _size; i++)
+// 		_alloc.construct(&_array[i], value);
+// }
 
 template <class T, class Allocator>
 template <class InputIt>
-vector<T, Allocator>::vector(InputIt first, InputIt last, const Allocator& alloc)
+vector<T, Allocator>::vector(InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type ,const Allocator& alloc)
 {
 	size_type	count = 0;
 	
@@ -100,7 +100,7 @@ vector<T, Allocator>& vector<T, Allocator>::operator=(const vector& other)
 }
 
 template <class T, class Allocator>
-void	vector<T, Allocator>::assign(typename ft::enable_if<ft::is_integral<T>::value, T>::type count, const T& value)
+void	vector<T, Allocator>::assign(size_type count, const T& value)
 {
 	T *temp = _alloc.allocate(_size);
 	for (size_type i = 0; i < _size; i++)
@@ -118,13 +118,12 @@ void	vector<T, Allocator>::assign(typename ft::enable_if<ft::is_integral<T>::val
 	for (size_type i = _size; i < _size; i++)
 		_alloc.construct(&_array[i], temp[i]);
 	_alloc.deallocate(temp, _size);
-	_size = count;
-	
+	_size = count;	
 }
 
 template <class T, class Allocator>
 template< class InputIt >
-void vector<T, Allocator>::assign(InputIt first, InputIt last)
+void vector<T, Allocator>::assign(InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type)
 {
 	size_type	count = 0;
 	
@@ -245,7 +244,6 @@ template< class T, class Allocator >
 typename vector<T, Allocator>::iterator vector<T, Allocator>::begin()
 {
 	typename vector<T, Allocator>::iterator it(_array);
-
 	return (it);
 }
 
@@ -254,7 +252,6 @@ template< class T, class Allocator >
 typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const
 {
 	typename vector<T, Allocator>::const_iterator it(_array);
-
 	return (it);
 }
 
@@ -300,15 +297,13 @@ template< class T, class Allocator >
 typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rend()
 {
 	typename vector<T, Allocator>::reverse_iterator it(_array);
-	
 	return (it);
 }
 
 template< class T, class Allocator >
 typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const
 {
-	typename vector<T, Allocator>::const_reverse_iterator it(_array);
-	
+	typename vector<T, Allocator>::const_reverse_iterator it(_array);	
 	return (it);
 }
 
@@ -392,7 +387,7 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::insert( iterator p
 }
 
 template <class T, class Allocator>
-void vector<T, Allocator>::insert( iterator pos, typename ft::enable_if<ft::is_integral<T>::value, T>::type count, const T& value )
+void vector<T, Allocator>::insert( iterator pos, size_type count, const T& value )
 {
 	size_type c = 0;
 	while (_size > 0 && *pos != _array[c])
@@ -416,7 +411,7 @@ void vector<T, Allocator>::insert( iterator pos, typename ft::enable_if<ft::is_i
 
 template <class T, class Allocator>
 template< class InputIt >
-void vector<T, Allocator>::insert( iterator pos, InputIt first, InputIt last )
+void vector<T, Allocator>::insert( iterator pos, InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type)
 {
 	size_type count = 0;
 	for (InputIt it = first; it != last; it++)

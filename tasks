@@ -3,4 +3,4 @@ verif max size
 out of range and size_type + proteger negatifs
 do error main, big main
 
-recoder is integral
+typename ft::enable_if<ft::is_integral<T>::value, T>::type

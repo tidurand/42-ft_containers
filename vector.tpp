@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:08:19 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/24 17:21:09 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:54:37 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ vector<T, Allocator>::vector(const Allocator& alloc)
 }
 
 template <class T, class Allocator>
-vector<T, Allocator>::vector( typename ft::enable_if<std::is_integral<T>::value, T>::type count, const T& value, const Allocator& alloc)
+vector<T, Allocator>::vector( typename ft::enable_if<ft::is_integral<T>::value, T>::type count, const T& value, const Allocator& alloc)
 {
 	_size = count;
 	_capacity = count;
@@ -100,7 +100,7 @@ vector<T, Allocator>& vector<T, Allocator>::operator=(const vector& other)
 }
 
 template <class T, class Allocator>
-void	vector<T, Allocator>::assign(typename ft::enable_if<std::is_integral<T>::value, T>::type count, const T& value)
+void	vector<T, Allocator>::assign(typename ft::enable_if<ft::is_integral<T>::value, T>::type count, const T& value)
 {
 	T *temp = _alloc.allocate(_size);
 	for (size_type i = 0; i < _size; i++)
@@ -111,13 +111,14 @@ void	vector<T, Allocator>::assign(typename ft::enable_if<std::is_integral<T>::va
 	{
 		_alloc.deallocate(_array, _capacity);
 		_array = _alloc.allocate(count);
+		_capacity = count;
 	}
 	for (size_type i = 0; i < (size_t)count; i++)
 		_alloc.construct(&_array[i], value);
 	for (size_type i = _size; i < _size; i++)
 		_alloc.construct(&_array[i], temp[i]);
+	_alloc.deallocate(temp, _size);
 	_size = count;
-	_alloc.deallocate(temp, count);
 	
 }
 
@@ -138,6 +139,7 @@ void vector<T, Allocator>::assign(InputIt first, InputIt last)
 	{
 		_alloc.deallocate(_array, _capacity);
 		_array = _alloc.allocate(count);
+		_capacity = count;
 	}
 	int j = 0;
 	for (InputIt it = first; it != last; it++)
@@ -147,8 +149,8 @@ void vector<T, Allocator>::assign(InputIt first, InputIt last)
 	}
 	for (size_type i = _size; i < _size; i++)
 		_alloc.construct(&_array[i], temp[i]);
+	_alloc.deallocate(temp, _size);
 	_size = count;
-	_alloc.deallocate(temp, count);
 }
 
 //DESTRUCTEUR
@@ -158,7 +160,7 @@ vector<T, Allocator>::~vector()
 {
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
-	if (_array)
+	if (_array && _capacity > 0)
 		_alloc.deallocate(_array, _capacity);
 }
 
@@ -336,6 +338,8 @@ size_type vector<T, Allocator>::max_size() const
 template <class T, class Allocator>
 void vector<T, Allocator>::reserve(size_type new_cap)
 {
+	if (new_cap > max_size())
+		throw OutOfRangeReserve();
 	if (new_cap > _capacity)
 	{
 		T *temp = _alloc.allocate(_size);
@@ -344,7 +348,10 @@ void vector<T, Allocator>::reserve(size_type new_cap)
 		for (size_type i = 0; i < _size; i++)
 			_alloc.destroy(&_array[i]);
 		if (_capacity > 0)
+		{
 			_alloc.deallocate(_array, _capacity);
+			_capacity = 0;
+		}
 		_array = _alloc.allocate(new_cap);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&_array[i], temp[i]);
@@ -364,14 +371,14 @@ size_type vector<T, Allocator>::capacity() const
 template <class T, class Allocator>
 typename vector<T, Allocator>::iterator vector<T, Allocator>::insert( iterator pos, const T& value )
 {
+	size_type count = 0;
+	while (_size > 0 && *pos != _array[count])
+		count++;
 	if (_capacity == _size)
 		reserve(_size + 1);
 	T *temp = _alloc.allocate(_size);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&temp[i], _array[i]);
-	size_type count = 0;
-	while (*pos != _array[count])
-		count++;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
 	for (size_type i = 0; i < count; i++)
@@ -385,16 +392,16 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::insert( iterator p
 }
 
 template <class T, class Allocator>
-void vector<T, Allocator>::insert( iterator pos, size_type count, const T& value )
+void vector<T, Allocator>::insert( iterator pos, typename ft::enable_if<ft::is_integral<T>::value, T>::type count, const T& value )
 {
+	size_type c = 0;
+	while (_size > 0 && *pos != _array[c])
+		c++;
 	if (_capacity < _size + count)
 		reserve(_size + count);
 	T *temp = _alloc.allocate(_size);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&temp[i], _array[i]);
-	size_type c = 0;
-	while (*pos != _array[c])
-		c++;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
 	for (size_type i = 0; i < c; i++)
@@ -414,14 +421,14 @@ void vector<T, Allocator>::insert( iterator pos, InputIt first, InputIt last )
 	size_type count = 0;
 	for (InputIt it = first; it != last; it++)
 		count++;
+	size_type c = 0;
+	while (_size > 0 && *pos != _array[c])
+		c++;
 	if (_capacity < _size + count)
 		reserve(_size + count);
 	T *temp = _alloc.allocate(_size);
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&temp[i], _array[i]);
-	size_type c = 0;
-	while (*pos != _array[c])
-		c++;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
 	for (size_type i = 0; i < c; i++)
@@ -441,7 +448,7 @@ typename vector<T, Allocator>::iterator vector<T, Allocator>::erase( iterator po
 	for (size_type i = 0; i < _size; i++)
 		_alloc.construct(&temp[i], _array[i]);
 	size_type count = 0;
-	while (*pos != _array[count])
+	while (_size > 0 && *pos != _array[count])
 		count++;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
@@ -527,7 +534,9 @@ void vector<T, Allocator>::resize( size_type count, T value)
 		for (size_type i = 0; i < _size; i++)
 			_alloc.destroy(&_array[i]);
 		if (_capacity > 0)
+		{
 			_alloc.deallocate(_array, _capacity);
+		}
 		_array = _alloc.allocate(count);
 		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&_array[i], temp[i]);

@@ -6,7 +6,7 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/05/24 15:44:02 by tidurand         ###   ########.fr        #
+#    Updated: 2022/05/25 11:17:14 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS = $(SRCS:.cpp=.o)
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++11 -g
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 NAME = containers
 

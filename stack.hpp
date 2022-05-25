@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:24:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/23 14:24:56 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:39:23 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,18 @@ class stack
 		size_type size() const {return c.size();};
 		void push( const value_type& value ) {c.push_back(value);};
 		void pop() {c.pop_back();};
-
-		
+		template< class T2, class Container2 >
+		friend bool operator==( const ft::stack<T2,Container2>& lhs, const ft::stack<T2,Container2>& rhs );
+		template< class T2, class Container2 >
+		friend bool operator!=( const ft::stack<T2,Container2>& lhs, const ft::stack<T2,Container2>& rhs );
+		template< class T2, class Container2 >
+		friend bool operator<( const ft::stack<T2,Container2>& lhs, const ft::stack<T2,Container2>& rhs );
+		template< class T2, class Container2 >
+		friend bool operator<=( const ft::stack<T2,Container2>& lhs, const ft::stack<T2,Container2>& rhs );
+		template< class T2, class Container2 >
+		friend bool operator>( const ft::stack<T2,Container2>& lhs, const ft::stack<T2,Container2>& rhs );
+		template< class T2, class Container2 >
+		friend bool operator>=( const ft::stack<T2,Container2>& lhs, const ft::stack<T2,Container2>& rhs );	
 	protected:
 		container_type c;
 };

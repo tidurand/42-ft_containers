@@ -1,6 +1,5 @@
 ACCESSEURS = size or capacity or nothing or max_size
-verif max size
 out of range and size_type + proteger negatifs
 do error main, big main
 
-typename ft::enable_if<ft::is_integral<T>::value, T>::type
+do const iterators

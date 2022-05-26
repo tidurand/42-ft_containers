@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/25 17:45:45 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/26 12:39:51 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stack>
 #include <utility>
 #ifndef TYPE
-#define TYPE std
+#define TYPE ft
 #endif
 // int main ()
 // {
@@ -43,3 +43,49 @@
 //   return 0;
 // }
 
+template <class T_STACK>
+void	cmp(const T_STACK &lhs, const T_STACK &rhs)
+{
+	static int i = 0;
+
+	std::cout << "############### [" << i++ << "] ###############"  << std::endl;
+	std::cout << "eq: " << (lhs == rhs) << " | ne: " << (lhs != rhs) << std::endl;
+	std::cout << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
+	std::cout << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
+}
+
+int		main(void)
+{
+	TYPE::stack<int>	ctnr;
+
+	ctnr.push(21);
+	ctnr.push(42);
+	ctnr.push(1337);
+	ctnr.push(19);
+	ctnr.push(0);
+	ctnr.push(183792);
+
+	TYPE::stack<int>	stck(ctnr);
+	TYPE::stack<int>	stck2(ctnr);
+
+	cmp(stck, stck);  // 0
+	cmp(stck, stck2); // 1
+
+	stck2.push(60);
+	stck2.push(61);
+	stck2.push(62);
+
+	cmp(stck, stck2); // 2
+	cmp(stck2, stck); // 3
+
+	stck.push(42);
+
+	cmp(stck, stck2); // 4
+	cmp(stck2, stck); // 5
+
+	stck.push(100);
+
+	cmp(stck, stck2); // 6
+	cmp(stck2, stck); // 7
+	return (0);
+}

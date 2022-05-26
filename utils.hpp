@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:20:42 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/25 08:57:00 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/26 12:38:28 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ template<class InputIt1, class InputIt2>
 bool equal(InputIt1 first1, InputIt1 last1, 
            InputIt2 first2)
 {
-    for (; first1 != last1; ++first1, ++first2) {
+    for (; (first1 != last1); ++first1, (void) ++first2) {
         if (!(*first1 == *first2)) {
             return false;
         }

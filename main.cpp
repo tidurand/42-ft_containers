@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/26 12:39:51 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 10:30:00 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,75 +17,135 @@
 #ifndef TYPE
 #define TYPE ft
 #endif
-// int main ()
-// {
-//   TYPE::vector<int> myvector (3,100);
-//   TYPE::vector<int>::iterator it;
 
-//   it = myvector.begin();
-//   it = myvector.insert ( it , 200 );
+# define RED "\033[0;31m"
+# define CRED std::cout << "\033[0;31m"
+# define GREEN "\033[0;92m"
+# define CGREEN std::cout << "\033[0;92m"
+# define MAG "\033[0;95m"
+# define CMAG std::cout << "\033[0;95m"
+# define CYAN "\033[0;96m"
+# define CCYAN std::cout << "\033[0;96m"
+# define BLUE "\033[0;94m"
+# define CBLUE std::cout << "\033[0;94m"
+# define YELLOW "\033[0;93m"
+# define CYELLOW std::cout << "\033[0;93m"
+# define GREY "\033[0;90m"
+# define CGREY std::cout << "\033[0;90m"
+# define END "\033[0m"
+# define ENDL "\033[0m" << std::endl
 
-//   myvector.insert (it,2,300);
-
-//   it = myvector.begin();
-
-//   TYPE::vector<int> anothervector (2,400);
-//   myvector.insert (it + 2,anothervector.begin(),anothervector.end());
-
-//   int myarray [] = { 501,502,503 };
-//   myvector.insert (myvector.begin(), myarray, myarray+3);
-
-//   std::cout << "myvector contains:";
-//   for (it=myvector.begin(); it<myvector.end(); it++)
-//     std::cout << ' ' << *it;
-//   std::cout << '\n';
-
-//   return 0;
-// }
-
-template <class T_STACK>
-void	cmp(const T_STACK &lhs, const T_STACK &rhs)
+void print_vector(TYPE::vector<int> v)
 {
-	static int i = 0;
+	TYPE::vector<int>::iterator it1;
+	TYPE::vector<int>::iterator it2;
 
-	std::cout << "############### [" << i++ << "] ###############"  << std::endl;
-	std::cout << "eq: " << (lhs == rhs) << " | ne: " << (lhs != rhs) << std::endl;
-	std::cout << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
-	std::cout << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
+	it1 = v.begin();
+	it2 = v.end();
+
+	CCYAN << "Vector=[";
+	while (it1 < it2)
+	{
+		CYELLOW << *it1;
+		CBLUE << ", ";
+		it1++;
+	}
+	CCYAN << "]" << ENDL;
 }
 
-int		main(void)
+int main()
 {
-	TYPE::stack<int>	ctnr;
+	CGREEN << "INITIALIZATION" << ENDL;
+	CMAG << "operations..." << ENDL;
+	TYPE::vector<int> fill(10, 42);
+	TYPE::vector<int> tmp;
+	TYPE::vector<int>::iterator it1;
+	TYPE::vector<int>::iterator it2;
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
 
-	ctnr.push(21);
-	ctnr.push(42);
-	ctnr.push(1337);
-	ctnr.push(19);
-	ctnr.push(0);
-	ctnr.push(183792);
+	CGREEN << "ERASE" << ENDL;
+	CMAG << "operations..." << ENDL;
+	it1 = fill.begin();
+	it1 += 5;
+	it2 = fill.end();
+	it2 -=2;
 
-	TYPE::stack<int>	stck(ctnr);
-	TYPE::stack<int>	stck2(ctnr);
+  std::cout << *it1 << " " << *it2 << std::endl;
 
-	cmp(stck, stck);  // 0
-	cmp(stck, stck2); // 1
+	fill.erase(it1, it2);
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
 
-	stck2.push(60);
-	stck2.push(61);
-	stck2.push(62);
+	CGREEN << "POP_BACK/PUSH_BACK" << ENDL;
+	CMAG << "operations..." << ENDL;
+	fill.pop_back();
+	fill.push_back(13);
+	fill.push_back(69);
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
 
-	cmp(stck, stck2); // 2
-	cmp(stck2, stck); // 3
+	CGREEN << "OPERATOR[]" << ENDL;
+	CMAG << "operations..." << ENDL;
+	fill[3] = -13;
+	fill[5] = 123456789;
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
+	
+	CGREEN << "SWAP" << ENDL;
+	CMAG << "operations..." << ENDL;
+	fill.swap(tmp);
+	fill.swap(tmp);
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
 
-	stck.push(42);
+	CGREEN << "FRONT/BACK/AT" << ENDL;
+	CMAG << "operations..." << ENDL;
+	fill.front() = -42;
+	fill.back() /= -2;
+	fill.at(1) = 0;
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
 
-	cmp(stck, stck2); // 4
-	cmp(stck2, stck); // 5
+	CGREEN << "INSERT" << ENDL;
+	CMAG << "operations..." << ENDL;
+	it1 = fill.begin();
+	it1 += 2;
 
-	stck.push(100);
+	fill.insert(it1, 3, 987654321);
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
 
-	cmp(stck, stck2); // 6
-	cmp(stck2, stck); // 7
+
+	CGREEN << "RESIZE" << ENDL;
+	CMAG << "operations..." << ENDL;
+	fill.resize(20);
+	fill.resize(13);
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
+
+	// try
+	// {
+	// 	CGREEN << "AT(error)" << ENDL;
+	// 	CMAG << "operations..." << ENDL;
+	// 	fill.at(-1) = -1;
+	// }
+	// catch (std::out_of_range& oor)
+	// {
+	// 	(void)oor;
+	// 	std::cout << "OOR error caught\n";
+	// }
+	// try
+	// {
+	// 	fill.at(15) = -1;
+	// }
+	// catch (std::out_of_range& oor)
+	// {
+	// 	(void)oor;
+	// 	std::cout << "OOR error caught\n";
+	// }
+	CMAG << "print..." << ENDL;
+	print_vector(fill);
+
 	return (0);
 }

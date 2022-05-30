@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/26 12:48:31 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 10:45:57 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ class vector
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::iterator<T>							iterator;
-		typedef	ft::iterator<const T>					const_iterator;
+		typedef	ft::iterator<T>					const_iterator; //mustbe be T
 		typedef	ft::reverse_iterator<T>					reverse_iterator; //must be <iterator>
-		typedef	ft::reverse_iterator<const T>			const_reverse_iterator;
+		typedef	ft::reverse_iterator<T>			const_reverse_iterator;
 		
 		vector(): _size(0), _capacity(0), _array(NULL){};
 		explicit vector( const Allocator& alloc )
@@ -284,8 +284,11 @@ class vector
 		iterator insert( iterator pos, const T& value )
 		{
 			size_type count = 0;
-			while (_size > 0 && *pos != _array[count])
-				count++;
+			if (_size > 0)
+			{
+				for (typename vector<T, Allocator>::iterator it = this->begin(); it != pos; ++it)
+					count++;
+			}
 			if (_capacity == _size)
 				reserve(_size + 1);
 			T *temp = _alloc.allocate(_size);
@@ -300,13 +303,17 @@ class vector
 				_alloc.construct(&_array[i+1], temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size++;
-			return pos;
+			typename vector<T, Allocator>::iterator it(_array + count);
+			return it;
 		};
 		void insert( iterator pos, size_type count, const T& value )
 		{
 			size_type c = 0;
-			while (_size > 0 && *pos != _array[c])
-				c++;
+			if (_size > 0)
+			{
+				for (typename vector<T, Allocator>::iterator it = this->begin(); it != pos; ++it)
+					c++;
+			}
 			if (_capacity < _size + count)
 				reserve(_size + count);
 			T *temp = _alloc.allocate(_size);
@@ -330,8 +337,11 @@ class vector
 			for (InputIt it = first; it != last; it++)
 				count++;
 			size_type c = 0;
-			while (_size > 0 && *pos != _array[c])
-				c++;
+			if (_size > 0)
+			{
+				for (typename vector<T, Allocator>::iterator it = this->begin(); it != pos; ++it)
+					c++;
+			}
 			if (_capacity < _size + count)
 				reserve(_size + count);
 			T *temp = _alloc.allocate(_size);
@@ -354,8 +364,11 @@ class vector
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&temp[i], _array[i]);
 			size_type count = 0;
-			while (_size > 0 && *pos != _array[count])
-				count++;
+			if (_size > 0)
+			{
+				for (typename vector<T, Allocator>::iterator it = this->begin(); it != pos; ++it)
+					count++;
+			}
 			for (size_type i = 0; i < _size; i++)
 				_alloc.destroy(&_array[i]);
 			for (size_type i = 0; i < count; i++)
@@ -373,18 +386,21 @@ class vector
 				_alloc.construct(&temp[i], _array[i]);
 				
 			size_type begin = 0;
-			while (*first != _array[begin])
+			// while (*first != _array[begin])
+			// 	begin++;
+			for (typename vector<T, Allocator>::iterator it = this->begin(); it != first; ++it)
 				begin++;
-				
 			size_type end = 0;
-			while (*last != _array[end])
+			// while (*last != _array[end])
+			// 	end++;
+			for (typename vector<T, Allocator>::iterator it = this->begin(); it != last; ++it)
 				end++;
 			for (size_type i = 0; i < _size; i++)
 				_alloc.destroy(&_array[i]);
 			for (size_type i = 0; i < begin; i++)
 				_alloc.construct(&_array[i], temp[i]);
-			for (size_type i = begin + end; i < _size; i++)
-				_alloc.construct(&_array[i-end], temp[i]);
+			for (size_type i = end; i < _size; i++)
+				_alloc.construct(&_array[i-end + begin], temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size -= end - begin;
 			return last;
@@ -407,6 +423,7 @@ class vector
 		{
 			if (count < _size)
 			{
+				reserve(count + 1);
 				T *temp = _alloc.allocate(count);
 				for (size_type i = 0; i < count; i++)
 					_alloc.construct(&temp[i], _array[i]);
@@ -419,6 +436,7 @@ class vector
 			}
 			if (count > _size)
 			{
+				reserve(count + 1);
 				T *temp = _alloc.allocate(count);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&temp[i], _array[i]);

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:49:52 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 11:18:29 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:15:52 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,27 @@ typename iterator<T>::difference_type operator-(iterator<T>& lhs, iterator<T>& r
 	return lhs.base() - rhs.base();
 }
 
+// template <class It>
+// class const_iterator: public iterator<It>
+// {
+// 	public:
+// 	typedef	std::ptrdiff_t	difference_type;
+// 	typedef It				value_type;
+// 	typedef	It*				pointer;
+// 	typedef	It&				reference;
+// 	typedef	std::random_access_iterator_tag	iterator_category; 
+	
+// 		const_iterator() {iterator<It>::_p = NULL;};
+// 		const_iterator(It *it) {iterator<It>::_p = it;};
+// 		const_iterator( const const_iterator& other ) {iterator<It>::_p = other._p;};
+// 		const_iterator& operator=(const const_iterator& other) {iterator<It>::_p = other._p; return (*this);};
+// 		~const_iterator(){};
+// 		const It *	base() const {return iterator<It>::_p;};
+// 		const It &operator*() const	{return *iterator<It>::_p;};
+// 		const It *operator->() const	{return iterator<It>::_p;};
+// };
 
 
-}
+ }
 
 #endif

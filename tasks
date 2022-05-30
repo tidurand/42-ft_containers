@@ -6,9 +6,7 @@ do error main, big main
 
 do const iterators
 
-mofif tester : std::exception std::out_of_range
+modif tester : std::exception std::out_of_range
 
-pb erase and insert on same value or everything else
-pb resize
 
 MAP

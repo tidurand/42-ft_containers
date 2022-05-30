@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 10:45:57 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:50:55 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,7 +423,7 @@ class vector
 		{
 			if (count < _size)
 			{
-				reserve(count + 1);
+				reserve(count);
 				T *temp = _alloc.allocate(count);
 				for (size_type i = 0; i < count; i++)
 					_alloc.construct(&temp[i], _array[i]);
@@ -436,7 +436,7 @@ class vector
 			}
 			if (count > _size)
 			{
-				reserve(count + 1);
+				reserve(count);
 				T *temp = _alloc.allocate(count);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&temp[i], _array[i]);

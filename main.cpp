@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 10:30:00 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:52:29 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,134 +18,279 @@
 #define TYPE ft
 #endif
 
-# define RED "\033[0;31m"
-# define CRED std::cout << "\033[0;31m"
-# define GREEN "\033[0;92m"
-# define CGREEN std::cout << "\033[0;92m"
-# define MAG "\033[0;95m"
-# define CMAG std::cout << "\033[0;95m"
-# define CYAN "\033[0;96m"
-# define CCYAN std::cout << "\033[0;96m"
-# define BLUE "\033[0;94m"
-# define CBLUE std::cout << "\033[0;94m"
-# define YELLOW "\033[0;93m"
-# define CYELLOW std::cout << "\033[0;93m"
-# define GREY "\033[0;90m"
-# define CGREY std::cout << "\033[0;90m"
-# define END "\033[0m"
-# define ENDL "\033[0m" << std::endl
-
-void print_vector(TYPE::vector<int> v)
+template <class T>
+void	print(TYPE::vector<TYPE::vector<T> >& lst)
 {
-	TYPE::vector<int>::iterator it1;
-	TYPE::vector<int>::iterator it2;
-
-	it1 = v.begin();
-	it2 = v.end();
-
-	CCYAN << "Vector=[";
-	while (it1 < it2)
+	for (typename TYPE::vector<TYPE::vector<T> >::iterator it = lst.begin(); it != lst.end(); it++)
 	{
-		CYELLOW << *it1;
-		CBLUE << ", ";
-		it1++;
+		for (typename TYPE::vector<T>::iterator it2 = it->begin(); it2 != it->end(); it2++)
+			std::cout << *it2 << ' ';
+		std::cout << '\n';
 	}
-	CCYAN << "]" << ENDL;
+}
+
+template <class T>
+void	print(TYPE::vector<T>& lst)
+{
+	for (typename TYPE::vector<T>::iterator it = lst.begin(); it != lst.end(); it++)
+		std::cout << *it << ' ';
+	std::cout << '\n';
+}
+class Awesome {
+
+	public:
+
+		Awesome( void ) : _n( 42 ) { std::cout << "Default constructor" << std::endl; } //should not happen too often or else there is a wrong use of allocator (which calls the copy constructor)
+		Awesome( int n ) : _n( n ) { std::cout << "Int constructor" << std::endl; (void)n; }
+		Awesome( Awesome const &rhs ) : _n( 42 ) { *this = rhs;}
+		virtual ~Awesome(void) {}
+
+		Awesome &operator=( Awesome const & rhs ) { this->_n = rhs._n; return (*this); }
+		bool operator==( Awesome const & rhs ) const { return (this->_n == rhs._n); }
+		bool operator!=( Awesome const & rhs ) const { return (this->_n != rhs._n); }
+		bool operator>( Awesome const & rhs ) const { return (this->_n > rhs._n); }
+		bool operator<( Awesome const & rhs ) const { return (this->_n < rhs._n); }
+		bool operator>=( Awesome const & rhs ) const { return (this->_n >= rhs._n); }
+		bool operator<=( Awesome const & rhs ) const { return (this->_n <= rhs._n); }
+		void operator+=(int rhs){ _n += rhs; }
+		int get( void ) const { return this->_n; }
+
+	private:
+
+		int _n;
+};
+
+std::ostream & operator<<( std::ostream & o, Awesome const & rhs ) { o << rhs.get(); return o; }
+
+template <class T>
+void	print_vector(TYPE::vector<T> &test)
+{
+	typename TYPE::vector<T>::iterator		beg = test.begin();
+	typename TYPE::vector<T>::iterator		end = test.end();
+	std::cout << "size : " << test.size() << ", capacity : " << test.capacity() << std::endl;
+	for (typename TYPE::vector<T>::iterator it = beg; it != end; it++)
+	{
+		std::cout << *it << " ";
+		if (((it - beg) % 10 == 9) && it > beg)
+			std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
+
+template <class T>
+void	push_pop_back_tests(void)
+{
+	std::cout << std::endl << "PUSH BACK & POP BACK TESTS" << std::endl;
+	TYPE::vector<T> test;
+
+	std::cout << "Empty ? " << test.empty() << " / Capacity : " << test.capacity() << " / Size : " << test.size() << std::endl;
+	for (size_t i = 0; i < 51; i++)
+	{
+		test.push_back(i);
+		std::cout << test.size() << ": " << test.capacity() << " - ";
+		if (!(i % 10) && i != 0)
+			std::cout << std::endl;
+	}
+	print_vector<T>(test);
+	test.pop_back();
+	test.pop_back();
+	test.pop_back();
+	test.pop_back();
+	print_vector<T>(test);
+}
+
+template <class T>
+void	resize_tests(void)
+{
+	std::cout << std::endl << "RESIZE TESTS" << std::endl;
+	TYPE::vector<T> test(12, 12);
+
+	test.resize(72);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.resize(100);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.resize(4170);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.resize(171, 12);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.resize(62);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+}
+
+template <class T>
+void	insert_tests()
+{
+	std::cout << std::endl << "INSERT TESTS" << std::endl;
+	TYPE::vector<T> test(1, 1);
+	TYPE::vector<T> test2(5, 5);
+
+	test.insert(test.begin(), 200, 12);
+	print_vector<T>(test);
+	test.insert(test.begin() + 12, 200, 30);
+	print_vector<T>(test);
+	test.insert(test.end(), 12, 50);
+	print_vector<T>(test);
+	test.insert(test.end() - 1, 0, 60);
+	print_vector<T>(test);
+	test.insert(test.end() - 1, 1, 70);
+	print_vector<T>(test);
+	test.insert(test.begin() + 412, test2.begin(), test2.end());
+	print_vector<T>(test);
+	test.insert(test.begin() + 6, test2.begin(), test2.end());
+	print_vector<T>(test);
+	test.insert(test.end(), test2.begin(), test2.end());
+	print_vector<T>(test);
+}
+
+template <class T>
+void	reserve_tests(void)
+{
+	std::cout << std::endl << "RESERVE TESTS" << std::endl;
+	TYPE::vector<T> test(65, 7);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.reserve(12);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.reserve(66);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.reserve(128);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.reserve(1023);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	test.reserve(10252);
+	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	try
+	{
+		test.reserve(test.max_size() + 1);
+	}
+	catch(std::length_error &le)
+	{
+		std::cout << "length error" << std::endl;
+	}
+	catch(std::exception &e)
+	{
+		std::cout << "error : " << e.what() << std::endl;
+	}
+	print_vector<T>(test);
+}
+
+template <class T>
+void	copy_swap_tests(void)
+{
+	std::cout << std::endl << "COPY && SWAP TESTS" << std::endl;
+	TYPE::vector<T> test;
+	for (size_t i = 0; i < 50; i++) { test.push_back(i); }
+	TYPE::vector<T> test_copy(test);
+	for (size_t i = 0; i < test_copy.size(); i++) { test_copy[i] += 100; }
+	print_vector<T>(test_copy);
+	TYPE::vector<T> test_range(test.begin() + 20, test.begin() + 30);
+	print_vector<T>(test_range);
+	test_copy.swap(test);
+	print_vector<T>(test);
+	print_vector<T>(test_copy);
+	test_copy.swap(test_range);
+	print_vector<T>(test_range);
+	print_vector<T>(test_copy);
+	test.swap(test_copy);
+	print_vector<T>(test);
+	print_vector<T>(test_copy);
+}
+
+template <class T>
+void	reverse_it_tests(void)
+{
+	std::cout << std::endl << "REVERSE IT TESTS" << std::endl;
+	TYPE::vector<T> test;
+	for (size_t i = 0; i < 12; i++) { test.push_back(i); }
+	typename TYPE::vector<T>::reverse_iterator		revbeg = test.rbegin();
+	for (typename TYPE::vector<T>::reverse_iterator it = revbeg; it != test.rend(); it++)
+	{
+		std::cout << *it << " ";
+		if (!((revbeg - it) % 10) && it != revbeg)
+			std::cout << std::endl;
+	}
+	std::cout << *(test.rbegin() + 2) << std::endl;
+	std::cout << *(test.rend() - 8) << std::endl;
+	std::cout << (test.rbegin() == revbeg) << std::endl;
+	revbeg++;
+	std::cout << *revbeg << std::endl;
+	std::cout << (test.rbegin() == test.rend()) << std::endl;
+	std::cout << (test.rbegin() <= test.rbegin()) << std::endl;
+	std::cout << (test.rbegin() < test.rend()) << std::endl;
+	std::cout << (test.rbegin() >= test.rend()) << std::endl;
+	revbeg += 3;
+	std::cout << *revbeg << std::endl;
+	std::cout << std::endl;
+}
+
+template <class T>
+void	erase_clear_tests(void)
+{
+	std::cout << std::endl << "ERASE && CLEAR TESTS" << std::endl;
+	TYPE::vector<T> test(31, 12);
+	test.erase(test.begin(), test.begin() + 5);
+	print_vector<T>(test);
+	test.erase(test.begin() + 12, test.begin() + 16);
+	print_vector<T>(test);
+	test.clear();
+	print_vector<T>(test);
+}
+
+void	max_size_tests(void)
+{
+	std::cout << std::endl << "MAX SIZE TESTS" << std::endl;
+	TYPE::vector<int> test(31, 12);
+	TYPE::vector<std::string> test2;
+	TYPE::vector<long long int> test3;
+	TYPE::vector<Awesome> test4;
+	TYPE::vector<unsigned int> test5(12, 340);
+	std::cout << test.max_size() << std::endl;
+	std::cout << test2.max_size() << std::endl;
+	std::cout << test3.max_size() << std::endl;
+	std::cout << test4.max_size() << std::endl;
+	std::cout << test5.max_size() << std::endl;
+}
+
+void	awesome_tests(void)
+{
+	std::cout << std::endl << "AWESOME TESTS" << std::endl;
+	TYPE::vector<Awesome> test(21, 12);
+	print_vector<Awesome>(test);
+	TYPE::vector<Awesome> test2;
+	print_vector<Awesome>(test2);
+	test2.push_back(12);
+	test2.push_back(8);
+	test2.push_back(16);
+	print_vector<Awesome>(test2);
+	std::cout << "SAME ?" << (test.begin() + 1 == test2.begin() + 1) << std::endl;
+	test.assign(test2.begin(), test2.end());
+	print_vector<Awesome>(test);
+	test = test2;
+	print_vector<Awesome>(test);
+	std::cout << "SAME ?" << (test.begin() + 1 == test2.begin() + 1) << std::endl;
+	test.insert(test.end(), test2.begin(), test2.end());
+	print_vector<Awesome>(test);
+	test.insert(test.begin(), test2.begin(), test2.end());
+	test2 = test;
+	print_vector<Awesome>(test);
+	std::cout << "end awesome test" << std::endl;
 }
 
 int main()
 {
-	CGREEN << "INITIALIZATION" << ENDL;
-	CMAG << "operations..." << ENDL;
-	TYPE::vector<int> fill(10, 42);
-	TYPE::vector<int> tmp;
-	TYPE::vector<int>::iterator it1;
-	TYPE::vector<int>::iterator it2;
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	CGREEN << "ERASE" << ENDL;
-	CMAG << "operations..." << ENDL;
-	it1 = fill.begin();
-	it1 += 5;
-	it2 = fill.end();
-	it2 -=2;
-
-  std::cout << *it1 << " " << *it2 << std::endl;
-
-	fill.erase(it1, it2);
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	CGREEN << "POP_BACK/PUSH_BACK" << ENDL;
-	CMAG << "operations..." << ENDL;
-	fill.pop_back();
-	fill.push_back(13);
-	fill.push_back(69);
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	CGREEN << "OPERATOR[]" << ENDL;
-	CMAG << "operations..." << ENDL;
-	fill[3] = -13;
-	fill[5] = 123456789;
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-	
-	CGREEN << "SWAP" << ENDL;
-	CMAG << "operations..." << ENDL;
-	fill.swap(tmp);
-	fill.swap(tmp);
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	CGREEN << "FRONT/BACK/AT" << ENDL;
-	CMAG << "operations..." << ENDL;
-	fill.front() = -42;
-	fill.back() /= -2;
-	fill.at(1) = 0;
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	CGREEN << "INSERT" << ENDL;
-	CMAG << "operations..." << ENDL;
-	it1 = fill.begin();
-	it1 += 2;
-
-	fill.insert(it1, 3, 987654321);
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-
-	CGREEN << "RESIZE" << ENDL;
-	CMAG << "operations..." << ENDL;
-	fill.resize(20);
-	fill.resize(13);
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	// try
-	// {
-	// 	CGREEN << "AT(error)" << ENDL;
-	// 	CMAG << "operations..." << ENDL;
-	// 	fill.at(-1) = -1;
-	// }
-	// catch (std::out_of_range& oor)
-	// {
-	// 	(void)oor;
-	// 	std::cout << "OOR error caught\n";
-	// }
-	// try
-	// {
-	// 	fill.at(15) = -1;
-	// }
-	// catch (std::out_of_range& oor)
-	// {
-	// 	(void)oor;
-	// 	std::cout << "OOR error caught\n";
-	// }
-	CMAG << "print..." << ENDL;
-	print_vector(fill);
-
-	return (0);
+	// push_pop_back_tests<int>();
+	resize_tests<int>();
+	// insert_tests<int>();
+	// reserve_tests<int>();
+	// copy_swap_tests<int>();
+	// reverse_it_tests<int>();
+	// erase_clear_tests<int>();
+	// max_size_tests();
+	// awesome_tests();
+	// push_pop_back_tests<Awesome>();
+	// resize_tests<Awesome>();
+	// insert_tests<Awesome>();
+	// reserve_tests<Awesome>();
+	// copy_swap_tests<Awesome>();
+	// reverse_it_tests<Awesome>();
+	// erase_clear_tests<Awesome>();
 }

@@ -22,6 +22,7 @@ template <typename It>
 class reverse_iterator
 {
 	public:
+	typedef	std::ptrdiff_t	difference_type;
 		reverse_iterator() {_p = NULL;};
 		reverse_iterator(It *it) {_p = it;};
 		reverse_iterator( const reverse_iterator& other ) {_p = other._p;};
@@ -90,6 +91,19 @@ class reverse_iterator
 	private:
 		It *_p;
 };
+
+template< class T >
+reverse_iterator<T> operator+(reverse_iterator<T>& lhs, reverse_iterator<T>& rhs)
+{
+	return lhs.base() + rhs.base();
+}
+
+template< class T >
+typename reverse_iterator<T>::difference_type operator-(reverse_iterator<T>& lhs, reverse_iterator<T>& rhs)
+{
+	return rhs.base() - lhs.base();
+}
+
 }
 
 

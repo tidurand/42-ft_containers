@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:49:52 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 09:07:06 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:18:29 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ iterator<T> operator+(iterator<T>& lhs, iterator<T>& rhs)
 }
 
 template< class T >
-iterator<T> operator-(iterator<T>& lhs, iterator<T>& rhs)
+typename iterator<T>::difference_type operator-(iterator<T>& lhs, iterator<T>& rhs)
 {
 	return lhs.base() - rhs.base();
 }

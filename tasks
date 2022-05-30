@@ -1,3 +1,5 @@
+VECTOR
+
 ACCESSEURS = size or capacity or nothing or max_size
 out of range and size_type + proteger negatifs (remettre capacity) c'est size !
 do error main, big main
@@ -7,4 +9,6 @@ do const iterators
 mofif tester : std::exception std::out_of_range
 
 pb erase and insert on same value or everything else
-rev_it - rev_it2
+pb resize
+
+MAP

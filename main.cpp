@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 11:52:29 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:31:47 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stack>
 #include <utility>
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
 
 template <class T>
@@ -65,16 +65,16 @@ std::ostream & operator<<( std::ostream & o, Awesome const & rhs ) { o << rhs.ge
 template <class T>
 void	print_vector(TYPE::vector<T> &test)
 {
-	typename TYPE::vector<T>::iterator		beg = test.begin();
-	typename TYPE::vector<T>::iterator		end = test.end();
+	// typename TYPE::vector<T>::iterator		beg = test.begin();
+	// typename TYPE::vector<T>::iterator		end = test.end();
 	std::cout << "size : " << test.size() << ", capacity : " << test.capacity() << std::endl;
-	for (typename TYPE::vector<T>::iterator it = beg; it != end; it++)
-	{
-		std::cout << *it << " ";
-		if (((it - beg) % 10 == 9) && it > beg)
-			std::cout << std::endl;
-	}
-	std::cout << std::endl;
+	// for (typename TYPE::vector<T>::iterator it = beg; it != end; it++)
+	// {
+	// 	std::cout << *it << " ";
+	// 	if (((it - beg) % 10 == 9) && it > beg)
+	// 		std::cout << std::endl;
+	// }
+	// std::cout << std::endl;
 }
 
 template <class T>
@@ -265,6 +265,7 @@ void	awesome_tests(void)
 	test.assign(test2.begin(), test2.end());
 	print_vector<Awesome>(test);
 	test = test2;
+  std::cout << "THIS ";
 	print_vector<Awesome>(test);
 	std::cout << "SAME ?" << (test.begin() + 1 == test2.begin() + 1) << std::endl;
 	test.insert(test.end(), test2.begin(), test2.end());
@@ -277,8 +278,8 @@ void	awesome_tests(void)
 
 int main()
 {
-	// push_pop_back_tests<int>();
-	resize_tests<int>();
+	// push_pop_back_tests<int>(); OK
+	resize_tests<int>(); // Pas ok (conflict with test9)
 	// insert_tests<int>();
 	// reserve_tests<int>();
 	// copy_swap_tests<int>();

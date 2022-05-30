@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 11:50:55 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:44:10 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ class vector
 		vector( const vector& other )
 		{
 			_size = other._size;
-			_capacity = other._capacity;
+			_capacity = other._size;
 			_alloc = other._alloc;
 			if (other._capacity > 0)
 				_array = _alloc.allocate(_capacity);
@@ -103,7 +103,8 @@ class vector
 					get_allocator().deallocate(_array, _capacity);
 			}
 			_size = other._size;
-			_capacity = other._size;
+			if (other._size > _capacity)
+				_capacity = other._size;
 			_alloc = other._alloc;
 			if (other._capacity > 0)
 				_array = _alloc.allocate(_capacity);
@@ -315,7 +316,10 @@ class vector
 					c++;
 			}
 			if (_capacity < _size + count)
+			{
+				reserve(_size * 2);
 				reserve(_size + count);
+			}
 			T *temp = _alloc.allocate(_size);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&temp[i], _array[i]);
@@ -436,7 +440,11 @@ class vector
 			}
 			if (count > _size)
 			{
-				reserve(count);
+				if (count > _capacity)
+				{
+					reserve(count);
+					reserve(_size * 2);
+				}
 				T *temp = _alloc.allocate(count);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&temp[i], _array[i]);

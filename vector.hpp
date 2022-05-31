@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 18:59:06 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 06:44:05 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class vector
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::iterator<T>							iterator;
-		typedef	ft::const_iterator<const T>					const_iterator; 
+		typedef	ft::iterator<const T>					const_iterator; 
 		typedef	ft::reverse_iterator<T>					reverse_iterator; //must be <iterator>
 		typedef	ft::reverse_iterator<T>			const_reverse_iterator;
 		
@@ -164,25 +164,25 @@ class vector
 		allocator_type get_allocator() const {return _alloc;};
 		reference at( size_type pos )
 		{
-			if (pos < 0 || pos > _capacity)
+			if (pos < 0 || pos > _size)
 				throw OutOfRange();
 			return (_array[pos]);
 		};
 		const_reference at( size_type pos ) const
 		{
-			if (pos < 0 || pos > _capacity)
+			if (pos < 0 || pos > _size)
 				throw OutOfRange();
 			return (_array[pos]);
 		};
 		reference operator[]( size_type pos )
 		{
-			if (pos < 0 || pos > _capacity)
+			if (pos < 0 || pos > _size)
 				throw OutOfRange();
 			return (_array[pos]);
 		};
 		const_reference operator[]( size_type pos ) const
 		{
-			if (pos < 0 || pos > _capacity)
+			if (pos < 0 || pos > _size)
 				throw OutOfRange();
 			return (_array[pos]);
 		};

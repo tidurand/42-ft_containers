@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/30 18:59:27 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 06:36:12 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main()
 	}
   TYPE::vector<int>::const_iterator cit2;
   TYPE::vector<int>::const_iterator cit(v.begin());
+  TYPE::vector<int>::const_iterator cit3(it);
 //   cit2 = v.begin();
 	for (int i = 0; i < 20; i++)
 		std::cout << v[i] << ",";

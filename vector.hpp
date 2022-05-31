@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 11:55:01 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:55:02 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ class vector
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::iterator<T>							iterator;
 		typedef	ft::iterator<const T>					const_iterator; 
-		typedef	ft::reverse_iterator<T>					reverse_iterator; //must be <iterator>
-		typedef	ft::reverse_iterator<const T>			const_reverse_iterator;
+		typedef	ft::reverse_iterator<iterator>					reverse_iterator; //must be <iterator>
+		typedef	ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 		
 		vector(): _size(0), _capacity(0), _array(NULL){};
 		explicit vector( const Allocator& alloc )
@@ -218,27 +218,27 @@ class vector
 		};
 		reverse_iterator rbegin()
 		{
-			typename vector<T, Allocator>::reverse_iterator it(_array);
-			for (size_t i = 0; i < _size; i++)
-				--it;
-			return (it);
+			// typename vector<T, Allocator>::reverse_iterator it(_array);
+			// for (size_t i = 0; i < _size; i++)
+			// 	--it;
+			return vector<T, Allocator>::reverse_iterator(this->end());
 		};
 		const_reverse_iterator rbegin() const
 		{
-			typename vector<T, Allocator>::const_reverse_iterator it(_array);
-			for (size_t i = 0; i < _size; i++)
-				--it;
-			return (it);
+			// typename vector<T, Allocator>::const_reverse_iterator it(_array);
+			// for (size_t i = 0; i < _size; i++)
+			// 	--it;
+			return vector<T, Allocator>::const_reverse_iterator(this->end());
 		};
 		reverse_iterator rend()
 		{
-			typename vector<T, Allocator>::reverse_iterator it(_array);
-			return (it);
+			// typename vector<T, Allocator>::reverse_iterator it(_array);
+			return vector<T, Allocator>::reverse_iterator(this->begin());
 		};
 		const_reverse_iterator rend() const
 		{
-			typename vector<T, Allocator>::const_reverse_iterator it(_array);	
-			return (it);
+			// typename vector<T, Allocator>::const_reverse_iterator it(_array);	
+			return vector<T, Allocator>::const_reverse_iterator(this->begin());
 		};
 		bool empty() const
 		{
@@ -307,7 +307,7 @@ class vector
 			typename vector<T, Allocator>::iterator it(_array + count);
 			return it;
 		};
-		void insert( iterator pos, size_type count, const T& value )
+		void insert( iterator pos, size_type count, const T& value)
 		{
 			size_type c = 0;
 			if (_size > 0)

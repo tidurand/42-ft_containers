@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 11:53:30 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:19:20 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,31 @@ void	printSize(TYPE::vector<T> const &vct, bool print_content = true)
 	}
 	std::cout << "###############################################" << std::endl;
 }
-#include <list>
-int		main(void)
-{
-	std::list<int> lst;
-	std::list<int>::iterator lst_it;
-	for (int i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
 
-	TYPE::vector<int> vct(lst.begin(), lst.end());
-	printSize(vct);
+int main()
+{	
+	TYPE::vector<int> v;
 
-	lst_it = lst.begin();
-	for (int i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	printSize(vct);
-
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	printSize(vct);
-	return (0);
+	for (int i = 5; i <= 25; i++)
+	{
+		v.push_back(i);
+	}
+	TYPE::vector<int>::reverse_iterator it(v.begin());
+	for (it = v.rbegin(); it < v.rend(); it++)
+	{
+		 std::cout << *it << ", ";
+	}
+	std::cout << std::endl;
+	// std::cout << *(v.rbegin()) << std::endl;
+	// it -= 3;
+	// std::cout << *(it.base()) << ", ";
+	it = it + 1;
+	it + 1;
+	// std::cout << *it << ", ";
+	// it = it - 5;
+	// std::cout << it[1] << ", ";
+	// std::cout << std::endl;
+	
+	return 0;
 }
+

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:49:52 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 11:10:05 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:48:13 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,18 @@ class iterator : public std::iterator<std::random_access_iterator_tag, It>
 			It	*tmp = _p + n;
 			return (*tmp);
 		};
-		bool operator==(const iterator& rhs) const { return _p == rhs._p; };
-   		bool operator!=(const iterator& rhs) const { return _p != rhs._p; };
-		bool operator>(const iterator& rhs) const { return _p > rhs._p; };
-   		bool operator>=(const iterator& rhs) const { return _p >= rhs._p; };
-		bool operator<(const iterator& rhs) const { return _p < rhs._p; };
-   		bool operator<=(const iterator& rhs) const { return _p <= rhs._p; };
+		template<class It2>
+		bool operator==(const iterator<It2>& rhs) const { return base() == rhs.base(); };
+		template<class It2>
+   		bool operator!=(const iterator<It2>& rhs) const { return base() != rhs.base(); };
+		template<class It2>
+		bool operator>(const iterator<It2>& rhs) const { return base() > rhs.base(); };
+		template<class It2>
+   		bool operator>=(const iterator<It2>& rhs) const { return base() >= rhs.base(); };
+		template<class It2>
+		bool operator<(const iterator<It2>& rhs) const { return base() < rhs.base(); };
+		template<class It2>
+   		bool operator<=(const iterator<It2>& rhs) const { return base() <= rhs.base(); };
 	protected:
 		It* _p;
 };
@@ -99,6 +105,12 @@ template< class T >
 iterator<T> operator+(iterator<T>& lhs, iterator<T>& rhs)
 {
 	return lhs.base() + rhs.base();
+}
+
+ template<typename T>
+iterator<T> operator+(int n, iterator<T>& r)
+{
+     return (r.base() + n);
 }
 
 template< class T, class T2 >

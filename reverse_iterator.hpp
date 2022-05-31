@@ -117,13 +117,21 @@ class reverse_iterator : public iterator<It>
 		reverse_iterator& operator=(const reverse_iterator<It2>& other) {_p = other.base(); return (*this);};
 		~reverse_iterator(){};
 		It	*base(){return _p;};
-		It &operator*() const	
+		const It	*base() const {return _p;};
+		It &operator*()	
 		{
 			It	*tmp = _p;
 			--tmp;
 			return (*tmp);
 		};
-		It *operator->() const	{return --_p;};
+		const It &operator*() const
+		{
+			It	*tmp = _p;
+			--tmp;
+			return (*tmp);
+		};
+		It *operator->()	{return --_p;};
+		const It *operator->() const	{return --_p;};
 		reverse_iterator& operator++()
 		{
 			--_p;
@@ -170,12 +178,18 @@ class reverse_iterator : public iterator<It>
 			--tmp;
 			return (*tmp);
 		};
-		bool operator==(const reverse_iterator& rhs) const { return _p == rhs._p; };
-   		bool operator!=(const reverse_iterator& rhs) const { return _p != rhs._p; };
-		bool operator>(const reverse_iterator& rhs) const { return _p < rhs._p; };
-   		bool operator>=(const reverse_iterator& rhs) const { return _p <= rhs._p; };
-		bool operator<(const reverse_iterator& rhs) const { return _p > rhs._p; };
-   		bool operator<=(const reverse_iterator& rhs) const { return _p >= rhs._p; };
+		template<class It2>
+		bool operator==(const reverse_iterator<It2>& rhs) const { return base() == rhs.base(); };
+		template<class It2>
+   		bool operator!=(const reverse_iterator<It2>& rhs) const { return base() != rhs.base(); };
+		template<class It2>
+		bool operator>(const reverse_iterator<It2>& rhs) const { return base() < rhs.base(); };
+		template<class It2>
+   		bool operator>=(const reverse_iterator<It2>& rhs) const { return base() <= rhs.base(); };
+		template<class It2>
+		bool operator<(const reverse_iterator<It2>& rhs) const { return base() > rhs.base(); };
+		template<class It2>
+   		bool operator<=(const reverse_iterator<It2>& rhs) const { return base() >= rhs.base(); };
 	private:
 		It *_p;
 };

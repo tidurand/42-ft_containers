@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 11:16:11 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:53:30 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,47 @@
 #ifndef TYPE
 #define TYPE ft
 #endif
+#define T_SIZE_TYPE typename TYPE::vector<T>::size_type
 
-int main()
+template <typename T>
+void	printSize(TYPE::vector<T> const &vct, bool print_content = true)
 {
-	TYPE::vector<int> v;
+	const T_SIZE_TYPE size = vct.size();
+	const T_SIZE_TYPE capacity = vct.capacity();
+	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+	// Cannot limit capacity's max value because it's implementation dependent
 
-	for (int i = 1; i <= 20; i++)
+	std::cout << "size: " << size << std::endl;
+	std::cout << "capacity: " << isCapacityOk << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
 	{
-		v.push_back(i);
+		typename TYPE::vector<T>::const_iterator it = vct.begin();
+		typename TYPE::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
 	}
-	TYPE::vector<int>::iterator it;
-	for (it = v.begin(); it < v.end(); it++)
-	{
-		std::cout << *it << ", ";
-	}
-	std::cout << std::endl;
-	it -= 3;
-	std::cout << *it << ", ";
-	it = it + 1;
-	it + 1;
-	std::cout << *it << ", ";
-	it = it - 5;
-	std::cout << it[2] << ", ";
-	std::cout << std::endl;
-	std::cout << res << std::endl;
-	return 0;
+	std::cout << "###############################################" << std::endl;
+}
+#include <list>
+int		main(void)
+{
+	std::list<int> lst;
+	std::list<int>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	TYPE::vector<int> vct(lst.begin(), lst.end());
+	printSize(vct);
+
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	printSize(vct);
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	printSize(vct);
+	return (0);
 }

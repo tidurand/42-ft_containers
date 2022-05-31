@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 14:19:20 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 16:43:57 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stack>
 #include <utility>
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
 #define T_SIZE_TYPE typename TYPE::vector<T>::size_type
 
@@ -41,30 +41,31 @@ void	printSize(TYPE::vector<T> const &vct, bool print_content = true)
 	std::cout << "###############################################" << std::endl;
 }
 
-int main()
-{	
-	TYPE::vector<int> v;
+int		main(void)
+{
+	const int size = 5;
+	TYPE::vector<int> vct(size);
+	TYPE::vector<int>::reverse_iterator it = vct.rbegin();
+	TYPE::vector<int>::const_reverse_iterator ite = vct.rbegin();
 
-	for (int i = 5; i <= 25; i++)
-	{
-		v.push_back(i);
-	}
-	TYPE::vector<int>::reverse_iterator it(v.begin());
-	for (it = v.rbegin(); it < v.rend(); it++)
-	{
-		 std::cout << *it << ", ";
-	}
-	std::cout << std::endl;
-	// std::cout << *(v.rbegin()) << std::endl;
-	// it -= 3;
-	// std::cout << *(it.base()) << ", ";
-	it = it + 1;
-	it + 1;
-	// std::cout << *it << ", ";
-	// it = it - 5;
-	// std::cout << it[1] << ", ";
-	// std::cout << std::endl;
-	
-	return 0;
+	for (int i = 0; i < size; ++i)
+		it[i] = (size - i) * 5;
+
+	it = it + 5;
+	it = 1 + it;
+	it = it - 4;
+	std::cout << *(it += 2) << std::endl;
+	std::cout << *(it -= 1) << std::endl;
+
+	*(it -= 2) = 42;
+	*(it += 2) = 21;
+
+	std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
+
+	std::cout << "(it == const_it): " << (ite == it) << std::endl;
+	std::cout << "(const_ite - it): " << (ite - it) << std::endl;
+	std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
+
+	printSize(vct, true);
+	return (0);
 }
-

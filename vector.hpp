@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 16:18:19 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:16:59 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ class vector
 				_alloc.construct(&_array[i], value);
 		};
 		template< class InputIt>
-		vector( InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type = NULL, const Allocator& alloc = Allocator())
+		vector( InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, bool>::type = true, const Allocator& alloc = Allocator())
 		{
 			size_type	count = 0;
 			
@@ -133,7 +133,7 @@ class vector
 			_size = count;	
 		};
 		template< class InputIt>
-		void assign( InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type = NULL)
+		void assign( InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, bool>::type = true)
 		{
 			size_type	count = 0;
 			
@@ -335,7 +335,7 @@ class vector
 			_size+= count;
 		};
 		template< class InputIt >
-		void insert( iterator pos, InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type = NULL)
+		void insert( iterator pos, InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, bool>::type = true)
 		{
 			size_type count = 0;
 			for (InputIt it = first; it != last; it++)

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 16:43:57 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:17:17 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stack>
 #include <utility>
 #ifndef TYPE
-#define TYPE std
+#define TYPE ft
 #endif
 #define T_SIZE_TYPE typename TYPE::vector<T>::size_type
 
@@ -41,31 +41,25 @@ void	printSize(TYPE::vector<T> const &vct, bool print_content = true)
 	std::cout << "###############################################" << std::endl;
 }
 
+#include <list>
+
 int		main(void)
 {
-	const int size = 5;
-	TYPE::vector<int> vct(size);
-	TYPE::vector<int>::reverse_iterator it = vct.rbegin();
-	TYPE::vector<int>::const_reverse_iterator ite = vct.rbegin();
+	std::list<int> lst;
+	std::list<int>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
 
-	for (int i = 0; i < size; ++i)
-		it[i] = (size - i) * 5;
+	TYPE::vector<int> vct(lst.begin(), lst.end());
+	printSize(vct);
 
-	it = it + 5;
-	it = 1 + it;
-	it = it - 4;
-	std::cout << *(it += 2) << std::endl;
-	std::cout << *(it -= 1) << std::endl;
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	printSize(vct);
 
-	*(it -= 2) = 42;
-	*(it += 2) = 21;
-
-	std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
-
-	std::cout << "(it == const_it): " << (ite == it) << std::endl;
-	std::cout << "(const_ite - it): " << (ite - it) << std::endl;
-	std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
-
-	printSize(vct, true);
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	printSize(vct);
 	return (0);
 }

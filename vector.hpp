@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 17:16:59 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:27:03 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,7 +403,7 @@ class vector
 				_alloc.construct(&_array[i-end + begin], temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size -= end - begin;
-			return last;
+			return first;
 		};
 		void push_back( const T& value )
 		{

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 06:36:12 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:16:11 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,53 +20,26 @@
 
 int main()
 {
-	try 
-	{
-
 	TYPE::vector<int> v;
-	TYPE::vector<int>::iterator it;
+
 	for (int i = 1; i <= 20; i++)
 	{
 		v.push_back(i);
 	}
-  TYPE::vector<int>::const_iterator cit2;
-  TYPE::vector<int>::const_iterator cit(v.begin());
-  TYPE::vector<int>::const_iterator cit3(it);
-//   cit2 = v.begin();
-	for (int i = 0; i < 20; i++)
-		std::cout << v[i] << ",";
-	std::cout << std::endl;
-	it = v.begin();
-	v.insert(it + 4, (size_t)4, 5);
-	std::cout << v.size() << std::endl;
-	std::cout << v.capacity() << std::endl;
-	std::cout << *(v.data()) << std::endl;
-	std::cout << *(v.begin()) << std::endl;
-
-	v.resize(25, 6);
-	it = v.begin();
-	std::cout << v.size() << std::endl;
-	std::cout << v.capacity() << std::endl;
-	for (int i = 0; i < 25; i++)
-		std::cout << v[i] << ",";
-	std::cout << std::endl;
-
-	TYPE::vector<int> cpy(v.begin(), v.end());
-	for (int i = 0; i < 20; i++)
-		std::cout << v[i] << ",";
-	std::cout << std::endl;
-	v.erase(it + 2);
-	std::cout << v.size() << std::endl;
-	std::cout << v.capacity() << std::endl;
-	std::cout << *(v.data()) << std::endl;
-	std::cout << *(v.begin()) << std::endl;
-	std::cout << *(v.rbegin()) << std::endl;
-	std::cout << *(v.end()) << std::endl;
-	
-	}
-	catch (std::exception & e)
+	TYPE::vector<int>::iterator it;
+	for (it = v.begin(); it < v.end(); it++)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << *it << ", ";
 	}
+	std::cout << std::endl;
+	it -= 3;
+	std::cout << *it << ", ";
+	it = it + 1;
+	it + 1;
+	std::cout << *it << ", ";
+	it = it - 5;
+	std::cout << it[2] << ", ";
+	std::cout << std::endl;
+	std::cout << res << std::endl;
 	return 0;
 }

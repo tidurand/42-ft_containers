@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 17:27:03 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:40:55 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ class vector
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::iterator<T>							iterator;
-		typedef	ft::iterator<const T>					const_iterator; 
-		typedef	ft::reverse_iterator<iterator>					reverse_iterator; //must be <iterator>
-		typedef	ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+		typedef	ft::iterator<const T>					const_iterator;
+		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		
 		vector(): _size(0), _capacity(0), _array(NULL){};
 		explicit vector( const Allocator& alloc )
@@ -106,8 +106,7 @@ class vector
 			if (other._size > _capacity)
 				_capacity = other._size;
 			_alloc = other._alloc;
-			if (other._capacity > 0)
-				_array = _alloc.allocate(_capacity);
+			_array = _alloc.allocate(_capacity);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&_array[i], other._array[i]);
 			return (*this);
@@ -218,26 +217,18 @@ class vector
 		};
 		reverse_iterator rbegin()
 		{
-			// typename vector<T, Allocator>::reverse_iterator it(_array);
-			// for (size_t i = 0; i < _size; i++)
-			// 	--it;
 			return vector<T, Allocator>::reverse_iterator(this->end());
 		};
 		const_reverse_iterator rbegin() const
 		{
-			// typename vector<T, Allocator>::const_reverse_iterator it(_array);
-			// for (size_t i = 0; i < _size; i++)
-			// 	--it;
 			return vector<T, Allocator>::const_reverse_iterator(this->end());
 		};
 		reverse_iterator rend()
 		{
-			// typename vector<T, Allocator>::reverse_iterator it(_array);
 			return vector<T, Allocator>::reverse_iterator(this->begin());
 		};
 		const_reverse_iterator rend() const
 		{
-			// typename vector<T, Allocator>::const_reverse_iterator it(_array);	
 			return vector<T, Allocator>::const_reverse_iterator(this->begin());
 		};
 		bool empty() const
@@ -528,9 +519,9 @@ bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs 
 };
 
 template< class T, class Alloc >
-void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs ) 
+void swap( ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs ) 
 {
-	std::swap(lhs, rhs);
+	lhs.swap(rhs);
 };
 
 }

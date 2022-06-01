@@ -6,76 +6,161 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 17:23:10 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:38:18 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "vector.hpp"
+//#include "TYPE::vector.hpp"
 #include "stack.hpp"
 #include <stack>
 #include <utility>
 #ifndef TYPE
 #define TYPE ft
 #endif
-#define T_SIZE_TYPE typename TYPE::vector<T>::size_type
 
-template <typename T>
-void	printSize(TYPE::vector<T> const &vct, bool print_content = true)
+template <class T>
+void	print(TYPE::vector<TYPE::vector<T> >& lst)
 {
-	const T_SIZE_TYPE size = vct.size();
-	const T_SIZE_TYPE capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
-
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
+	for (typename TYPE::vector<TYPE::vector<T> >::iterator it = lst.begin(); it != lst.end(); it++)
 	{
-		typename TYPE::vector<T>::const_iterator it = vct.begin();
-		typename TYPE::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
+		for (typename TYPE::vector<T>::iterator it2 = it->begin(); it2 != it->end(); it2++)
+			std::cout << *it2 << ' ';
+		std::cout << '\n';
 	}
-	std::cout << "###############################################" << std::endl;
 }
 
-void	checkErase(TYPE::vector<std::string> const &vct,
-					TYPE::vector<std::string>::const_iterator const &it)
+template <class T>
+void	print(TYPE::vector<T>& lst)
 {
-	static int i = 0;
-	std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
-	printSize(vct);
+	for (typename TYPE::vector<T>::iterator it = lst.begin(); it != lst.end(); it++)
+		std::cout << *it << ' ';
+	std::cout << '\n';
 }
 
-int		main(void)
+int main ()
 {
-	TYPE::vector<std::string> vct(10);
+  TYPE::vector<int> foo (3,100);   // three ints with a value of 100
+  TYPE::vector<int> bar (5,200);   // five ints with a value of 200
 
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-		vct[i] = std::string((vct.size() - i), i + 65);
-	printSize(vct);
+  foo.swap(bar);
 
-	checkErase(vct, vct.erase(vct.begin() + 2));
+  std::cout << "foo contains:";
+  for (unsigned i=0; i<foo.size(); i++)
+    std::cout << ' ' << foo[i];
+  std::cout << '\n';
 
-	checkErase(vct, vct.erase(vct.begin()));
-	checkErase(vct, vct.erase(vct.end() - 1));
+  std::cout << "bar contains:";
+  for (unsigned i=0; i<bar.size(); i++)
+    std::cout << ' ' << bar[i];
+  std::cout << '\n';
 
-	checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
-	checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
+{
+	TYPE::vector<int> foo,bar;
 
-	vct.push_back("Hello");
-	vct.push_back("Hi there");
-	printSize(vct);
-	checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+	foo.push_back(100);
+	foo.push_back(200);
 
-	vct.push_back("ONE");
-	vct.push_back("TWO");
-	vct.push_back("THREE");
-	vct.push_back("FOUR");
-	printSize(vct);
-	checkErase(vct, vct.erase(vct.begin(), vct.end()));
+	bar.push_back(11);
+	bar.push_back(22);
+	bar.push_back(33);
 
-	return (0);
+
+	TYPE::vector<int>::const_iterator tmp = foo.begin(); //tmp iterates through foo
+	TYPE::vector<int>::const_iterator tmp2 = bar.begin(); //tmp2 iterates through bar
+
+std::cout << bar.size() << foo.size() << bar.capacity() << foo.capacity() << std::endl; 
+	swap(bar, foo); //tmp iterates through bar
+					//tmp2 iterates through foo
+    // foo.swap(bar);
+    // bar.swap(foo);
+std::cout << bar.size() << foo.size() << bar.capacity() << foo.capacity() << std::endl; 
+
+	TYPE::vector<int>	other;
+
+	other.push_back(73);
+	other.push_back(173);
+	other.push_back(763);
+	other.push_back(73854);
+	other.push_back(74683);
+	other.push_back(753);
+
+	TYPE::vector<int>::const_iterator tmp3 = other.begin(); // tmp3 iterates through other
+
+	std::cout << "foo contains:\n";
+	for (TYPE::vector<int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+		std::cout << *it << '\n';
+
+	std::cout << "bar contains:\n";
+	for (TYPE::vector<int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+		std::cout << *it << '\n';
+  while(tmp != bar.end())
+  {
+    std::cout << *tmp << '\n';
+    tmp++;
+  }
+  tmp--;
+
+  while(tmp2 != foo.end())
+  {
+    std::cout << *tmp2 << '\n';
+    tmp2++;
+  }
+  tmp2--;
+
+  swap(other, foo); //tmp2 iterates through other
+          //tmp3 iterates throught foo
+  print(other);
+  print(foo);
+  print(bar);
+  while(tmp != bar.begin())
+  {
+    std::cout << *tmp << '\n';
+    tmp--;
+  }
+  std::cout << *tmp << '\n';
+
+  while(tmp2 != other.begin())
+  {
+    std::cout << *tmp2 << '\n';
+    tmp2--;
+  }
+    std::cout << *tmp2 << '\n';
+
+  while(tmp3 != foo.end())
+  {
+    std::cout << *tmp3 << '\n';
+    tmp3++;
+  }
+  tmp3--;
+
+  swap(bar, foo);
+  swap(foo, bar);
+  swap(bar, foo); //tmp3 iterates through bar
+        //tmp iterates through foo
+
+  print(other);
+  print(foo);
+  print(bar);
+
+  while(tmp != foo.end())
+  {
+    std::cout << *tmp << '\n';
+    tmp++;
+  }
+
+  while(tmp2 != other.end())
+  {
+    std::cout << *tmp2 << '\n';
+    tmp2++;
+  }
+
+  while(tmp3 != bar.begin())
+  {
+    std::cout << *tmp3 << '\n';
+    tmp3--;
+  }
+    std::cout << *tmp3 << '\n';
+}
+
+  return 0;
 }

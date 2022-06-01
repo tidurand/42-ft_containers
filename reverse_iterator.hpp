@@ -123,12 +123,12 @@ template <class It>
 class reverse_iterator : public iterator<It>
 {
 	public:
-	typedef	It							iterator_type;
-	typedef	std::ptrdiff_t				difference_type;
-	typedef typename std::iterator_traits<It>::iterator_category	iterator_category;
-	typedef	typename std::iterator_traits<It>::value_type	value_type;
-	typedef	typename std::iterator_traits<It>::pointer		pointer;
-	typedef	typename std::iterator_traits<It>::reference	reference;
+	typedef	It													iterator_type;
+	typedef	std::ptrdiff_t										difference_type;
+	typedef typename ft::iterator_traits<It>::iterator_category	iterator_category;
+	typedef	typename ft::iterator_traits<It>::value_type		value_type;
+	typedef	typename ft::iterator_traits<It>::pointer			pointer;
+	typedef	typename ft::iterator_traits<It>::reference			reference;
 
 		reverse_iterator() {_iter = NULL;};
 		explicit reverse_iterator(It it) {_iter = it;};

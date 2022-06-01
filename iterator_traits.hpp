@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:40 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/22 18:03:30 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:52:19 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 namespace ft {
 	
-template <class T>
+template <class Iter>
 struct iterator_traits
 {
-	typedef	std::ptrdiff_t					difference_type;
-	typedef	T								value_type;
-	typedef	T*								pointer;
-	typedef	T&								reference;
-	typedef	std::random_access_iterator_tag	iterator_category;
+	typedef	typename Iter::difference_type	difference_type;
+	typedef	typename Iter::value_type		value_type;
+	typedef	typename Iter::pointer			pointer;
+	typedef	typename Iter::reference		reference;
+	typedef	typename Iter::iterator_category	iterator_category;
 		
 };
 	

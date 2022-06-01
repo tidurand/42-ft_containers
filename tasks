@@ -4,8 +4,6 @@ ACCESSEURS = size or capacity or nothing or max_size
 out of range and size_type + proteger negatifs (remettre capacity) c'est size !
 do error main, big main
 
-do const iterators
-
 modif tester : std::exception std::out_of_range
 modif exceptions on at [] and reserve
 

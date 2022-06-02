@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 09:28:31 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:55:50 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,7 +526,5 @@ void swap( ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs )
 };
 
 }
-
-//#include "vector.tpp"
 
 #endif

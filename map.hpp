@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 12:05:05 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:01:20 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ class map : public tree<Key, T>
 					return comp(x.first, y.first);
 				}
 		};
-		// map(): RedBlackTree<Key>(){};
+		// map(): tree<Key, T>(){};
 		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		:tree<Key, T>()
 		{
@@ -70,7 +70,7 @@ class map : public tree<Key, T>
 		map(const map& other);
 		map& operator=(const map& other);
 		~map(){};
-		allocator_type get_allocator() const;
+		allocator_type get_allocator() const {return _alloc;};
 		T& at( const Key& key );
 		const T& at( const Key& key ) const;
 		T& operator[]( const Key& key );
@@ -82,11 +82,21 @@ class map : public tree<Key, T>
 		const_reverse_iterator rbegin() const;
 		reverse_iterator rend();
 		const_reverse_iterator rend() const;
-		bool empty() const;
+		bool empty() const
+		{
+			if (_tree.getRoot())
+				return true;
+			else
+				return false;
+		};
 		size_type size() const;
 		size_type max_size() const;
 		void clear();
-		std::pair<iterator, bool> insert( const value_type& value );
+		std::pair<iterator, bool> insert( const value_type& value )
+		{
+			_tree.insert(value.first, value.second);
+			return ;
+		};
 		iterator insert( iterator hint, const value_type& value );
 		template< class InputIt >
 		void insert( InputIt first, InputIt last );
@@ -110,6 +120,7 @@ class map : public tree<Key, T>
 		size_type		_size;
 		allocator_type	_alloc;
 		Compare			_comp;
+		tree<Key, T>	_tree;
 };
 
 template< class Key, class T, class Compare, class Alloc >

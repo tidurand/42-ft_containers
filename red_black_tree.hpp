@@ -6,11 +6,17 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 12:13:57 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:56:10 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RED_BLACK_TREE
+# define RED_BLACK_TREE
+
 #include <memory>
+#include <functional>
+#include "utils.hpp"
+
 
 #define BLACK 0
 #define RED 1
@@ -27,7 +33,7 @@ namespace ft {
 // 	Value value;
 // };
 
-template <class Key, class Value>
+template <class Key, class Value, class Compare = std::less<Key> >
 class tree
 {
 	public:
@@ -42,7 +48,61 @@ class tree
 	private:
 		node *root;
 		node *leaf;
-		void insert_fix(node *n);
+		Compare comp;
+		void insert_fix(node *n)
+		{
+			node *x;
+			while (n->parent->color == RED)
+			{
+				if (n->parent == n->parent->parent->right)
+				{
+					x = n->parent->parent->left;
+					if (x->color == RED)
+					{
+						x->color = BLACK;
+						n->parent->color = BLACK;
+						n->parent->parent->color = RED;
+						n = n->parent->parent;
+					}
+					else
+					{
+						if (n == n->parent->left)
+						{
+							n = n->parent;
+							right_rotate(n);
+						}
+						n->parent->color = BLACK;
+						n->parent->parent->color = RED;
+						left_rotate(n->parent->parent);
+					}
+				}
+				else
+				{
+					x = n->parent->parent->right;
+					if (x->color == RED)
+					{
+						x->color = BLACK;
+						n->parent->color = BLACK;
+						n->parent->parent->color = RED;
+						n = n->parent->parent;
+					}
+					else
+					{
+						if (n == n->parent->right)
+						{
+							n = n->parent;
+							left_rotate(n);
+						}
+						n->parent->color = BLACK;
+						n->parent->parent->color = RED;
+						right_rotate(n->parent->parent);
+					}
+				}
+				if (n == root)
+					break ;
+			}
+			root->color = BLACK;
+		};
 		void delete_fix(node *n);
 		void right_rotate(node *x)
 		{
@@ -77,28 +137,60 @@ class tree
 			x->parent = y;
 		};
 	public:
-		tree(Allocator alloc = std::allocator)
+		tree(Compare c = Compare())
 		{
-			leaf = alloc.allocate(sizeof(node));
+			leaf = new node;
 			leaf->right = NULL;
 			leaf->left = NULL;
 			leaf->color = BLACK;
 			root = leaf;
+			comp = c;
 		};
-		~tree();
-		node *getRoot() {return root;};
+		~tree(){};
+		node *getRoot() const {return root;};
 		node *search(node *node, Key key)
 		{
 			if (node == leaf || key == node->key)
 				return node;
-			if (std::less(key, node->key))
+			if (comp(key, node->key))
 				search(node->left, key);
 			else
 				search(node->right, key);
 		};
-		void insert(Key key, Value value);
+		void insert(Key key, Value value)
+		{
+			node * n = new node;
+			n->parent = NULL;
+			n->key = key;
+			n->value = value;
+			n->left = leaf;
+			n->right = leaf;
+			n->color = RED;
+
+			node *x = root;
+			node *y = NULL;
+			
+			while (x != leaf)
+			{
+				y = x;
+				if (comp(n->key, x->key))
+					x = x->left;
+				else
+					x = x->right;
+			}
+			if (n->parent == NULL)
+			{
+				n->color = BLACK;
+				return ;
+			}
+			if (n->parent->parent == NULL)
+				return ;
+			insert_fix(n);
+		};
 		void delete_node(Key key);
 		void print();
 };
 
 }
+
+#endif

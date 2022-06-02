@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/01 17:40:55 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/02 09:28:31 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <algorithm>
 # include <vector>
 #include <limits>
+#include <stdexcept>
 #include "iterator.hpp"
 #include "reverse_iterator.hpp"
 #include "utils.hpp"
@@ -48,7 +49,7 @@ class vector
 			_array = NULL;
 		};
 		explicit vector( size_type count, const T& value = T(),
-                 const Allocator& alloc = Allocator())
+				const Allocator& alloc = Allocator())
 		{
 			_size = count;
 			_capacity = count;

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/31 09:47:58 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:05:05 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,66 @@
 #define MAP_HPP
 
 #include <map>
+#include <functional>
 #include <iostream>
+#include <memory>
 
 #include "utils.hpp"
+// #include "rbtree_already_done.hpp"
+#include "red_black_tree.hpp"
 
 namespace ft {
 	
 template <class Key, class T, class Compare = std::less<Key>,
-class Allocator = std::allocator<ft::pair<const Key, T>>>
-class map
+class Allocator = std::allocator<ft::pair<const Key, T> > >
+class map : public tree<Key, T>
 {
 	public:
-		typedef	Key						key_type;
-		typedef	T						mapped_type;
-		typedef	ft::pair<const Key, T>	value_type;
-		typedef	std::size_t				size_type;
-		typedef	std::ptrdiff_t			difference_type;
-		typedef	Compare					key_compare;
-		typedef	Allocator				allocator_type;
-		typedef	value_type&				reference;
-		typedef	const value_type&		const_reference;
+		typedef	Key										key_type;
+		typedef	T										mapped_type;
+		typedef	ft::pair<const Key, T>					value_type;
+		typedef	std::size_t								size_type;
+		typedef	std::ptrdiff_t							difference_type;
+		typedef	Compare									key_compare;
+		typedef	Allocator								allocator_type;
+		typedef	value_type&								reference;
+		typedef	const value_type&						const_reference;
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
-		typedef	std::iterator<T>							iterator;
-		typedef	std::iterator<const T>					const_iterator;
-		typedef	std::reverse_iterator<iterator>					reverse_iterator; //must be <iterator>
-		typedef	std::reverse_iterator<const_iterator>			const_reverse_iterator;
-
-		map();
-		map(const Compare& comp = Compare(), const Allocator& alloc = Allocator());
-		template <class Input It>
+		typedef	std::iterator<Key, T>					iterator;
+		typedef	std::iterator<const Key, const T>		const_iterator;
+		typedef	std::reverse_iterator<iterator>			reverse_iterator;
+		typedef	std::reverse_iterator<const_iterator>	const_reverse_iterator;
+		class value_compare : public std::exception
+		{
+			protected:
+				Compare comp;
+				value_compare (Compare c) : comp(c) {}
+			public:
+				typedef bool result_type;
+				typedef value_type first_argument_type;
+				typedef value_type second_argument_type;
+				bool operator() (const value_type& x, const value_type& y) const
+				{
+					return comp(x.first, y.first);
+				}
+		};
+		// map(): RedBlackTree<Key>(){};
+		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
+		:tree<Key, T>()
+		{
+			_comp = comp;
+			_alloc = alloc;
+		};
+		template <class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		map(const map& other);
 		map& operator=(const map& other);
-		~map();
+		~map(){};
 		allocator_type get_allocator() const;
 		T& at( const Key& key );
 		const T& at( const Key& key ) const;
 		T& operator[]( const Key& key );
-		T& operator[]( Key&& key );
 		iterator begin();
 		const_iterator begin() const;
 		iterator end();
@@ -83,9 +104,12 @@ class map
 		iterator upper_bound( const Key& key );
 		const_iterator upper_bound( const Key& key ) const;
 		key_compare key_comp() const;
-		std::map::value_compare value_comp() const;
+		value_compare value_comp() const;
 
 	private:
+		size_type		_size;
+		allocator_type	_alloc;
+		Compare			_comp;
 };
 
 template< class Key, class T, class Compare, class Alloc >

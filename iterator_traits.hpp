@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:40 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/01 17:52:19 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/02 09:05:33 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ struct iterator_traits
 	typedef	typename Iter::iterator_category	iterator_category;
 		
 };
-	
-	
 	
 }
 

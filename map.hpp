@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 15:01:20 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:51:48 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "utils.hpp"
 // #include "rbtree_already_done.hpp"
 #include "red_black_tree.hpp"
+#include "map_iterator.hpp"
 
 namespace ft {
 	
@@ -40,8 +41,8 @@ class map : public tree<Key, T>
 		typedef	const value_type&						const_reference;
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
-		typedef	std::iterator<Key, T>					iterator;
-		typedef	std::iterator<const Key, const T>		const_iterator;
+		typedef	ft::map_iterator<Key>					iterator;
+		typedef	ft::map_iterator<const Key>				const_iterator;
 		typedef	std::reverse_iterator<iterator>			reverse_iterator;
 		typedef	std::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
@@ -58,7 +59,6 @@ class map : public tree<Key, T>
 					return comp(x.first, y.first);
 				}
 		};
-		// map(): tree<Key, T>(){};
 		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		:tree<Key, T>()
 		{
@@ -74,7 +74,11 @@ class map : public tree<Key, T>
 		T& at( const Key& key );
 		const T& at( const Key& key ) const;
 		T& operator[]( const Key& key );
-		iterator begin();
+		iterator begin()
+		{
+			typename map<Key, T>::iterator it(_tree);
+			return it;
+		};
 		const_iterator begin() const;
 		iterator end();
 		const_iterator end() const;
@@ -95,7 +99,8 @@ class map : public tree<Key, T>
 		std::pair<iterator, bool> insert( const value_type& value )
 		{
 			_tree.insert(value.first, value.second);
-			return ;
+			typename map<Key, T>::iterator it;
+			return std::pair<iterator, bool>(it, true);
 		};
 		iterator insert( iterator hint, const value_type& value );
 		template< class InputIt >

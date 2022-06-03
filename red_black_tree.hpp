@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 14:56:10 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:15:33 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <memory>
 #include <functional>
 #include "utils.hpp"
+#include <iostream>
 
 
 #define BLACK 0
@@ -51,64 +52,54 @@ class tree
 		Compare comp;
 		void insert_fix(node *n)
 		{
-			node *x;
 			while (n->parent->color == RED)
 			{
-				if (n->parent == n->parent->parent->right)
+				if (n->parent == n->parent->parent->left)
 				{
-					x = n->parent->parent->left;
-					if (x->color == RED)
+					if (n->parent->parent->right->color == RED)
 					{
-						x->color = BLACK;
-						n->parent->color = BLACK;
+						n->parent->parent->left->color = BLACK;
+						n->parent->parent->right->color = BLACK;
 						n->parent->parent->color = RED;
 						n = n->parent->parent;
 					}
-					else
+					else if (n == n->parent->right)
 					{
-						if (n == n->parent->left)
-						{
-							n = n->parent;
-							right_rotate(n);
-						}
-						n->parent->color = BLACK;
-						n->parent->parent->color = RED;
-						left_rotate(n->parent->parent);
+						n = n->parent;
+						left_rotate(n);
 					}
+					n->parent->color = BLACK;
+					n->parent->parent->color = RED;
+					right_rotate(n->parent->parent);		
 				}
 				else
 				{
-					x = n->parent->parent->right;
-					if (x->color == RED)
+					if (n->parent->parent->left->color == RED)
 					{
-						x->color = BLACK;
-						n->parent->color = BLACK;
+						n->parent->parent->left->color = BLACK;
+						n->parent->parent->right->color = BLACK;
 						n->parent->parent->color = RED;
 						n = n->parent->parent;
 					}
-					else
+					else if (n == n->parent->left)
 					{
-						if (n == n->parent->right)
-						{
-							n = n->parent;
-							left_rotate(n);
-						}
-						n->parent->color = BLACK;
-						n->parent->parent->color = RED;
-						right_rotate(n->parent->parent);
+						n = n->parent;
+						right_rotate(n);
 					}
+					n->parent->color = BLACK;
+					n->parent->parent->color = RED;
+					left_rotate(n->parent->parent);
 				}
-				if (n == root)
-					break ;
+				root->color = BLACK;
 			}
-			root->color = BLACK;
+			
 		};
 		void delete_fix(node *n);
 		void right_rotate(node *x)
 		{
 			node *y = x->left;
 			x->left = y->right;
-			if (y->right != leaf)
+			if (y->right != NULL)
 				y->right->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -124,7 +115,7 @@ class tree
 		{
 			node *y = x->right;
 			x->right = y->left;
-			if (y->left != leaf)
+			if (y->left != NULL)
 				y->left->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -139,18 +130,19 @@ class tree
 	public:
 		tree(Compare c = Compare())
 		{
-			leaf = new node;
-			leaf->right = NULL;
-			leaf->left = NULL;
-			leaf->color = BLACK;
-			root = leaf;
 			comp = c;
+			leaf = new node;
+			leaf->color = BLACK;
+			leaf->left = NULL;
+			leaf->right = NULL;
+			leaf->parent = NULL;
+			root = leaf;
 		};
 		~tree(){};
 		node *getRoot() const {return root;};
 		node *search(node *node, Key key)
 		{
-			if (node == leaf || key == node->key)
+			if (node == NULL || key == node->key)
 				return node;
 			if (comp(key, node->key))
 				search(node->left, key);
@@ -159,36 +151,53 @@ class tree
 		};
 		void insert(Key key, Value value)
 		{
-			node * n = new node;
+			node *x;
+
+			node *n = new node;
+			n->color = RED;
 			n->parent = NULL;
 			n->key = key;
 			n->value = value;
 			n->left = leaf;
 			n->right = leaf;
-			n->color = RED;
-
-			node *x = root;
+			x = root;
 			node *y = NULL;
-			
+			if (x == leaf)
+			{
+				root = n;
+				n->color = BLACK;
+				return ;
+			}
 			while (x != leaf)
 			{
 				y = x;
-				if (comp(n->key, x->key))
+				if(comp(n->key, x->key))
 					x = x->left;
 				else
 					x = x->right;
 			}
-			if (n->parent == NULL)
-			{
-				n->color = BLACK;
-				return ;
-			}
-			if (n->parent->parent == NULL)
-				return ;
+			n->parent = y;
+			if (comp(n->key, y->key))
+				y->left = n;
+			else
+				y->right = n;
 			insert_fix(n);
 		};
 		void delete_node(Key key);
-		void print();
+		void print()
+		{
+			std::cout << "Red Black Tree :" << std::endl;
+			if (root == leaf)
+			{
+				std::cout << "Empty" << std::endl;
+				return;
+			}
+			node *x = root;
+			std::cout << "ROOT Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
+			while (x->left != leaf)
+				x = x->left;
+			std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
+		};
 };
 
 }

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 14:59:34 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:18:28 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 
 int main ()
 {
-  TYPE::map<int, std::string> m;
-  if (m.empty())
-    std::cout << "Empty" << std::endl;
-  m.insert ( TYPE::pair<int,std::string>(1,"salut") );
-  if (m.empty())
-    std::cout << "Empty" << std::endl;
+  TYPE::tree<int, std::string> tr;
+  tr.print();
+  tr.insert(5, "7");
+  tr.insert(4, "p");
+  tr.insert(3, "a");
+  // tr.insert(6, "b");
+  tr.print();
+
   return 0;
 }

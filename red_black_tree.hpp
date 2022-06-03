@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/03 18:15:33 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:57:12 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,16 @@ class tree
 						n = n->parent;
 						left_rotate(n);
 					}
-					n->parent->color = BLACK;
-					n->parent->parent->color = RED;
-					right_rotate(n->parent->parent);		
+					//else
+					if (n->parent) //maybe in elsif
+					{
+						n->parent->color = BLACK;
+						if (n->parent->parent)
+						{
+							n->parent->parent->color = RED;
+							right_rotate(n->parent->parent);	
+						}
+					}
 				}
 				else
 				{
@@ -86,12 +93,20 @@ class tree
 						n = n->parent;
 						right_rotate(n);
 					}
-					n->parent->color = BLACK;
-					n->parent->parent->color = RED;
-					left_rotate(n->parent->parent);
+					if (n->parent) //maybe in elsif
+					{
+						n->parent->color = BLACK;
+						if (n->parent->parent)
+						{
+							n->parent->parent->color = RED;
+							right_rotate(n->parent->parent);	
+						}
+					}
 				}
-				root->color = BLACK;
+				if (n == root)
+					break ;
 			}
+				root->color = BLACK;
 			
 		};
 		void delete_fix(node *n);
@@ -197,6 +212,7 @@ class tree
 			while (x->left != leaf)
 				x = x->left;
 			std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
+			while 
 		};
 };
 

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/03 18:18:28 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:55:34 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int main ()
   tr.insert(5, "7");
   tr.insert(4, "p");
   tr.insert(3, "a");
-  // tr.insert(6, "b");
+  tr.insert(2, "b");
+  tr.insert(9, "c");
+  tr.insert(1, "c");
   tr.print();
 
   return 0;

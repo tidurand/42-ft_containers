@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/03 14:51:48 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:40:53 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ class map : public tree<Key, T>
 				}
 		};
 		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
-		:tree<Key, T>()
 		{
+			_tree = tree<Key, T>();
 			_comp = comp;
 			_alloc = alloc;
 		};
@@ -71,12 +71,15 @@ class map : public tree<Key, T>
 		map& operator=(const map& other);
 		~map(){};
 		allocator_type get_allocator() const {return _alloc;};
-		T& at( const Key& key );
+		T& at( const Key& key )
+		{
+			return _tree.search(_tree.getRoot(), key);
+		};
 		const T& at( const Key& key ) const;
 		T& operator[]( const Key& key );
 		iterator begin()
 		{
-			typename map<Key, T>::iterator it(_tree);
+			typename map<Key, T>::iterator it(_tree.getRoot());
 			return it;
 		};
 		const_iterator begin() const;
@@ -88,12 +91,12 @@ class map : public tree<Key, T>
 		const_reverse_iterator rend() const;
 		bool empty() const
 		{
-			if (_tree.getRoot())
+			if (_tree.getSize() == 0)
 				return true;
 			else
 				return false;
 		};
-		size_type size() const;
+		size_type size() const{return _tree.getSize();};
 		size_type max_size() const;
 		void clear();
 		std::pair<iterator, bool> insert( const value_type& value )
@@ -120,6 +123,7 @@ class map : public tree<Key, T>
 		const_iterator upper_bound( const Key& key ) const;
 		key_compare key_comp() const;
 		value_compare value_comp() const;
+		void print(){_tree.print();};	//debug
 
 	private:
 		size_type		_size;

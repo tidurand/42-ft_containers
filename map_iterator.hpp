@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/03 14:36:47 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:04:16 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 #include <iostream>
 # include "iterator_traits.hpp"
-
+#include "red_black_tree.hpp"
 namespace ft {
 
 template <class It>
-class map_iterator : public std::iterator<std::random_access_iterator_tag, It>
+class map_iterator : public tree<It, It>
 {
 	public:
 		typedef	It								iterator_type;
@@ -29,7 +29,7 @@ class map_iterator : public std::iterator<std::random_access_iterator_tag, It>
 		typedef	std::random_access_iterator_tag	iterator_category; 
 		
 		map_iterator() {_p = NULL;};
-		explicit map_iterator(It *it) {_p = it;};
+		explicit map_iterator(node *it) {_p = it;};
 		template<class It2>
 		map_iterator<It>( const map_iterator<It2>& other ) {*this = other;};
 		template<class It2>
@@ -38,7 +38,10 @@ class map_iterator : public std::iterator<std::random_access_iterator_tag, It>
 		It *base(){return _p;};
 		It &operator*(){return *_p;};
 		It *operator->(){return _p;};
-		
+		map_iterator& operator++()
+		{
+			return *this;
+		};
 	private:
 		It *_p;
 };

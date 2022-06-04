@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/03 18:57:12 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:07:11 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ template <class Key, class Value, class Compare = std::less<Key> >
 class tree
 {
 	public:
-		struct node {
+		typedef struct node {
 			struct node *left;
 			struct node *right;
 			struct node *parent;
 			int color;
 			Key key;
 			Value value;
-		};
+		} node;
 	private:
 		node *root;
 		node *leaf;
 		Compare comp;
+		std::size_t size;
 		void insert_fix(node *n)
 		{
 			while (n->parent->color == RED)
@@ -152,17 +153,23 @@ class tree
 			leaf->right = NULL;
 			leaf->parent = NULL;
 			root = leaf;
+			size = 0;
 		};
 		~tree(){};
 		node *getRoot() const {return root;};
-		node *search(node *node, Key key)
+		size_t getSize() const {return size;};
+		Value &search(node *node, Key key)
 		{
-			if (node == NULL || key == node->key)
-				return node;
-			if (comp(key, node->key))
-				search(node->left, key);
-			else
-				search(node->right, key);
+			while (node != NULL && key != node->key)
+			{
+				if (comp(key, node->key))
+					node = node->left;
+				else
+					node = node->right;
+			}
+			if (node == NULL)
+				throw ; //do exception
+			return node->value;
 		};
 		void insert(Key key, Value value)
 		{
@@ -177,6 +184,7 @@ class tree
 			n->right = leaf;
 			x = root;
 			node *y = NULL;
+			size++;
 			if (x == leaf)
 			{
 				root = n;
@@ -207,12 +215,25 @@ class tree
 				std::cout << "Empty" << std::endl;
 				return;
 			}
+			size_t cpy_size = size;
 			node *x = root;
+			node *y = NULL;
 			std::cout << "ROOT Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
 			while (x->left != leaf)
 				x = x->left;
-			std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
-			while 
+			while (cpy_size > 0)
+			{
+				std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
+				cpy_size--;
+				y = x->parent;
+				if (y->right != leaf)
+				{
+					y = y->right;
+					while (y->left != leaf)
+						y = y->left;
+				}
+				x = y;
+			}
 		};
 };
 

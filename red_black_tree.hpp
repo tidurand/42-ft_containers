@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 15:42:20 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:17:14 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,20 @@ class tree
 					{
 						n = n->parent;
 						left_rotate(n);
+						n->parent->color = BLACK;
+						n->parent->parent->color = RED;
+						right_rotate(n->parent->parent);
 					}
 					//else
-					if (n->parent) //maybe in elsif
-					{
-						n->parent->color = BLACK;
-						if (n->parent->parent)
-						{
-							n->parent->parent->color = RED;
-							right_rotate(n->parent->parent);	
-						}
-					}
+					// if (n->parent) //maybe in elsif
+					// {
+					// 	n->parent->color = BLACK;
+					// 	if (n->parent->parent)
+					// 	{
+					// 		n->parent->parent->color = RED;
+					// 		right_rotate(n->parent->parent);	
+					// 	}
+					// }
 				}
 				else
 				{
@@ -86,16 +89,19 @@ class tree
 					{
 						n = n->parent;
 						right_rotate(n);
-					}
-					if (n->parent) //maybe in elsif
-					{
 						n->parent->color = BLACK;
-						if (n->parent->parent)
-						{
-							n->parent->parent->color = RED;
-							right_rotate(n->parent->parent);	
-						}
+						n->parent->parent->color = RED;
+						right_rotate(n->parent->parent);
 					}
+					// if (n->parent) //maybe in elsif
+					// {
+					// 	n->parent->color = BLACK;
+					// 	if (n->parent->parent)
+					// 	{
+					// 		n->parent->parent->color = RED;
+					// 		right_rotate(n->parent->parent);	
+					// 	}
+					// }
 				}
 				if (n == root)
 					break ;

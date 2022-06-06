@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 15:58:50 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:48:41 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ class map_iterator
 		node *operator->(){return _p;};
 		map_iterator& operator++()
 		{
+			// node *a = _p;
 			if (_p->right && _p->right->is_leaf == false)
 			{
 				_p = _p->right;
@@ -95,9 +96,50 @@ class map_iterator
 					_p = _p->parent;
 					return *this;
 				}
+				_p = _p->parent;
 			}
 			return *this;
 		};
+		map_iterator operator++(int)
+		{
+			map_iterator tmp = *this;
+			operator++();
+			return tmp;
+		}
+		map_iterator& operator--()
+		{
+			// PB P=NULL a cause de l'algo ++;
+			// if (_p->left && _p->left->is_leaf == false)
+			// {
+			// 	_p = _p->left;
+			// 	while (_p->right->is_leaf == false)
+			// 		_p = _p->right;
+			// 	return *this;
+			// }
+			// while (42)
+			// {
+			// 	if (_p->parent == NULL)
+			// 	{
+			// 		_p = NULL;
+			// 		return *this;
+			// 	}
+			// 	if (_p->parent->right == _p)
+			// 	{
+			// 		_p = _p->parent;
+			// 		return *this;
+			// 	}
+				// _p = _p->parent;
+			// }
+			return *this;
+		};
+		map_iterator operator--(int)
+		{
+			map_iterator tmp = *this;
+			operator--();
+			return tmp;
+		}
+		template<class It2>
+   		bool operator!=(const map_iterator<It2>& rhs) const { return _p != rhs._p; };
 	private:
 		node *_p;
 };

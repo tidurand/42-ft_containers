@@ -6,14 +6,14 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/06/02 12:03:02 by tidurand         ###   ########.fr        #
+#    Updated: 2022/06/06 15:49:13 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.cpp
 
 INCS = vector.hpp iterator.hpp reverse_iterator.hpp iterator_traits.hpp utils.hpp stack.hpp \
-		map.hpp rbtree_already_done.hpp red_black_tree.hpp
+		map.hpp rbtree_already_done.hpp red_black_tree.hpp map_iterator.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 

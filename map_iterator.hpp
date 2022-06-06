@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 14:59:17 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:58:50 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ template <class It>
 class map_iterator
 {
 	public:
-	typedef  node<It> node;
+		typedef node<It>		node;
 		typedef	It								iterator_type;
 		typedef	std::ptrdiff_t					difference_type;
 		typedef	It*								pointer;
@@ -76,6 +76,26 @@ class map_iterator
 		node *operator->(){return _p;};
 		map_iterator& operator++()
 		{
+			if (_p->right && _p->right->is_leaf == false)
+			{
+				_p = _p->right;
+				while (_p->left->is_leaf == false)
+					_p = _p->left;
+				return *this;
+			}
+			while (42)
+			{
+				if (_p->parent == NULL)
+				{
+					_p = NULL;
+					return *this;
+				}
+				if (_p->parent->left == _p)
+				{
+					_p = _p->parent;
+					return *this;
+				}
+			}
 			return *this;
 		};
 	private:

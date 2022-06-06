@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:20:42 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 14:57:05 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:36:17 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ struct node {
     struct node *right;
     struct node *parent;
     int color;
+    bool is_leaf;
     Data data;
     node() {}
     node(const Data &data): data(data){}

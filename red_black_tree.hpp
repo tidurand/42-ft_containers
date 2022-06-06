@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 14:57:57 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:42:20 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ class tree
 			leaf->right = NULL;
 			leaf->parent = NULL;
 			root = leaf;
+			leaf->is_leaf = true;
 			size = 0;
 		};
 		~tree(){};
@@ -169,10 +170,13 @@ class tree
 			node *x;
 
 			node *n = new node(data);
+			n->is_leaf = false;
 			n->color = RED;
 			n->parent = NULL;
 			n->left = leaf;
 			n->right = leaf;
+			n->left->is_leaf = true;
+			n->right->is_leaf = true;
 			x = root;
 			node *y = NULL;
 			size++;
@@ -213,25 +217,7 @@ class tree
 				std::cout << "Empty" << std::endl;
 				return;
 			}
-			// size_t cpy_size = size;
-			// node *x = root;
-			// node *y = NULL;
-			// std::cout << "ROOT Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
-			// while (x->left != leaf)
-			// 	x = x->left;
-			// while (cpy_size > 0)
-			// {
-			// 	std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
-			// 	cpy_size--;
-			// 	y = x->parent;
-			// 	if (y->right != leaf)
-			// 	{
-			// 		y = y->right;
-			// 		while (y->left != leaf)
-			// 			y = y->left;
-			// 	}
-			// 	x = y;
-			// }
+			
 		};
 };
 

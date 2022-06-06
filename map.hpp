@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 14:55:04 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:03:24 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,14 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		{
 			return _tree.search(_tree.getRoot(), key);
 		};
-		const T& at( const Key& key ) const;
-		T& operator[]( const Key& key );
+		const T& at( const Key& key ) const
+		{
+			return _tree.search(_tree.getRoot(), key);
+		};
+		T& operator[]( const Key& key )
+		{
+			return _tree.search(_tree.getRoot(), key);
+		};
 		iterator begin()
 		{
 			typename map<Key, T>::iterator it(_tree.begin());

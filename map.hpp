@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/04 16:40:53 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:23:42 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ class map : public tree<Key, T>
 		typedef	const value_type&						const_reference;
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
-		typedef	ft::map_iterator<Key>					iterator;
-		typedef	ft::map_iterator<const Key>				const_iterator;
+		typedef	ft::map_iterator<value_type>			iterator;
+		typedef	ft::map_iterator<const value_type>		const_iterator;
 		typedef	std::reverse_iterator<iterator>			reverse_iterator;
 		typedef	std::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
@@ -79,7 +79,7 @@ class map : public tree<Key, T>
 		T& operator[]( const Key& key );
 		iterator begin()
 		{
-			typename map<Key, T>::iterator it(_tree.getRoot());
+			typename map<Key, T>::iterator it(_tree.begin());
 			return it;
 		};
 		const_iterator begin() const;

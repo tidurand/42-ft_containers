@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/04 17:04:16 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:23:26 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <iostream>
 # include "iterator_traits.hpp"
 #include "red_black_tree.hpp"
+#include "utils.hpp"
 namespace ft {
 
 template <class It>
-class map_iterator : public tree<It, It>
+class map_iterator
 {
 	public:
 		typedef	It								iterator_type;
@@ -27,7 +28,13 @@ class map_iterator : public tree<It, It>
 		typedef	It*								pointer;
 		typedef	It&								reference;
 		typedef	std::random_access_iterator_tag	iterator_category; 
-		
+		typedef struct node {
+			struct node *left;
+			struct node *right;
+			struct node *parent;
+			int color;
+			It data;
+		} node;
 		map_iterator() {_p = NULL;};
 		explicit map_iterator(node *it) {_p = it;};
 		template<class It2>
@@ -35,15 +42,15 @@ class map_iterator : public tree<It, It>
 		template<class It2>
 		map_iterator<It>& operator=(const map_iterator<It2>& other) {_p = other.base(); return (*this);};
 		~map_iterator(){};
-		It *base(){return _p;};
-		It &operator*(){return *_p;};
-		It *operator->(){return _p;};
+		node *base(){return _p;};
+		node &operator*(){return *_p;};
+		node *operator->(){return _p;};
 		map_iterator& operator++()
 		{
 			return *this;
 		};
 	private:
-		It *_p;
+		node *_p;
 };
 
 }

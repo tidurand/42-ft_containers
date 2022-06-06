@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:20:42 by tidurand          #+#    #+#             */
-/*   Updated: 2022/05/26 12:38:28 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:22:46 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,17 @@ pair<T1,T2> make_pair (T1 x, T2 y)
 {
 	return ( pair<T1,T2>(x,y) );
 }
-
 }
+// template <class Key, class Value>
+// typedef struct node {
+//     struct node *left;
+//     struct node *right;
+//     struct node *parent;
+//     int color;
+//     Key key;
+//     Value value;
+// } node;
+
+
 
 #endif

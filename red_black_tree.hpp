@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/04 17:07:11 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:21:09 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,13 @@ class tree
 			insert_fix(n);
 		};
 		void delete_node(Key key);
+		node *begin()
+		{
+			node *x = root;
+			while (x->left != leaf)
+				x = x->left;
+			return x;
+		}
 		void print()
 		{
 			std::cout << "Red Black Tree :" << std::endl;

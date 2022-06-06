@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 11:19:09 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:28:35 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int main ()
   // m.print();
   std::cout << m.at(12) << std::endl;
 
-  TYPE::map<int, std::string>::iterator it(m.begin());
-  // it = m.begin();
+  TYPE::map<int, std::string>::iterator it;
+  it = m.begin();
   
   return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 11:23:42 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:55:04 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ namespace ft {
 	
 template <class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<ft::pair<const Key, T> > >
-class map : public tree<Key, T>
+class map : public tree<Key, T, ft::pair<const Key, T> >
 {
 	public:
 		typedef	Key										key_type;
@@ -61,7 +61,7 @@ class map : public tree<Key, T>
 		};
 		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		{
-			_tree = tree<Key, T>();
+			_tree = tree<Key, T, value_type>();
 			_comp = comp;
 			_alloc = alloc;
 		};
@@ -101,7 +101,7 @@ class map : public tree<Key, T>
 		void clear();
 		std::pair<iterator, bool> insert( const value_type& value )
 		{
-			_tree.insert(value.first, value.second);
+			_tree.insert(value);
 			typename map<Key, T>::iterator it;
 			return std::pair<iterator, bool>(it, true);
 		};
@@ -129,7 +129,7 @@ class map : public tree<Key, T>
 		size_type		_size;
 		allocator_type	_alloc;
 		Compare			_comp;
-		tree<Key, T>	_tree;
+		tree<Key, T, value_type>	_tree;
 };
 
 template< class Key, class T, class Compare, class Alloc >

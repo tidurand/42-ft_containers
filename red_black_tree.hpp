@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 11:21:09 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:57:57 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,11 @@ namespace ft {
 // 	Value value;
 // };
 
-template <class Key, class Value, class Compare = std::less<Key> >
+template <class Key, class Value, class Data, class Compare = std::less<Key> >
 class tree
 {
 	public:
-		typedef struct node {
-			struct node *left;
-			struct node *right;
-			struct node *parent;
-			int color;
-			Key key;
-			Value value;
-		} node;
+	typedef  node<Data> node;
 	private:
 		node *root;
 		node *leaf;
@@ -147,7 +140,7 @@ class tree
 		tree(Compare c = Compare())
 		{
 			comp = c;
-			leaf = new node;
+			leaf = new node();
 			leaf->color = BLACK;
 			leaf->left = NULL;
 			leaf->right = NULL;
@@ -160,26 +153,24 @@ class tree
 		size_t getSize() const {return size;};
 		Value &search(node *node, Key key)
 		{
-			while (node != NULL && key != node->key)
+			while (node != NULL && key != node->data.first)
 			{
-				if (comp(key, node->key))
+				if (comp(key, node->data.first))
 					node = node->left;
 				else
 					node = node->right;
 			}
 			if (node == NULL)
 				throw ; //do exception
-			return node->value;
+			return node->data.second;
 		};
-		void insert(Key key, Value value)
+		void insert(Data data)
 		{
 			node *x;
 
-			node *n = new node;
+			node *n = new node(data);
 			n->color = RED;
 			n->parent = NULL;
-			n->key = key;
-			n->value = value;
 			n->left = leaf;
 			n->right = leaf;
 			x = root;
@@ -194,13 +185,13 @@ class tree
 			while (x != leaf)
 			{
 				y = x;
-				if(comp(n->key, x->key))
+				if(comp(n->data.first, x->data.first))
 					x = x->left;
 				else
 					x = x->right;
 			}
 			n->parent = y;
-			if (comp(n->key, y->key))
+			if (comp(n->data.first, y->data.first))
 				y->left = n;
 			else
 				y->right = n;
@@ -222,25 +213,25 @@ class tree
 				std::cout << "Empty" << std::endl;
 				return;
 			}
-			size_t cpy_size = size;
-			node *x = root;
-			node *y = NULL;
-			std::cout << "ROOT Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
-			while (x->left != leaf)
-				x = x->left;
-			while (cpy_size > 0)
-			{
-				std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
-				cpy_size--;
-				y = x->parent;
-				if (y->right != leaf)
-				{
-					y = y->right;
-					while (y->left != leaf)
-						y = y->left;
-				}
-				x = y;
-			}
+			// size_t cpy_size = size;
+			// node *x = root;
+			// node *y = NULL;
+			// std::cout << "ROOT Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
+			// while (x->left != leaf)
+			// 	x = x->left;
+			// while (cpy_size > 0)
+			// {
+			// 	std::cout << "Key: " << x->key << " Value: " << x->value << " Color: " << x->color << std::endl;
+			// 	cpy_size--;
+			// 	y = x->parent;
+			// 	if (y->right != leaf)
+			// 	{
+			// 		y = y->right;
+			// 		while (y->left != leaf)
+			// 			y = y->left;
+			// 	}
+			// 	x = y;
+			// }
 		};
 };
 

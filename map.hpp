@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 16:57:46 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:30:47 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,16 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		template <class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
-		map(const map& other);
-		map& operator=(const map& other);
+		map(const map& other)
+		{
+			*this = other;
+		}
+		map& operator=(const map& other)
+		{
+			_tree = other._tree;
+			_comp = other._comp;
+			_alloc = other._alloc;
+		}
 		~map(){};
 		allocator_type get_allocator() const {return _alloc;};
 		T& at( const Key& key )

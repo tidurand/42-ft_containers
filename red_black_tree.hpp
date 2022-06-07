@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/06 17:17:14 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:50:35 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ class tree
 				std::cout << "Empty" << std::endl;
 				return;
 			}
+			std::cout << "ROOT: " << root->data.first << std::endl;
 			
 		};
 };

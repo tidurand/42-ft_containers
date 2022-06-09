@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/07 14:50:35 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:06:01 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,17 @@ class tree
 						n->parent->parent->color = RED;
 						n = n->parent->parent;
 					}
-					else if (n == n->parent->right)
+					else 
 					{
-						n = n->parent;
-						left_rotate(n);
+						if (n == n->parent->right)
+						{
+							n = n->parent;
+							left_rotate(n);
+						}
 						n->parent->color = BLACK;
 						n->parent->parent->color = RED;
 						right_rotate(n->parent->parent);
 					}
-					//else
-					// if (n->parent) //maybe in elsif
-					// {
-					// 	n->parent->color = BLACK;
-					// 	if (n->parent->parent)
-					// 	{
-					// 		n->parent->parent->color = RED;
-					// 		right_rotate(n->parent->parent);	
-					// 	}
-					// }
 				}
 				else
 				{
@@ -85,36 +78,32 @@ class tree
 						n->parent->parent->color = RED;
 						n = n->parent->parent;
 					}
-					else if (n == n->parent->left)
+					else 
 					{
-						n = n->parent;
-						right_rotate(n);
+						if (n == n->parent->left)
+						{
+							n = n->parent;
+							right_rotate(n);
+						}
 						n->parent->color = BLACK;
 						n->parent->parent->color = RED;
-						right_rotate(n->parent->parent);
+						left_rotate(n->parent->parent);
 					}
-					// if (n->parent) //maybe in elsif
-					// {
-					// 	n->parent->color = BLACK;
-					// 	if (n->parent->parent)
-					// 	{
-					// 		n->parent->parent->color = RED;
-					// 		right_rotate(n->parent->parent);	
-					// 	}
-					// }
 				}
 				if (n == root)
 					break ;
 			}
-				root->color = BLACK;
+			root->color = BLACK;
 			
 		};
 		void delete_fix(node *n);
 		void right_rotate(node *x)
 		{
 			node *y = x->left;
+			if (y == leaf)
+				return;
 			x->left = y->right;
-			if (y->right != NULL)
+			if (y->right != leaf)
 				y->right->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -129,8 +118,10 @@ class tree
 		void left_rotate(node *x)
 		{
 			node *y = x->right;
+			if (y == leaf)
+				return;
 			x->right = y->left;
-			if (y->left != NULL)
+			if (y->left != leaf)
 				y->left->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -151,8 +142,8 @@ class tree
 			leaf->left = NULL;
 			leaf->right = NULL;
 			leaf->parent = NULL;
-			root = leaf;
 			leaf->is_leaf = true;
+			root = leaf;
 			size = 0;
 		};
 		~tree(){};

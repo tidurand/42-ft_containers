@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/07 15:31:42 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:52:16 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ class map_iterator
 		node *base(){return _p;};
 		node &operator*(){return *_p;};
 		node *operator->(){return _p;};
+		map_iterator it_end()
+		{
+			_last = _p;
+			_p = _null;
+			return *this;
+		}
 		map_iterator &operator++()
 		{
 			if (_last)
@@ -116,6 +122,11 @@ class map_iterator
 		}
 		map_iterator& operator--()
 		{
+			if (_p == _null)
+			{
+				_p = _last;
+				return *this;
+			}
 			if (_last)
 			{
 				_p = _last;
@@ -169,6 +180,7 @@ class map_iterator
 	private:
 		node *_p;
 		node *_last;
+		node *_null;
 };
 
 }

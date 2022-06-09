@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/09 11:43:26 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:51:34 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "map.hpp"
 #include <stack>
 #include <utility>
+#include <cstdlib>
 #ifndef TYPE
 #define TYPE ft
 #endif
@@ -23,20 +24,12 @@ int main ()
 {
 
   TYPE::map<int, std::string> m;
-  std::cout << m.empty() << std::endl;
-  // m.insert(TYPE::pair<int, std::string>(1, "salut"));
-  // m.insert(TYPE::pair<int, std::string>(2, "abc"));
-  // m.insert(TYPE::pair<int, std::string>(3, "d"));
-  // m.insert(TYPE::pair<int, std::string>(4, "a"));
-  // m.insert(TYPE::pair<int, std::string>(5, "b"));
-  // m.insert(TYPE::pair<int, std::string>(6, "c"));
-  for (int i = 1; i <= 9; i++)
+  srand(time(0));
+  for (int i = 0; i < 20; i++)
   {
-    m.insert(TYPE::pair<int, std::string>(i, "a"));
+    m.insert(TYPE::pair<int, std::string>(rand()%1000, "a"));
   }
 
-  std::cout << m.empty() << std::endl;
-  std::cout << m.size() << std::endl;
   TYPE::map<int, std::string>::iterator it;
   TYPE::map<int, std::string>::iterator ite;
   it = m.begin();
@@ -44,6 +37,13 @@ int main ()
   for (; it != ite; ++it)
   {
     std::cout << it->data.first << std::endl;
+  }
+  it = m.begin();
+  --ite;
+  std::cout << "--" << std::endl;
+  for (; it != ite; --ite)
+  {
+    std::cout << ite->data.first << std::endl;
   }
   m.print();
   

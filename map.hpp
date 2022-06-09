@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/09 14:45:51 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:38:37 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			typename map<Key, T>::iterator it(_tree.begin());
 			return it;
 		};
-		const_iterator begin() const;
+		const_iterator begin() const
+		{
+			typename map<Key, T>::const_iterator it(_tree.begin());
+			return it;
+		};;
 		iterator end()
 		{
 			typename map<Key, T>::iterator it(_tree.begin());
@@ -105,7 +109,11 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			it.it_end();
 			return it;
 		};
-		const_iterator end() const;
+		const_iterator end() const
+		{
+			typename map<Key, T>::const_iterator it(_tree.begin());
+			return it;
+		};
 		reverse_iterator rbegin();
 		const_reverse_iterator rbegin() const;
 		reverse_iterator rend();
@@ -118,7 +126,10 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 				return false;
 		};
 		size_type size() const{return _tree.getSize();};
-		size_type max_size() const;
+		size_type max_size() const
+		{
+			return std::numeric_limits<difference_type>::max() / sizeof(difference_type);
+		};
 		void clear();
 		std::pair<iterator, bool> insert( const value_type& value )
 		{
@@ -133,7 +144,13 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		void erase( iterator first, iterator last );
 		size_type erase( const Key& key );
 		void swap( map& other );
-		size_type count( const Key& key ) const;
+		size_type count( const Key& key ) const
+		{
+			if (_tree.search(_tree.getRoot(), key))
+				return 1;
+			else
+				return 0;
+		}
 		iterator find( const Key& key );
 		const_iterator find( const Key& key ) const;
 		std::pair<iterator,iterator> equal_range( const Key& key );
@@ -147,7 +164,7 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		void print(){_tree.print();};	//debug
 
 	private:
-		size_type		_size;
+		//size_type		_size;
 		allocator_type	_alloc;
 		Compare			_comp;
 		tree<Key, T, value_type>	_tree;

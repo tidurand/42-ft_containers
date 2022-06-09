@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/09 14:51:34 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:57:29 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ int main ()
   {
     std::cout << it->data.first << std::endl;
   }
-  it = m.begin();
-  --ite;
-  std::cout << "--" << std::endl;
-  for (; it != ite; --ite)
-  {
-    std::cout << ite->data.first << std::endl;
-  }
-  m.print();
+  // it = m.begin();
+  // --ite;
+  // std::cout << "--" << std::endl;
+  // for (; it != ite; --ite)
+  // {
+  //   std::cout << ite->data.first << std::endl;
+  // }
+  // m.print();
   
   return 0;
 }

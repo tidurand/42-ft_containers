@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/09 17:37:36 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/10 10:06:21 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,15 @@ class tree
 			node *x = root;
 			while (x->left != leaf)
 				x = x->left;
+			return x;
+		}
+		node *end()
+		{
+			node *x = root;
+			while (x->right != leaf)
+				x = x->right;
+			x->right = leaf;
+			x = x->right;
 			return x;
 		}
 		void print()

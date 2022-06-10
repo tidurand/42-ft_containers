@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/09 17:38:37 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/10 13:34:19 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 #include <functional>
 #include <iostream>
 #include <memory>
-
+#include <limits>
+#include <stdexcept>
 #include "utils.hpp"
-// #include "rbtree_already_done.hpp"
 #include "red_black_tree.hpp"
 #include "map_iterator.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft {
 	
@@ -43,8 +44,8 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::map_iterator<value_type>			iterator;
 		typedef	ft::map_iterator<const value_type>		const_iterator;
-		typedef	std::reverse_iterator<iterator>			reverse_iterator;
-		typedef	std::reverse_iterator<const_iterator>	const_reverse_iterator;
+		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
 		{
 			protected:
@@ -114,9 +115,15 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			typename map<Key, T>::const_iterator it(_tree.begin());
 			return it;
 		};
-		reverse_iterator rbegin();
+		reverse_iterator rbegin()
+		{
+			return typename map<Key, T>::reverse_iterator(this->end());
+		};
 		const_reverse_iterator rbegin() const;
-		reverse_iterator rend();
+		reverse_iterator rend()
+		{
+			return typename map<Key, T>::reverse_iterator(this->begin());
+		};
 		const_reverse_iterator rend() const;
 		bool empty() const
 		{

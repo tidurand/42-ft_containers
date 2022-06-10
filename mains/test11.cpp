@@ -1,54 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   test11.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/10 13:53:23 by tidurand         ###   ########.fr       */
+/*   Created: 2022/06/10 13:31:19 by tidurand          #+#    #+#             */
+/*   Updated: 2022/06/10 13:36:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "TYPE::vector.hpp"
-#include "stack.hpp"
-#include "map.hpp"
-#include <stack>
-#include <utility>
-#include <cstdlib>
+#include "../map.hpp"
 #ifndef TYPE
 #define TYPE ft
 #endif
+
+//map iterators
 
 int main ()
 {
 
   TYPE::map<int, std::string> m;
-  srand(time(0));
   for (int i = 0; i < 20; i++)
   {
     m.insert(TYPE::pair<int, std::string>(i, "a"));
   }
 
-  TYPE::map<int, std::string>::reverse_iterator it;
-  TYPE::map<int, std::string>::reverse_iterator ite;
-  it = m.rbegin();
-  ite = m.rend();
+  TYPE::map<int, std::string>::iterator it;
+  TYPE::map<int, std::string>::iterator ite;
+  it = m.begin();
+  ite = m.end();
   for (; it != ite; ++it)
   {
     std::cout << it->first << std::endl;
   }
-  it = m.rbegin();
+  it = m.begin();
   --ite;
   std::cout << "--" << std::endl;
-  std::cout << ite->first << std::endl;
   for (; it != ite; --ite)
   {
     std::cout << ite->first << std::endl;
   }
-  std::cout << "--" << std::endl;
-  ite++;
-	ite++;
+	it++;
+	it++;
 	std::cout << ite->first << std::endl;
+  
   return 0;
 }

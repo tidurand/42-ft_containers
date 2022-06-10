@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:40 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 09:05:33 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/10 09:20:12 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ template <class Iter>
 struct iterator_traits
 {
 	typedef	typename Iter::difference_type	difference_type;
-	typedef	typename Iter::value_type		value_type;
+	//typedef	typename Iter::value_type		value_type;
 	typedef	typename Iter::pointer			pointer;
 	typedef	typename Iter::reference		reference;
 	typedef	typename Iter::iterator_category	iterator_category;

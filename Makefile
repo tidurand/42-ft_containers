@@ -6,14 +6,14 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/06/06 15:49:13 by tidurand         ###   ########.fr        #
+#    Updated: 2022/06/10 13:38:04 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.cpp
 
 INCS = vector.hpp iterator.hpp reverse_iterator.hpp iterator_traits.hpp utils.hpp stack.hpp \
-		map.hpp rbtree_already_done.hpp red_black_tree.hpp map_iterator.hpp
+		map.hpp red_black_tree.hpp map_iterator.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -23,7 +23,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 NAME = containers
 
-MAX = 10
+MAX = 12
 
 all: $(NAME)
 
@@ -45,7 +45,7 @@ test:	$(OBJS) $(INCS)
 	@rm ft.txt std.txt ft std
 
 megatest:	$(OBJS) $(INCS)
-	@for i in $(shell seq 1 $(MAX)); \
+	@for i in $(shell seq 11 $(MAX)); \
 	do \
 		echo $$i;\
 		$(CXX) $(CXXFLAGS) mains/test$$i.cpp -D TYPE=ft -o ft;\

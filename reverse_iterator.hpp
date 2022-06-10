@@ -19,17 +19,17 @@
 namespace ft {
 
 template <class It>	
-class reverse_iterator : public iterator<It>
+class reverse_iterator : public std::iterator<std::random_access_iterator_tag, It>
 {
 	public:
 	typedef	It													iterator_type;
 	typedef	std::ptrdiff_t										difference_type;
 	typedef typename ft::iterator_traits<It>::iterator_category	iterator_category;
-	typedef	typename ft::iterator_traits<It>::value_type		value_type;
+	//typedef	typename ft::iterator_traits<It>::value_type		value_type;
 	typedef	typename ft::iterator_traits<It>::pointer			pointer;
 	typedef	typename ft::iterator_traits<It>::reference			reference;
 
-		reverse_iterator() {_iter = NULL;};
+		reverse_iterator() {/*_iter = NULL;*/};
 		explicit reverse_iterator(It it) {_iter = it;};
 		template<class It2>
 		reverse_iterator<It>( const reverse_iterator<It2>& other ) {*this = other;};
@@ -43,7 +43,7 @@ class reverse_iterator : public iterator<It>
 			It tmp = _iter;
 			return *--tmp;
 		};
-		const It &operator*() const
+		const reference &operator*() const
 		{
 			return _iter.operator*();
 		};

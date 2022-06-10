@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/10 13:53:23 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:16:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <utility>
 #include <cstdlib>
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
 
 int main ()
@@ -34,6 +34,7 @@ int main ()
   TYPE::map<int, std::string>::reverse_iterator ite;
   it = m.rbegin();
   ite = m.rend();
+  it++;
   for (; it != ite; ++it)
   {
     std::cout << it->first << std::endl;
@@ -41,7 +42,6 @@ int main ()
   it = m.rbegin();
   --ite;
   std::cout << "--" << std::endl;
-  std::cout << ite->first << std::endl;
   for (; it != ite; --ite)
   {
     std::cout << ite->first << std::endl;

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/10 10:06:21 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:09:36 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class tree
 {
 	public:
 	typedef  node<Data> node;
-	private:
+	public:
 		node *root;
 		node *leaf;
 		Compare comp;
@@ -209,10 +209,8 @@ class tree
 		node *end()
 		{
 			node *x = root;
-			while (x->right != leaf)
+			while (x->right != NULL)
 				x = x->right;
-			x->right = leaf;
-			x = x->right;
 			return x;
 		}
 		void print()

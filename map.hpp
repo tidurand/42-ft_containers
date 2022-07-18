@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/18 10:03:42 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 11:59:28 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,10 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		iterator insert( iterator hint, const value_type& value );
 		template< class InputIt >
 		void insert( InputIt first, InputIt last );
-		void erase( iterator pos );
+		void erase( iterator pos )
+		{
+			_tree.delete_node(pos.base());
+		};
 		void erase( iterator first, iterator last );
 		size_type erase( const Key& key );
 		void swap( map& other );

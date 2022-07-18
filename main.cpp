@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/18 10:04:37 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:31:39 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,16 @@ int main ()
   }
 
   TYPE::map<int, std::string>::iterator it;
-  TYPE::map<int, std::string>::iterator ite;
   it = m.begin();
-  ite = m.end();
-  for (; it != ite; ++it)
+  ++it;
+  ++it;
+  ++it;
+  std::cout << it->first << std::endl;
+  m.erase(it);
+  it = m.begin();
+  for (TYPE::map<int, std::string>::iterator ite = m.end(); it != ite; it++)
   {
     std::cout << it->first << std::endl;
   }
-  it = m.begin();
-  --ite;
-  std::cout << "--" << std::endl;
-  for (; it != ite; --ite)
-  {
-    std::cout << ite->first << std::endl;
-  }
-  std::cout << "--" << std::endl;
-  ite++;
-	ite++;
-	std::cout << ite->first << std::endl;
   return 0;
 }

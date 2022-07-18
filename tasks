@@ -6,5 +6,7 @@ do error main, big main
 
 modif tester : std::exception std::out_of_range
 modif exceptions on at [] and reserve
+use rebind
+
 
 MAP

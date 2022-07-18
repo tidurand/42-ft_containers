@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/10 17:09:36 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 08:28:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ class tree
 			y->left = x;
 			x->parent = y;
 		};
+		
 	public:
 		tree(Compare c = Compare())
 		{
@@ -211,6 +212,7 @@ class tree
 			node *x = root;
 			while (x->right != NULL)
 				x = x->right;
+			// x = x->right;
 			return x;
 		}
 		void print()

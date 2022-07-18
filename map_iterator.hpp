@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/10 17:13:22 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 08:33:42 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,18 @@ class map_iterator
 		node *base(){return _p;};
 		reference operator*(){return _p->data;};
 		pointer operator->(){return &_p->data;};
-		map_iterator it_end()
-		{
-			_last = _p;
-			_p = _null;
-			return *this;
-		}
+		// map_iterator it_end()
+		// {
+		// 	_last = _p;
+		// 	_p = _null;
+		// 	return *this;
+		// }
 		map_iterator &operator++()
 		{
-			if (_p == _null)
-			{
-				_p = _last;
-				_null = NULL;
-				return *this;
-			}
+			// if (_p == NULL)
+			// {
+			// 	std::cout << "Last" << std::endl;
+			// }
 			if (_last)
 			{
 				_p = _last;
@@ -66,12 +64,15 @@ class map_iterator
 				_last = _p;
 				return *this;
 			}
+			_last = _p;
 			while (42)
 			{
 				if (_p->parent == NULL)
 				{
-					_last = _p;
-					_p = NULL;
+					// _p = NULL;
+					while (_p->right)
+						_p = _p->right;
+					_p->parent = _last;
 					return *this;
 				}
 				if (_p->parent->left == _p)
@@ -82,7 +83,7 @@ class map_iterator
 				}
 				_p = _p->parent;
 			}
-			_last = _p;
+			// _last = _p;
 			return *this;
 		};
 		map_iterator operator++(int)
@@ -93,16 +94,16 @@ class map_iterator
 		}
 		map_iterator& operator--()
 		{
-			if (_p == _null)
-			{
-				_p = _last;
-				_null = NULL;
-				return *this;
-			}
 			if (_last)
 			{
 				_p = _last;
 				_last = NULL;
+			}
+			if (_p->is_leaf == true)
+			{
+				_p = _p->parent;
+				_last = _p;
+				return *this;
 			}
 			if (_p->left && _p->left->is_leaf == false)
 			{
@@ -152,7 +153,6 @@ class map_iterator
 	private:
 		node *_p;
 		node *_last;
-		node *_null;
 };
 
 }

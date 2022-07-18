@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/18 08:28:38 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 10:14:57 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,19 @@ class tree
 				y->right = n;
 			insert_fix(n);
 		};
-		void delete_node(Key key);
+		void delete_node(node *n)
+		{
+			node *x;
+			int original_color = n->color;
+			if (n->left == leaf)
+			{
+				x = n->right;
+				//transplant
+			}
+			
+			if (original_color == BLACK)
+				delete_fix(n);
+		}
 		node *begin()
 		{
 			node *x = root;
@@ -210,9 +222,13 @@ class tree
 		node *end()
 		{
 			node *x = root;
+			node *p;
 			while (x->right != NULL)
+			{
+				p = x;
 				x = x->right;
-			// x = x->right;
+			}
+			x->parent = p;
 			return x;
 		}
 		void print()

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/18 08:14:07 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 10:03:42 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,26 +104,24 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};;
 		iterator end()
 		{
-			// typename map<Key, T>::iterator it(_tree.begin());
-			// for (size_type i = 0; i < _tree.getSize() - 1; i++)
-			// 	++it;
 			typename map<Key, T>::iterator ite(_tree.end());
-			// typename map<Key, T>::iterator ite(NULL);
 			return ite;
 		};
 		const_iterator end() const
 		{
-			typename map<Key, T>::const_iterator it(_tree.begin());
+			typename map<Key, T>::const_iterator it(_tree.end());
 			return it;
 		};
 		reverse_iterator rbegin()
 		{
-			return typename map<Key, T>::reverse_iterator(this->end());
+			typename map<Key, T>::iterator it(_tree.end());
+			return typename map<Key, T>::reverse_iterator(it);
 		};
 		const_reverse_iterator rbegin() const;
 		reverse_iterator rend()
 		{
-			return typename map<Key, T>::reverse_iterator(this->begin());
+			typename map<Key, T>::iterator ite(_tree.begin());
+			return typename map<Key, T>::reverse_iterator(ite);
 		};
 		const_reverse_iterator rend() const;
 		bool empty() const

@@ -10,4 +10,5 @@ use rebind
 
 
 
-do delete fix
+MAP
+see rebind and allocator instead of new and delete

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/18 11:59:28 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:25:03 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,21 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			typename map<Key, T>::iterator it(_tree.end());
 			return typename map<Key, T>::reverse_iterator(it);
 		};
-		const_reverse_iterator rbegin() const;
+		const_reverse_iterator rbegin() const
+		{
+			typename map<Key, T>::const_iterator it(_tree.end());
+			return typename map<Key, T>::const_reverse_iterator(it);
+		};
 		reverse_iterator rend()
 		{
 			typename map<Key, T>::iterator ite(_tree.begin());
 			return typename map<Key, T>::reverse_iterator(ite);
 		};
-		const_reverse_iterator rend() const;
+		const_reverse_iterator rend() const
+		{
+			typename map<Key, T>::const_iterator ite(_tree.begin());
+			return typename map<Key, T>::const_reverse_iterator(ite);
+		};
 		bool empty() const
 		{
 			if (_tree.getSize() == 0)
@@ -136,7 +144,16 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		{
 			return std::numeric_limits<difference_type>::max() / sizeof(difference_type);
 		};
-		void clear();
+		void clear()
+		{
+			size_t size = _tree.getSize() -1;
+			for (size_t i = 0; i < size; i++)
+			{
+				typename map<Key, T>::iterator it = begin();
+				erase(it);
+				--size;
+			}
+		};
 		std::pair<iterator, bool> insert( const value_type& value )
 		{
 			_tree.insert(value);

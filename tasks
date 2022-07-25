@@ -6,9 +6,10 @@ do error main, big main
 
 modif tester : std::exception std::out_of_range
 modif exceptions on at [] and reserve
-use rebind
 
 
 
 MAP
 see rebind and allocator instead of new and delete
+gerer doubles
+gerer operateur egal

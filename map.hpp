@@ -170,17 +170,33 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		iterator insert( iterator hint, const value_type& value );
 		template< class InputIt >
-		void insert( InputIt first, InputIt last );
+		void insert( InputIt first, InputIt last )
+		{
+			for (; first != last; ++first)
+			{
+				_tree.insert(*first);
+			}
+		};
 		void erase( iterator pos )
 		{
 			_tree.delete_node(pos.base());
 		};
 		void erase( iterator first, iterator last )
 		{
-			for (; first != last; ++first)
-				erase(first); //doesnt work
+			while (first != last)
+			{
+				typename map<Key, T>::iterator it = first;
+				first++;
+				_tree.delete_node(it.base());
+			}
 		};
-		size_type erase( const Key& key );
+		size_type erase( const Key& key )
+		{
+			if (_tree.delete_search(_tree.getRoot(), key))
+				return 1;
+			else
+				return 0;
+		};
 		void swap( map& other );
 		size_type count( const Key& key ) const
 		{

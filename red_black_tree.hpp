@@ -340,6 +340,20 @@ class tree
 			x->parent = p;
 			return x;
 		}
+		int delete_search(node *node, Key key)
+		{
+			while (node != NULL && key != node->data.first)
+			{
+				if (comp(key, node->data.first))
+					node = node->left;
+				else
+					node = node->right;
+			}
+			if (node == NULL)
+				return 0;
+			delete_node(node);
+			return 1;
+		}
 		void print()
 		{
 			std::cout << "Red Black Tree :" << std::endl;

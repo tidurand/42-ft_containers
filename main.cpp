@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/20 07:33:53 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:49:07 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,8 @@ int main ()
   {
     m.insert(TYPE::pair<int, std::string>(i, "a"));
   }
-  m.erase(5);
   TYPE::map<int, std::string>::iterator it;
-  it = m.begin();
-  for (TYPE::map<int, std::string>::iterator ite = m.end(); it != ite; it++)
-  {
-    std::cout << it->first << std::endl;
-  }
+  it = m.find(5);
+  std::cout << it->first << std::endl;
   return 0;
 }

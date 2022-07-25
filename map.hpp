@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/20 07:56:15 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:04:36 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,14 +205,56 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			else
 				return 0;
 		}
-		iterator find( const Key& key );
-		const_iterator find( const Key& key ) const;
+		iterator find( const Key& key )
+		{
+			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+			typename map<Key, T>::iterator it(n);
+			if (n == NULL)
+				return end();
+			return it;
+		};
+		const_iterator find( const Key& key ) const
+		{
+			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+			typename map<Key, T>::const_iterator it(n);
+			if (n == NULL)
+				return end();
+			return it;
+		};
 		std::pair<iterator,iterator> equal_range( const Key& key );
 		std::pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
-		iterator lower_bound( const Key& key );
-		const_iterator lower_bound( const Key& key ) const;
-		iterator upper_bound( const Key& key );
-		const_iterator upper_bound( const Key& key ) const;
+		iterator lower_bound( const Key& key )
+		{
+			node<value_type> *n = _tree.lower_search(_tree.getRoot(), key);
+			typename map<Key, T>::iterator it(n);
+			if (n == NULL)
+				return end();
+			return it;
+		};
+		const_iterator lower_bound( const Key& key ) const
+		{
+			node<value_type> *n = _tree.lower_search(_tree.getRoot(), key);
+			typename map<Key, T>::const_iterator it(n);
+			if (n == NULL)
+				return end();
+			return it;
+		};
+		iterator upper_bound( const Key& key )
+		{
+			node<value_type> *n = _tree.upper_search(_tree.getRoot(), key);
+			typename map<Key, T>::iterator it(n);
+			if (n == NULL)
+				return end();
+			return it;
+		};
+		const_iterator upper_bound( const Key& key ) const
+		{
+			node<value_type> *n = _tree.upper_search(_tree.getRoot(), key);
+			typename map<Key, T>::const_iterator it(n);
+			if (n == NULL)
+				return end();
+			return it;
+		};
 		key_compare key_comp() const;
 		value_compare value_comp() const;
 		void print(){_tree.print();};	//debug

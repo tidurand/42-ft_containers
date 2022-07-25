@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/25 18:49:07 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:17:04 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <utility>
 #include <cstdlib>
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
 
 int main ()
@@ -29,8 +29,9 @@ int main ()
   {
     m.insert(TYPE::pair<int, std::string>(i, "a"));
   }
+  // m.erase(5);
   TYPE::map<int, std::string>::iterator it;
-  it = m.find(5);
+  it = m.upper_bound(5);
   std::cout << it->first << std::endl;
   return 0;
 }

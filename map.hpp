@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/25 19:04:36 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:16:33 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,34 +225,42 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		std::pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
 		iterator lower_bound( const Key& key )
 		{
-			node<value_type> *n = _tree.lower_search(_tree.getRoot(), key);
-			typename map<Key, T>::iterator it(n);
-			if (n == NULL)
-				return end();
+			typename map<Key, T>::iterator it = begin();
+			while (!_comp(key, it->first))
+			{
+				if (it->first == key)
+					return it;
+				it++;
+			}
 			return it;
 		};
 		const_iterator lower_bound( const Key& key ) const
 		{
-			node<value_type> *n = _tree.lower_search(_tree.getRoot(), key);
-			typename map<Key, T>::const_iterator it(n);
-			if (n == NULL)
-				return end();
+			typename map<Key, T>::const_iterator it = begin();
+			while (!_comp(key, it->first))
+			{
+				if (it->first == key)
+					return it;
+				it++;
+			}
 			return it;
 		};
 		iterator upper_bound( const Key& key )
 		{
-			node<value_type> *n = _tree.upper_search(_tree.getRoot(), key);
-			typename map<Key, T>::iterator it(n);
-			if (n == NULL)
-				return end();
+			typename map<Key, T>::iterator it = begin();
+			while (!_comp(key, it->first))
+			{
+				it++;
+			}
 			return it;
 		};
 		const_iterator upper_bound( const Key& key ) const
 		{
-			node<value_type> *n = _tree.upper_search(_tree.getRoot(), key);
-			typename map<Key, T>::const_iterator it(n);
-			if (n == NULL)
-				return end();
+			typename map<Key, T>::const_iterator it = begin();
+			while (!_comp(key, it->first))
+			{
+				it++;
+			}
 			return it;
 		};
 		key_compare key_comp() const;

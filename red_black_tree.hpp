@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/25 18:59:52 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:09:04 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,32 +367,33 @@ class tree
 				return NULL;
 			return node;
 		}
-		node *lower_search(node *node, Key key)
-		{
-			while (node != NULL && key != node->data.first)
-			{
-				if (comp(key, node->data.first))
-					node = node->left;
-				else
-					node = node->right;
-			}
-			if (node == NULL)
-				return NULL;
-			return node;
-		}
-		node *upper_search(node *node, Key key)
-		{
-			while (node != NULL && key != node->data.first)
-			{
-				if (comp(key, node->data.first))
-					node = node->left;
-				else
-					node = node->right;
-			}
-			if (node == NULL)
-				return NULL;
-			return node;
-		}
+		// node *lower_search(node *node, Key key)
+		// {
+		// 	while (node != NULL && comp(key, node->data.first))
+		// 	{
+		// 		node = node->left;
+		// 	}
+		// 	while (node != NULL && !comp(key, node->data.first))
+		// 	{
+		// 		node = node->right;
+		// 	}
+		// 	if (node == NULL)
+		// 		return NULL;
+		// 	return node;
+		// }
+		// node *upper_search(node *node, Key key)
+		// {
+		// 	while (node != NULL && key != node->data.first)
+		// 	{
+		// 		if (comp(key, node->data.first))
+		// 			node = node->left;
+		// 		else
+		// 			node = node->right;
+		// 	}
+		// 	if (node == NULL)
+		// 		return NULL;
+		// 	return node;
+		// }
 		void print()
 		{
 			std::cout << "Red Black Tree :" << std::endl;

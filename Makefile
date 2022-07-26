@@ -17,7 +17,7 @@ INCS = vector.hpp iterator.hpp reverse_iterator.hpp iterator_traits.hpp utils.hp
 
 OBJS = $(SRCS:.cpp=.o)
 
-CXX = c++
+CXX = clang++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 

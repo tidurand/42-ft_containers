@@ -84,6 +84,10 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			_tree = other._tree;
 			_comp = other._comp;
 			_alloc = other._alloc;
+			clear();
+			for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
+				insert(*it);
+			return *this;
 		}
 		~map(){};
 		allocator_type get_allocator() const {return _alloc;};
@@ -163,10 +167,13 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		std::pair<iterator, bool> insert( const value_type& value )
 		{
-			_tree.insert(value);
-			typename map<Key, T>::iterator it;
-			return std::pair<iterator, bool>(it, true);
-			//gerer doubles
+			if (_tree.search(_tree.getRoot(), value.first))
+				return std::pair<iterator, bool>(find(value.first), false);
+			else
+			{
+				_tree.insert(value);
+				return std::pair<iterator, bool>(find(value.first), true);
+			}
 		};
 		iterator insert( iterator hint, const value_type& value );
 		template< class InputIt >

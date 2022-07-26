@@ -24,14 +24,17 @@ int main ()
 {
 
   TYPE::map<int, std::string> m;
+  TYPE::map<int, std::string> cpy;
   srand(time(0));
   for (int i = 1; i < 9; i++)
   {
     m.insert(TYPE::pair<int, std::string>(i, "a"));
   }
-  // m.erase(5);
+  m.insert(TYPE::pair<int, std::string>(4, "a"));
+  cpy = m;
   TYPE::map<int, std::string>::iterator it;
-  it = m.upper_bound(5);
-  std::cout << it->first << std::endl;
+  it = cpy.begin();
+  for (; it != cpy.end(); ++it)
+    std::cout << it->first << std::endl;
   return 0;
 }

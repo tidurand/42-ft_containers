@@ -11,5 +11,3 @@ modif exceptions on at [] and reserve
 
 MAP
 see rebind and allocator instead of new and delete
-gerer doubles
-gerer operateur egal

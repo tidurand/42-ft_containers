@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/25 20:16:33 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/08 09:42:39 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,12 +167,13 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		std::pair<iterator, bool> insert( const value_type& value )
 		{
-			if (_tree.search(_tree.getRoot(), value.first))
-				return std::pair<iterator, bool>(find(value.first), false);
+			typename map<Key, T>::iterator it = find(value.first);
+			if (it == end())
+				return std::pair<iterator, bool>(it, false);
 			else
 			{
 				_tree.insert(value);
-				return std::pair<iterator, bool>(find(value.first), true);
+				return std::pair<iterator, bool>(it, true);
 			}
 		};
 		iterator insert( iterator hint, const value_type& value );
@@ -204,7 +205,15 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 			else
 				return 0;
 		};
-		void swap( map& other );
+		void swap( map& other )
+		{
+			std::swap(_tree, other._tree);
+			std::swap(_comp, other._comp);
+			std::swap(_alloc, other._alloc);
+			// other.clear();
+			// for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
+			// 	insert(*it);
+		};
 		size_type count( const Key& key ) const
 		{
 			if (_tree.search(_tree.getRoot(), key))
@@ -337,7 +346,7 @@ template< class Key, class T, class Compare, class Alloc >
 void swap( std::map<Key,T,Compare,Alloc>& lhs,
            std::map<Key,T,Compare,Alloc>& rhs )
 			{
-				// lhs.swap(rhs);
+				lhs.swap(rhs);
 			};
 	
 }

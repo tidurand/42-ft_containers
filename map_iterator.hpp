@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/20 07:37:05 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/08 08:34:09 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ class map_iterator
 		map_iterator& operator=(const map_iterator<It2>& other) {_p = other.base();_last = other._last; return (*this);};
 		~map_iterator(){};
 		node *base(){return _p;};
+		const node *base() const {return _p;};
 		reference operator*(){return _p->data;};
 		pointer operator->(){return &_p->data;};
 		map_iterator &operator++()
@@ -136,7 +137,7 @@ class map_iterator
 		template<class It2>
    		bool operator==(const map_iterator<It2>& rhs) const { return _p == rhs._p; };
 		template<class It2>
-   		bool operator!=(const map_iterator<It2>& rhs) const { return _p != rhs._p; };
+   		bool operator!=(const map_iterator<It2>& rhs) const { return base() != rhs.base(); };
 		template<class It2>
    		bool operator<=(const map_iterator<It2>& rhs) const { return _p <= rhs._p; };
 		template<class It2>

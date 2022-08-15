@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/08 09:28:40 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:53:58 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,70 @@
 #include <stack>
 #include <utility>
 #include <cstdlib>
-#ifndef TYPE
-#define TYPE ft
+// #ifndef TYPE
+// #define TYPE ft
+// #endif
+#ifndef STD
+# define NAMESPACE ft
+#else
+# define NAMESPACE std
 #endif
+
+using namespace NAMESPACE;
+template <class Key, class T>
+void	print(map<Key, T>& lst)
+{
+	for (typename map<Key, T>::iterator it = lst.begin(); it != lst.end(); it++)
+		std::cout << it->first << " => " << it->second << '\n';
+}
 
 int main ()
 {
+  map<char,int> mymap;
 
-  TYPE::map<int, std::string> m;
-  TYPE::map<int, std::string> cpy;
-  srand(time(0));
-  // m.insert(TYPE::pair<int, std::string>(-5, "a"));
-  for (int i = 1; i < 9; i++)
-  {
-    m.insert(TYPE::pair<int, std::string>(i, "a"));
-  }
-  m.insert(TYPE::pair<int, std::string>(4, "a"));
-  // cpy = m;
-  TYPE::map<int, std::string>::iterator it;
-  it = m.begin();
-  for (; it != m.end(); ++it)
-    std::cout << it->first << std::endl;
+
+	if (mymap.begin() != mymap.end())
+		std::cout << "This should not happen\n";
+
+  mymap['b'] = 100;
+  mymap['a'] = 200;
+  mymap['c'] = 300;
+
+	if (mymap.begin() == mymap.end())
+		std::cout << "This is wrong\n";
+  // show content:
+  for (map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); it++)
+    std::cout << it->first << " => " << it->second << '\n';
+
+	std::cout << "Hello there\n";
+	for (map<char,int>::const_iterator it=mymap.begin(); it!=mymap.end(); it++)
+    std::cout << it->first << " => " << it->second << '\n';
+	std::cout << "General Kenobi\n";
+
+	map<char, int>::const_iterator it = mymap.begin();
+	map<char, int>::const_iterator ti = mymap.end();
+	std::cout << "Wupwup\n";
+
+	it++;
+	++it;
+	it--;
+	--it;
+	std::cout << "marker1\n";
+
+	ti--;
+	--ti;
+	++ti;
+	ti++;
+
+	ti = it;
+
+	std::cout << "Trump is a kiddo\n";
+	map<char, int>::iterator end = mymap.end();
+	while(it != end)
+	{
+    	std::cout << it->first << " => " << it->second << '\n';
+		it++;
+	}
+
   return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/08 08:34:09 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:56:35 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ class map_iterator
 		template<class It2>
    		bool operator>(const map_iterator<It2>& rhs) const { return _p > rhs._p; };
 	private:
-		node *_p;
 		node *_last;
+		node *_p;
 };
 
 }

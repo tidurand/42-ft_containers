@@ -43,7 +43,7 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::map_iterator<value_type>			iterator;
-		typedef	ft::map_iterator<const value_type>		const_iterator;
+		typedef	ft::map_iterator<value_type>		const_iterator;
 		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
@@ -101,7 +101,9 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		T& operator[]( const Key& key )
 		{
-			return _tree.search(_tree.getRoot(), key);
+			_tree.insert(make_pair(key, T()));
+			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+				return n->data.second;
 		};
 		iterator begin()
 		{

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/27 09:48:38 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 11:42:56 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft {
 	
 template <class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<ft::pair<const Key, T> > >
-class map : public tree<Key, T, ft::pair<const Key, T> >
+class map
 {
 	public:
 		typedef	Key										key_type;
@@ -62,14 +62,14 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		{
-			_tree = tree<Key, T, value_type>();
+			// _tree = tree<Key, T, value_type>();
 			_comp = comp;
 			_alloc = alloc;
 		};
 		template <class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		{
-			_tree = tree<Key, T, value_type>();
+			// _tree = tree<Key, T, value_type>();
 			_comp = comp;
 			_alloc = alloc;
 			for (InputIt it = first; it != last; ++it)
@@ -89,7 +89,11 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 				insert(*it);
 			return *this;
 		}
-		~map(){};
+		~map()
+		{
+			// if (_tree.getSize() > 0)
+				clear();
+		};
 		allocator_type get_allocator() const {return _alloc;};
 		T& at( const Key& key )
 		{
@@ -159,12 +163,9 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		void clear()
 		{
-			size_t size = _tree.getSize() -1;
-			for (size_t i = 0; i < size; i++)
+			for (size_t i = 0; i < _tree.getSize();)
 			{
-				typename map<Key, T>::iterator it = begin();
-				erase(it);
-				--size;
+				_tree.delete_node(_tree.begin());
 			}
 		};
 		pair<iterator, bool> insert( const value_type& value )

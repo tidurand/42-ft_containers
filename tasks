@@ -12,3 +12,4 @@ modif exceptions on at [] and reserve
 MAP
 see rebind and allocator instead of new and delete
 tester find
+pb in delete fix

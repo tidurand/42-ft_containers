@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/27 09:35:56 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 11:43:11 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ class tree
 	public:
 		tree(Compare c = Compare())
 		{
+			// std::cout << "constructor" << std::endl;
 			comp = c;
 			leaf = new node();
 			leaf->color = BLACK;
@@ -227,7 +228,10 @@ class tree
 			root = leaf;
 			size = 0;
 		};
-		~tree(){};
+		~tree(){
+				delete leaf;
+			// std::cout << "destructor" << std::endl;
+		};
 		node *getRoot() const {return root;};
 		size_t getSize() const {return size;};
 		Value search(node *node, Key key)
@@ -251,8 +255,8 @@ class tree
 			n->is_leaf = false;
 			n->color = RED;
 			n->parent = NULL;
-			n->left = leaf;
 			n->right = leaf;
+			n->left = leaf;
 			n->left->is_leaf = true;
 			n->right->is_leaf = true;
 			x = root;
@@ -317,9 +321,19 @@ class tree
 				y->left->parent = y;
 				y->color = n->color;
 			}
+			if (n->left && n->left->is_leaf == true)
+			{
+				n->left->is_leaf = false;
+				n->left = NULL;
+			}
+			if (n->right && n->right->is_leaf == true)
+			{
+				n->right->is_leaf = false;
+				n->right = NULL;
+			}
 			delete n;
-			if (original_color == BLACK)
-				delete_fix(x);
+			// if (original_color == BLACK)
+			// 	delete_fix(x);
 		}
 		node *begin() const
 		{

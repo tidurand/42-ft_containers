@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/15 14:44:29 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 09:48:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		};
 		T& operator[]( const Key& key )
 		{
-			_tree.insert(make_pair(key, T()));
+			insert(ft::make_pair(key, T()));
 			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
 				return n->data.second;
 		};
@@ -167,12 +167,12 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 				--size;
 			}
 		};
-		std::pair<iterator, bool> insert( const value_type& value )
+		pair<iterator, bool> insert( const value_type& value )
 		{
 			if (empty())
 			{
 				_tree.insert(value);
-				return std::pair<iterator, bool>(begin(), true);
+				return pair<iterator, bool>(begin(), true);
 			}
 			else
 			{
@@ -180,13 +180,32 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 				if (it == end())
 				{
 					_tree.insert(value);
-					return std::pair<iterator, bool>(it, false);
+					return pair<iterator, bool>(it, false);
 				}
 				else
-					return std::pair<iterator, bool>(it, true);
+					return pair<iterator, bool>(it, true);
 			}
 		};
-		iterator insert( iterator hint, const value_type& value );
+		iterator insert( iterator hint, const value_type& value )
+		{
+			(void)hint;
+			if (empty())
+			{
+				_tree.insert(value);
+				return begin();
+			}
+			else
+			{
+				typename map<Key, T>::iterator it = find(value.first);
+				if (it == end())
+				{
+					_tree.insert(value);
+					return it;
+				}
+				else
+					return it;
+			}
+		};
 		template< class InputIt >
 		void insert( InputIt first, InputIt last )
 		{
@@ -242,14 +261,13 @@ class map : public tree<Key, T, ft::pair<const Key, T> >
 		const_iterator find( const Key& key ) const
 		{
 			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
-			std::cout << "HERE" << std::endl;
 			typename map<Key, T>::const_iterator it(n);
 			if (n == NULL)
 				return end();
 			return it;
 		};
-		std::pair<iterator,iterator> equal_range( const Key& key );
-		std::pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
+		pair<iterator,iterator> equal_range( const Key& key );
+		pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
 		iterator lower_bound( const Key& key )
 		{
 			typename map<Key, T>::iterator it = begin();

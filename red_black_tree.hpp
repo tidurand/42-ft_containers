@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/15 14:44:02 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 09:35:56 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,14 +321,14 @@ class tree
 			if (original_color == BLACK)
 				delete_fix(x);
 		}
-		node *begin()
+		node *begin() const
 		{
 			node *x = root;
 			while (x->left && x->left != leaf)
 				x = x->left;
 			return x;
 		}
-		node *end()
+		node *end() const
 		{
 			node *x = root;
 			node *p;

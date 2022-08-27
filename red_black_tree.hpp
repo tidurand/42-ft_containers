@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/27 11:43:11 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:55:38 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ class tree
 		};
 		void delete_node(node *n)
 		{
+			// std::cout << n->data.first << std::endl;
 			node *x;
 			node *y;
 			node *min;
@@ -321,16 +322,6 @@ class tree
 				y->left->parent = y;
 				y->color = n->color;
 			}
-			if (n->left && n->left->is_leaf == true)
-			{
-				n->left->is_leaf = false;
-				n->left = NULL;
-			}
-			if (n->right && n->right->is_leaf == true)
-			{
-				n->right->is_leaf = false;
-				n->right = NULL;
-			}
 			delete n;
 			// if (original_color == BLACK)
 			// 	delete_fix(x);
@@ -340,6 +331,13 @@ class tree
 			node *x = root;
 			while (x->left && x->left != leaf)
 				x = x->left;
+			return x;
+		}
+		node *last() const
+		{
+			node *x = root;
+			while (x->right && x->right != leaf)
+				x = x->right;
 			return x;
 		}
 		node *end() const
@@ -368,7 +366,7 @@ class tree
 			delete_node(node);
 			return 1;
 		}
-		node *node_search(node *node, Key key)
+		node *node_search(node *node, Key key) const
 		{
 			while (node != NULL && key != node->data.first)
 			{

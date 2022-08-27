@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/27 11:44:09 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:13:19 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,42 +25,28 @@
 #endif
 
 using namespace NAMESPACE;
+using namespace NAMESPACE;
+
 template <class Key, class T>
 void	print(map<Key, T>& lst)
 {
 	for (typename map<Key, T>::iterator it = lst.begin(); it != lst.end(); it++)
-		cout << it->first << " => " << it->second << '\n';
+		std::cout << it->first << " => " << it->second << '\n';
 }
 
 int main ()
 {
-  map<char,int> mymap;
-  map<char,int>::iterator it;
+  map<char,int> first;
+  map<char,int> second;
 
-  // insert some values:
-  mymap['a']=10;
-  mymap['b']=20;
-  mymap['c']=30;
-  mymap['d']=40;
-  mymap['e']=50;
-  mymap['f']=60;
+  first['x']=8;
+  first['y']=16;
+  first['z']=32;
 
-  it=mymap.find('b');
-  cout << "found b\n";
-  mymap.erase (it);                   // erasing by iterator
-  cout << "erase iterator to b\n";
-  mymap.erase ('c');                  // erasing by key
-  cout << "erase by key 'c'\n";
-  it=mymap.find ('e');
-  cout << "erase by range 'e' to end\n";
-  mymap.erase ( it, mymap.end() );    // erasing by range
+  second=first;                // second now contains 3 ints
+  first=map<char,int>();  // and first is now empty
 
-  cout << " display :\n";
-  // show content:
-  for (it=mymap.begin(); it!=mymap.end(); ++it)
-    cout << it->first << " => " << it->second << '\n';
-
+  std::cout << "Size of first: " << first.size() << '\n';
+  std::cout << "Size of second: " << second.size() << '\n';
   return 0;
 }
-
-

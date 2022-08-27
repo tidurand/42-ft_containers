@@ -13,3 +13,5 @@ MAP
 see rebind and allocator instead of new and delete
 tester find
 pb in delete fix
+relational operators
+iterators on swap

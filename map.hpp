@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/27 13:17:08 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/27 14:16:18 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,12 +236,16 @@ class map
 		};
 		void swap( map& other )
 		{
-			std::swap(_tree, other._tree);
 			std::swap(_comp, other._comp);
 			std::swap(_alloc, other._alloc);
-			// other.clear();
-			// for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
-			// 	insert(*it);
+			ft::map<Key, T> temp = other;
+			other.clear();
+			for (typename map<Key, T>::iterator it = begin(); it != end(); ++it)
+				other.insert(*it);
+			clear();
+			for (typename map<Key, T>::iterator it = temp.begin(); it != temp.end(); ++it)
+				insert(*it);
+			temp.clear();
 		};
 		size_type count( const Key& key ) const
 		{
@@ -266,8 +270,16 @@ class map
 				return end();
 			return it;
 		};
-		pair<iterator,iterator> equal_range( const Key& key );
-		pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
+		pair<iterator,iterator> equal_range( const Key& key )
+		{
+			pair<iterator,iterator> it(lower_bound(key), upper_bound(key));
+			return it;
+		};
+		pair<const_iterator,const_iterator> equal_range( const Key& key ) const
+		{
+			pair<const_iterator,const_iterator> it(lower_bound(key), upper_bound(key));
+			return it;
+		};
 		iterator lower_bound( const Key& key )
 		{
 			typename map<Key, T>::iterator it = begin();
@@ -308,9 +320,14 @@ class map
 			}
 			return it;
 		};
-		key_compare key_comp() const;
-		value_compare value_comp() const;
-		void print(){_tree.print();};	//debug
+		key_compare key_comp() const
+		{
+			return _comp;
+		};
+		value_compare value_comp() const
+		{
+			return value_compare(_comp);
+		};
 
 	private:
 		allocator_type	_alloc;

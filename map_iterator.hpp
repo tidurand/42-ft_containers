@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/27 09:35:12 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/28 10:24:48 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ class map_iterator
 		pointer operator->(){return &_p->data;};
 		map_iterator &operator++()
 		{
-			if (_last)
-			{
-				_p = _last;
-				_last = NULL;
-			}
 			if (_p->is_leaf == true)
 			{
 				_p = _p->parent;
 				_last = _p;
 				return *this;
+			}
+			if (_last)
+			{
+				_p = _last;
+				_last = NULL;
 			}
 			if (_p->right && _p->right->is_leaf == false)
 			{
@@ -89,16 +89,16 @@ class map_iterator
 		}
 		map_iterator& operator--()
 		{
-			if (_last)
-			{
-				_p = _last;
-				_last = NULL;
-			}
 			if (_p->is_leaf == true)
 			{
 				_p = _p->parent;
 				_last = _p;
 				return *this;
+			}
+			if (_last)
+			{
+				_p = _last;
+				_last = NULL;
 			}
 			if (_p->left && _p->left->is_leaf == false)
 			{

@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/06/02 12:55:50 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/28 12:06:10 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ class vector
 			if (other._size > _capacity)
 				_capacity = other._size;
 			_alloc = other._alloc;
-			_array = _alloc.allocate(_capacity);
+			if (_capacity > 0)
+				_array = _alloc.allocate(_capacity);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&_array[i], other._array[i]);
 			return (*this);

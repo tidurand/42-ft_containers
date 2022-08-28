@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/28 10:03:10 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/28 11:56:44 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ class map
 		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
 		{
+			friend class map;
 			protected:
 				Compare comp;
 				value_compare (Compare c) : comp(c) {}
@@ -90,8 +91,7 @@ class map
 		}
 		~map()
 		{
-			// if (_tree.getSize() > 0)
-				clear();
+			clear();
 		};
 		allocator_type get_allocator() const {return _alloc;};
 		T& at( const Key& key )
@@ -180,10 +180,10 @@ class map
 				if (it == end())
 				{
 					_tree.insert(value);
-					return pair<iterator, bool>(it, false);
+					return pair<iterator, bool>(find(value.first), true);
 				}
 				else
-					return pair<iterator, bool>(it, true);
+					return pair<iterator, bool>(it, false);
 			}
 		};
 		iterator insert( iterator hint, const value_type& value )
@@ -200,7 +200,7 @@ class map
 				if (it == end())
 				{
 					_tree.insert(value);
-					return it;
+					return find(value.first);
 				}
 				else
 					return it;
@@ -236,9 +236,11 @@ class map
 		};
 		void swap( map& other )
 		{
-			std::swap(_comp, other._comp);
-			std::swap(_alloc, other._alloc);
-			ft::map<Key, T> temp = other;
+			// std::swap(_comp, other._comp);
+			// std::swap(_alloc, other._alloc);
+			ft::map<Key, T> temp;
+			for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
+				temp.insert(*it);
 			other.clear();
 			for (typename map<Key, T>::iterator it = begin(); it != end(); ++it)
 				other.insert(*it);

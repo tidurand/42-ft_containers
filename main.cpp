@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/28 12:03:16 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:24:40 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,47 @@
 #include "map.hpp"
 #include <utility>
 #include <cstdlib>
+
 // #ifndef TYPE
-// #define TYPE std
+// #define TYPE ft
 // #endif
 
-#ifndef STD
-# define NAMESPACE ft
-#else
-# define NAMESPACE std
-#endif
+#include "containers_test/srcs/map/common.hpp"
 
-using namespace NAMESPACE;
+#include <list>
 
-int main()
+#define T1 char
+#define T2 int
+typedef _pair<const T1, T2> T3;
+
+int		main(void)
 {
-	stack<float>								other_stack;
-	vector<std::string>							lst;
+	std::list<T3> lst;
+	unsigned int lst_size = 5;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(T3('a' + i, (i + 1) * 7));
 
-	lst.push_back("salut");
-	lst.push_back("tu vas bien?");
-	lst.push_back("super");
-	lst.push_back("et toi?");
+	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+	TESTED_NAMESPACE::map<T1, T2>::iterator it_ = mp.begin();
+	TESTED_NAMESPACE::map<T1, T2>::reverse_iterator it(it_), ite;
+	printSize(mp);
 
-	stack<std::string, vector<std::string> >	my_stack(lst);
+	std::cout << (it_ == it.base()) << std::endl;
+	std::cout << (it_ == dec(it, 3).base()) << std::endl;
 
-	std::cout << std::boolalpha << other_stack.empty() << std::endl;
-	other_stack.push(8.5); // 8.5;
-	other_stack.push(42.4242); // 8.5; 42.4242;
-	std::cout << other_stack.size() << '\n'; // 2
-	other_stack.pop(); // 8.5;
-	std::cout << other_stack.size() << '\n'; // 1
-	other_stack.push(78541.987); // 8.5; 78541.987;
-	std::cout << other_stack.size() << '\n'; // 2
-	std::cout << other_stack.top() << '\n'; //78541.987
-	std::cout << std::boolalpha << other_stack.empty() << std::endl;
+	printPair(it.base());
+	printPair(inc(it.base(), 1));
 
-	const std::string const_top = my_stack.top();
+	std::cout << "TEST OFFSET" << std::endl;
+	--it;
+	printPair(it);
+	printPair(it.base());
 
-	std::cout << "const top: " << const_top << '\n';
-
-	while (!my_stack.empty())
-	{
-		std::cout << my_stack.top() << '\n';
-		my_stack.pop();
-	}
+	it = mp.rbegin(); ite = mp.rend();
+	while (it != ite)
+		std::cout << "[rev] " << printPair(it++, false) << std::endl;
+	printReverse(mp);
 
 	return (0);
 }
+

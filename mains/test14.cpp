@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test13.cpp                                         :+:      :+:    :+:   */
+/*   test14.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 13:37:22 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/29 09:43:35 by tidurand         ###   ########.fr       */
+/*   Created: 2022/08/29 10:02:04 by tidurand          #+#    #+#             */
+/*   Updated: 2022/08/29 10:07:24 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define TYPE ft
 #endif
 
-//map erase
+//map insert
 
 int main ()
 {
@@ -26,24 +26,8 @@ int main ()
   {
     m.insert(TYPE::pair<int, std::string>(i, "a"));
   }
-
   TYPE::map<int, std::string>::iterator it;
   it = m.begin();
-  TYPE::map<int, std::string>::iterator it2;
-  it2 = m.begin();
-  it2++;
-  it2++;
-  it2++;
-  std::cout << it->first << std::endl;
-  std::cout << it2->first << std::endl;
-  m.erase(it, it2);
-  m.erase(9);
-  std::cout << "--" << std::endl;
-  TYPE::map<int, std::string>::iterator it4;
-  it4 = m.begin();
-  for (TYPE::map<int, std::string>::iterator ite = m.end(); it4 != ite; it4++)
-  {
-    std::cout << it4->first << std::endl;
-  }
+
   return 0;
 }

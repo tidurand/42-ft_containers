@@ -6,7 +6,7 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/08/08 08:11:36 by tidurand         ###   ########.fr        #
+#    Updated: 2022/08/29 09:43:44 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 NAME = containers
 
-MAX = 12
+MAX = 13
 
 all: $(NAME)
 

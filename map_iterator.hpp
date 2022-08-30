@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/28 10:24:48 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:08:32 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ class map_iterator
 		const node *base() const {return _p;};
 		reference operator*(){return _p->data;};
 		pointer operator->(){return &_p->data;};
+		const pointer operator->() const {return &_p->data;};
 		map_iterator &operator++()
 		{
 			if (_p->is_leaf == true)

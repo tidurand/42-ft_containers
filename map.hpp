@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/28 11:56:44 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:26:44 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <memory>
 #include <limits>
 #include <stdexcept>
+#include <cstdlib>
 #include "utils.hpp"
 #include "red_black_tree.hpp"
 #include "map_iterator.hpp"
@@ -236,18 +237,19 @@ class map
 		};
 		void swap( map& other )
 		{
-			// std::swap(_comp, other._comp);
-			// std::swap(_alloc, other._alloc);
-			ft::map<Key, T> temp;
-			for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
-				temp.insert(*it);
-			other.clear();
-			for (typename map<Key, T>::iterator it = begin(); it != end(); ++it)
-				other.insert(*it);
-			clear();
-			for (typename map<Key, T>::iterator it = temp.begin(); it != temp.end(); ++it)
-				insert(*it);
-			temp.clear();
+			std::swap(_comp, other._comp);
+			std::swap(_alloc, other._alloc);
+			// ft::map<Key, T> temp;
+			// for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
+			// 	temp.insert(*it);
+			// other.clear();
+			// for (typename map<Key, T>::iterator it = begin(); it != end(); ++it)
+			// 	other.insert(*it);
+			// clear();
+			// for (typename map<Key, T>::iterator it = temp.begin(); it != temp.end(); ++it)
+			// 	insert(*it);
+			// temp.clear();
+			_tree.swap(other._tree);
 		};
 		size_type count( const Key& key ) const
 		{
@@ -285,7 +287,7 @@ class map
 		iterator lower_bound( const Key& key )
 		{
 			typename map<Key, T>::iterator it = begin();
-			while (!_comp(key, it->first))
+			while (!_comp(key, it->first) && it != end())
 			{
 				if (it->first == key)
 					return it;
@@ -296,7 +298,7 @@ class map
 		const_iterator lower_bound( const Key& key ) const
 		{
 			typename map<Key, T>::const_iterator it = begin();
-			while (!_comp(key, it->first))
+			while (!_comp(key, it->first) && it != end())
 			{
 				if (it->first == key)
 					return it;
@@ -307,7 +309,7 @@ class map
 		iterator upper_bound( const Key& key )
 		{
 			typename map<Key, T>::iterator it = begin();
-			while (!_comp(key, it->first))
+			while (!_comp(key, it->first) && it != end())
 			{
 				it++;
 			}
@@ -316,7 +318,7 @@ class map
 		const_iterator upper_bound( const Key& key ) const
 		{
 			typename map<Key, T>::const_iterator it = begin();
-			while (!_comp(key, it->first))
+			while (!_comp(key, it->first) && it != end())
 			{
 				it++;
 			}

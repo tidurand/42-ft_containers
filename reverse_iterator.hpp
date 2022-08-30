@@ -38,15 +38,15 @@ class reverse_iterator : public std::iterator<std::random_access_iterator_tag, I
 		~reverse_iterator(){};
 		It	base(){return _iter;};
 		const It	base() const {return _iter;};
-		reference operator*()	
+		reference operator*() const
 		{
 			It tmp = _iter;
 			return *--tmp;
 		};
-		const reference &operator*() const
-		{
-			return _iter.operator*();
-		};
+		// const reference operator*() const
+		// {
+		// 	return _iter.operator*();
+		// };
 		pointer operator->()	{return &(operator*());};
 		const pointer operator->() const	{return &(operator*());};
 		reverse_iterator& operator++()

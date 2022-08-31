@@ -323,8 +323,11 @@ class tree
 				y->color = n->color;
 			}
 			delete n;
-			// if (original_color == BLACK)
-			// 	delete_fix(x);
+			if (original_color == BLACK)
+			{
+				return;
+				delete_fix(x);
+			}
 		}
 		node *begin() const
 		{
@@ -382,10 +385,13 @@ class tree
 				return NULL;
 			return node;
 		}
-		void	swap(tree other)
+		void	swap(tree & other)
 		{
 			std::swap(root, other.root);
 			std::swap(leaf, other.leaf);
+			std::swap(size, other.size);
+			std::swap(comp, other.comp);
+			std::swap(alloc, other.alloc);
 		}
 		void print()
 		{

@@ -44,7 +44,7 @@ class map
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::map_iterator<value_type>			iterator;
-		typedef	ft::map_iterator<const value_type>		const_iterator;
+		typedef	ft::map_iterator< value_type>		const_iterator;
 		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
@@ -237,8 +237,8 @@ class map
 		};
 		void swap( map& other )
 		{
-			std::swap(_comp, other._comp);
-			std::swap(_alloc, other._alloc);
+			// std::swap(_comp, other._comp);
+			// std::swap(_alloc, other._alloc);
 			// ft::map<Key, T> temp;
 			// for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
 			// 	temp.insert(*it);

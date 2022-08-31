@@ -138,7 +138,7 @@ class map_iterator
 		template<class It2>
    		bool operator==(const map_iterator<It2>& rhs) const { return _p == rhs._p; };
 		template<class It2>
-   		bool operator!=(const map_iterator<It2>& rhs) const { return base() != rhs.base(); };
+   		bool operator!=(const map_iterator<It2>& rhs) const { return _p != rhs._p; };
 		template<class It2>
    		bool operator<=(const map_iterator<It2>& rhs) const { return _p <= rhs._p; };
 		template<class It2>
@@ -147,7 +147,7 @@ class map_iterator
    		bool operator>=(const map_iterator<It2>& rhs) const { return _p >= rhs._p; };
 		template<class It2>
    		bool operator>(const map_iterator<It2>& rhs) const { return _p > rhs._p; };
-	private:
+	public:
 		node *_last;
 		node *_p;
 };

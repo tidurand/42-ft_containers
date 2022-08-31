@@ -237,18 +237,6 @@ class map
 		};
 		void swap( map& other )
 		{
-			// std::swap(_comp, other._comp);
-			// std::swap(_alloc, other._alloc);
-			// ft::map<Key, T> temp;
-			// for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
-			// 	temp.insert(*it);
-			// other.clear();
-			// for (typename map<Key, T>::iterator it = begin(); it != end(); ++it)
-			// 	other.insert(*it);
-			// clear();
-			// for (typename map<Key, T>::iterator it = temp.begin(); it != temp.end(); ++it)
-			// 	insert(*it);
-			// temp.clear();
 			_tree.swap(other._tree);
 		};
 		size_type count( const Key& key ) const

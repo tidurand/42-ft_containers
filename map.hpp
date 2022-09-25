@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/30 15:39:44 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:19:45 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ class map
 		typedef	typename Allocator::pointer				pointer;
 		typedef	typename Allocator::const_pointer		const_pointer;
 		typedef	ft::map_iterator<value_type>			iterator;
-		typedef	ft::map_iterator< value_type>		const_iterator;
+		typedef	ft::const_map_iterator<value_type>		const_iterator;
 		typedef	ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		class value_compare : public std::exception
@@ -64,14 +64,12 @@ class map
 		};
 		explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		{
-			// _tree = tree<Key, T, value_type>();
 			_comp = comp;
 			_alloc = alloc;
 		};
 		template <class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 		{
-			// _tree = tree<Key, T, value_type>();
 			_comp = comp;
 			_alloc = alloc;
 			for (InputIt it = first; it != last; ++it)
@@ -118,7 +116,7 @@ class map
 		{
 			typename map<Key, T>::const_iterator it(_tree.begin());
 			return it;
-		};;
+		};
 		iterator end()
 		{
 			typename map<Key, T>::iterator ite(_tree.end());

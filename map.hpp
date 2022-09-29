@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/09/20 18:19:45 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/09/29 09:10:53 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ class map
 			_comp = other._comp;
 			_alloc = other._alloc;
 			clear();
-			for (typename map<Key, T>::iterator it = other.begin(); it != other.end(); ++it)
+			for (typename map<Key, T>::const_iterator it = other.begin(); it != other.end(); ++it)
 				insert(*it);
 			return *this;
 		}
@@ -124,8 +124,8 @@ class map
 		};
 		const_iterator end() const
 		{
-			typename map<Key, T>::const_iterator it(_tree.end());
-			return it;
+			typename map<Key, T>::const_iterator ite(_tree.end());
+			return ite;
 		};
 		reverse_iterator rbegin()
 		{

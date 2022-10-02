@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:03:10 by tidurand          #+#    #+#             */
-/*   Updated: 2022/09/29 14:42:40 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/02 11:33:20 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,23 +157,21 @@ class const_map_iterator
 {
 	public:
 		typedef node<It>						node;
-		typedef	It								iterator_type;
+		typedef	const It						iterator_type;
 		typedef	std::ptrdiff_t					difference_type;
-		typedef	It*								pointer;
-		typedef	It&								reference;
+		typedef const It*						pointer;
+		typedef	const It&						reference;
 		typedef	std::bidirectional_iterator_tag	iterator_category; 
 		const_map_iterator() {_p = NULL;_last = NULL;};
 		explicit const_map_iterator(node *it):_last(NULL), _p(it){};
-		const_map_iterator(map_iterator<It> it):_last(it._last), _p(it.base()){};
+		const_map_iterator( const map_iterator<It> &it):_last(it._last), _p(it._p){};
 		template<class It2>
 		const_map_iterator( const const_map_iterator<It2>& other ) {*this = other;};
 		template<class It2>
 		const_map_iterator& operator=(const const_map_iterator<It2>& other) {_p = other.base();_last = other._last; return (*this);};
 		~const_map_iterator(){};
-		// node *base() {return _p;};
 		const node *base() const {return _p;};
 		reference operator*() const {return _p->data;};
-		// pointer operator->(){return &_p->data;};
 		const pointer operator->() const {return &_p->data;};
 		const_map_iterator &operator++()
 		{

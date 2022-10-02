@@ -6,11 +6,11 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 14:51:59 by tidurand          #+#    #+#              #
-#    Updated: 2022/08/29 09:43:44 by tidurand         ###   ########.fr        #
+#    Updated: 2022/10/02 12:48:13 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main.cpp
+SRCS =	perfs_vector.cpp
 
 INCS = vector.hpp iterator.hpp reverse_iterator.hpp iterator_traits.hpp utils.hpp stack.hpp \
 		map.hpp red_black_tree.hpp map_iterator.hpp

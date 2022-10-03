@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 15:29:14 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:03:39 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,14 +367,16 @@ class tree
 		}
 		node *node_search(node *node, Key key) const
 		{
-			while (node != NULL && key != node->data.first)
+			if (!node)
+				return NULL;
+			while (node->is_leaf == false && key != node->data.first)
 			{
 				if (comp(key, node->data.first))
 					node = node->left;
 				else
 					node = node->right;
 			}
-			if (node == NULL)
+			if (node == NULL || node->is_leaf == true)
 				return NULL;
 			return node;
 		}

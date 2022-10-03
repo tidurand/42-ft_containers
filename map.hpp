@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 14:52:44 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:33:26 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,8 @@ class map
 		iterator find( const Key& key )
 		{
 			node<value_type> *n = NULL;
+			// if (_tree.getSize() == 1)
+			// 	return begin();
 			if (_tree.getSize() > 0)
 				n = _tree.node_search(_tree.getRoot(), key);
 			typename map<Key, T>::iterator it(n);
@@ -256,7 +258,9 @@ class map
 		};
 		const_iterator find( const Key& key ) const
 		{
-			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+			node<value_type> *n = NULL;
+			if (_tree.getSize() > 0)
+				n = _tree.node_search(_tree.getRoot(), key);
 			typename map<Key, T>::const_iterator it(n);
 			if (n == NULL)
 				return end();
@@ -275,7 +279,7 @@ class map
 		iterator lower_bound( const Key& key )
 		{
 			typename map<Key, T>::iterator it = begin();
-			while (!_comp(key, it->first) && it != end())
+			while (it != end() && !_comp(key, it->first))
 			{
 				if (it->first == key)
 					return it;
@@ -286,7 +290,7 @@ class map
 		const_iterator lower_bound( const Key& key ) const
 		{
 			typename map<Key, T>::const_iterator it = begin();
-			while (!_comp(key, it->first) && it != end())
+			while (it != end() && !_comp(key, it->first))
 			{
 				if (it->first == key)
 					return it;
@@ -297,14 +301,14 @@ class map
 		iterator upper_bound( const Key& key )
 		{
 			typename map<Key, T>::iterator it = begin();
-			while (!_comp(key, it->first) && it != end())
+			while (it != end() && !_comp(key, it->first))
 				it++;
 			return it;
 		};
 		const_iterator upper_bound( const Key& key ) const
 		{
 			typename map<Key, T>::const_iterator it = begin();
-			while (!_comp(key, it->first) && it != end())
+			while (it != end() && !_comp(key, it->first))
 			{
 				it++;
 			}

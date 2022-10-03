@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:20:42 by tidurand          #+#    #+#             */
-/*   Updated: 2022/09/29 16:43:29 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:24:25 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,8 @@ struct node {
     int color;
     bool is_leaf;
     Data data;
-    node() {}
-    node(const Data &data): data(data){}
+    node(): data(NULL){}
+    node(Data data_param): data(data_param){}
 };
 
 

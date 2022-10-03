@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/08/28 12:06:10 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 10:39:31 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +283,13 @@ class vector
 				for (typename vector<T, Allocator>::iterator it = this->begin(); it != pos; ++it)
 					count++;
 			}
-			if (_capacity == _size)
-				reserve(_size + 1);
+			if (_capacity < _size + count)
+			{
+				reserve(_size * 2);
+				reserve(_size + count);
+			}
+			// if (_capacity == _size)
+			// 	reserve(_size + 1);
 			T *temp = _alloc.allocate(_size);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&temp[i], _array[i]);
@@ -325,7 +330,7 @@ class vector
 			for (size_type i = c + count; i < _size + count; i++)
 				_alloc.construct(&_array[i], temp[i - count]);
 			_alloc.deallocate(temp, _size);
-			_size+= count;
+			_size += count;
 		};
 		template< class InputIt >
 		void insert( iterator pos, InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, bool>::type = true)
@@ -353,7 +358,7 @@ class vector
 			for (size_type i = c + count; i < _size + count; i++)
 				_alloc.construct(&_array[i], temp[i - count]);
 			_alloc.deallocate(temp, _size);
-			_size+= count;
+			_size += count;
 		};
 		iterator erase( iterator pos )
 		{

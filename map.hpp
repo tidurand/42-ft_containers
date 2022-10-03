@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 09:30:03 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:52:44 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,9 @@ class map
 		}
 		iterator find( const Key& key )
 		{
-			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+			node<value_type> *n = NULL;
+			if (_tree.getSize() > 0)
+				n = _tree.node_search(_tree.getRoot(), key);
 			typename map<Key, T>::iterator it(n);
 			if (n == NULL)
 				return end();
@@ -296,9 +298,7 @@ class map
 		{
 			typename map<Key, T>::iterator it = begin();
 			while (!_comp(key, it->first) && it != end())
-			{
 				it++;
-			}
 			return it;
 		};
 		const_iterator upper_bound( const Key& key ) const

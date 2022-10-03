@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 09:33:21 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:29:14 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ class tree
 {
 	public:
 	typedef  node<Data> node;
+	typedef typename Allocator::template rebind<node>::other allocator;
 	public:
 		node *root;
 		node *leaf;
 		Compare comp;
-		Allocator alloc;
+		allocator alloc;
 		std::size_t size;
+		
 		void insert_fix(node *n)
 		{
 			while (n->parent->color == RED)
@@ -207,9 +209,8 @@ class tree
 	public:
 		tree(Compare c = Compare())
 		{
-			// std::cout << "constructor" << std::endl;
 			comp = c;
-			leaf = new node();
+			leaf = alloc.allocate(sizeof(node));
 			leaf->color = BLACK;
 			leaf->left = NULL;
 			leaf->right = NULL;
@@ -218,9 +219,9 @@ class tree
 			root = leaf;
 			size = 0;
 		};
-		~tree(){
-				delete leaf;
-			// std::cout << "destructor" << std::endl;
+		~tree()
+		{
+			alloc.deallocate(leaf, sizeof(node));
 		};
 		node *getRoot() const {return root;};
 		size_t getSize() const {return size;};
@@ -240,8 +241,10 @@ class tree
 		void insert(Data data)
 		{
 			node *x;
-
-			node *n = new node(data);
+			
+			node *n = alloc.allocate(sizeof(node));
+			alloc.construct(n, data);
+			
 			n->is_leaf = false;
 			n->color = RED;
 			n->parent = NULL;
@@ -312,7 +315,7 @@ class tree
 				y->left->parent = y;
 				y->color = n->color;
 			}
-			delete n;
+			alloc.deallocate(n, sizeof(node));
 			if (original_color == BLACK)
 			{
 				return;

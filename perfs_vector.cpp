@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:26:40 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/02 12:56:27 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 11:29:02 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include "vector.hpp"
 #ifndef TYPE
-#define TYPE ft
+#define TYPE std
 #endif
-#define	MAX 100000
+#define	MAX 1000000
 
 int main()
 {
@@ -31,15 +31,8 @@ int main()
 	{
 		v.pop_back();
 	}
-	for (int i = 0; i < 10; i++)
-	{
-		v.insert(v.begin(), 1);
-	}
-	// v.insert(v.begin(), MAX, 1);
-	for (int i = 0; i < 10; i++)
-	{
-		v.erase(v.begin());
-	}
+	v.insert(v.begin(), MAX, rand() % MAX);
+	v.erase(v.begin(), v.end());
 	v.assign(MAX, 8);
 	v.clear();
 }

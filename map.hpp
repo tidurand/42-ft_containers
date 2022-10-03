@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/02 11:50:24 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 09:30:03 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,7 @@ class map
 	private:
 		allocator_type	_alloc;
 		Compare			_comp;
-		tree<Key, T, value_type>	_tree;
+		tree<Key, T, value_type, Compare>	_tree;
 };
 
 template< class Key, class T, class Compare, class Alloc >

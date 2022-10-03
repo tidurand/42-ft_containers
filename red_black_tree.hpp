@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/09/20 18:17:15 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/03 09:33:21 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@
 #define RED 1
 
 namespace ft {
-
-// template <class Key, class Value>
-// struct node {
-// 	struct node *left;
-// 	struct node *right;
-// 	struct node *parent;
-// 	int color;
-// 	Key key;
-// 	Value value;
-// };
 
 template <class Key, class Value, class Data, class Compare = std::less<Key>,
  class Allocator = std::allocator<ft::pair<const Key, Value> > >
@@ -393,17 +383,6 @@ class tree
 			std::swap(comp, other.comp);
 			std::swap(alloc, other.alloc);
 		}
-		void print()
-		{
-			std::cout << "Red Black Tree :" << std::endl;
-			if (root == leaf)
-			{
-				std::cout << "Empty" << std::endl;
-				return;
-			}
-			std::cout << "ROOT: " << root->data.first << std::endl;
-			
-		};
 };
 
 }

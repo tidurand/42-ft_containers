@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/04 14:47:52 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:16:17 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,21 @@ class vector
 		};
 		~vector()
 		{
-			for (size_type i = 0; i < _size; i++)
-				_alloc.destroy(&_array[i]);
 			if (_array && _capacity > 0)
+			{
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&_array[i]);
 				_alloc.deallocate(_array, _capacity);
+			}
 		};
 		vector& operator=( const vector& other )
 		{
 			if (_array)
 			{
 				for (size_type i = 0; i < _size; i++)
-					get_allocator().destroy(&_array[i]);
+					_alloc.destroy(&_array[i]);
 				if (_capacity > 0)
-					get_allocator().deallocate(_array, _capacity);
+					_alloc.deallocate(_array, _capacity);
 			}
 			_size = other._size;
 			if (other._size > _capacity)
@@ -109,7 +111,7 @@ class vector
 			_alloc = other._alloc;
 			if (_capacity > 0)
 			{
-				_array = _alloc.allocate(_capacity);
+				_array = _alloc.allocate(_size);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&_array[i], other._array[i]);
 			}
@@ -466,9 +468,9 @@ class vector
 					_alloc.construct(&_array[i], temp[i]);
 				for (size_type i = _size; i < count; i++)
 					_alloc.construct(&_array[i], value);
-				_size = count;
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&temp[i]);
+				_size = count;
 				_alloc.deallocate(temp, count);
 			}
 		};

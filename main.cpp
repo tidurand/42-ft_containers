@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:52:56 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/04 14:39:57 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:56:33 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 #endif
 
 using namespace NAMESPACE;
-
 int main()
 {
 	vector<int>			test(3, 3);

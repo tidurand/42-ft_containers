@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:24:02 by tidurand          #+#    #+#             */
-/*   Updated: 2022/07/18 15:01:55 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:06:27 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class stack
 		stack(const Container& cont = Container()){c = cont;};
 		stack (const stack& other){c = other.c;};
 		~stack(){};
-		stack& operator=(const stack& other){c = other.c;};
+		stack& operator=(const stack& other){c = other.c; return *this;};
 		reference top(){return c.back();};
 		const_reference top() const {return c.back();};
 		bool empty() const {return c.empty();};

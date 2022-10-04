@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 16:33:26 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:10:22 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ class map
 		size_type size() const{return _tree.getSize();};
 		size_type max_size() const
 		{
-			return std::numeric_limits<difference_type>::max() / sizeof(difference_type);
+			return std::numeric_limits<difference_type>::max();
 		};
 		void clear()
 		{
@@ -247,8 +247,6 @@ class map
 		iterator find( const Key& key )
 		{
 			node<value_type> *n = NULL;
-			// if (_tree.getSize() == 1)
-			// 	return begin();
 			if (_tree.getSize() > 0)
 				n = _tree.node_search(_tree.getRoot(), key);
 			typename map<Key, T>::iterator it(n);

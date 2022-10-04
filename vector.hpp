@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 10:39:31 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:47:52 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,11 @@ class vector
 				_capacity = other._size;
 			_alloc = other._alloc;
 			if (_capacity > 0)
+			{
 				_array = _alloc.allocate(_capacity);
-			for (size_type i = 0; i < _size; i++)
-				_alloc.construct(&_array[i], other._array[i]);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&_array[i], other._array[i]);
+			}
 			return (*this);
 		};
 		void assign( size_type count, const T& value)
@@ -130,6 +132,8 @@ class vector
 				_alloc.construct(&_array[i], value);
 			for (size_type i = _size; i < _size; i++)
 				_alloc.construct(&_array[i], temp[i]);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size = count;	
 		};
@@ -159,32 +163,34 @@ class vector
 			}
 			for (size_type i = _size; i < _size; i++)
 				_alloc.construct(&_array[i], temp[i]);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size = count;
 		};
 		allocator_type get_allocator() const {return _alloc;};
 		reference at( size_type pos )
 		{
-			if (pos < 0 || pos > _capacity)
-				throw OutOfRange();
+			if (pos < 0 || pos > _size)
+				throw std::out_of_range("Out_of_range");
 			return (_array[pos]);
 		};
 		const_reference at( size_type pos ) const
 		{
-			if (pos < 0 || pos > _capacity)
-				throw OutOfRange();
+			if (pos < 0 || pos > _size)
+				throw std::out_of_range("Out_of_range");
 			return (_array[pos]);
 		};
 		reference operator[]( size_type pos )
 		{
-			if (pos < 0 || pos > _capacity)
-				throw OutOfRange();
+			if (pos < 0 || pos > _size)
+				throw std::out_of_range("Out_of_range");
 			return (_array[pos]);
 		};
 		const_reference operator[]( size_type pos ) const
 		{
-			if (pos < 0 || pos > _capacity)
-				throw OutOfRange();
+			if (pos < 0 || pos > _size)
+				throw std::out_of_range("Out_of_range");
 			return (_array[pos]);
 		};
 		reference front() {return (_array[0]);};
@@ -243,12 +249,12 @@ class vector
 		size_type size() const {return _size;};
 		size_type max_size() const
 		{
-			return std::numeric_limits<difference_type>::max() / sizeof(difference_type);
+			return std::numeric_limits<difference_type>::max();
 		};
 		void reserve( size_type new_cap )
 		{
 			if (new_cap > max_size())
-				throw OutOfRangeReserve();
+				throw std::length_error("length error");
 			if (new_cap > _capacity)
 			{
 				T *temp = _alloc.allocate(_size);
@@ -265,6 +271,8 @@ class vector
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&_array[i], temp[i]);
 				_capacity = new_cap;
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&temp[i]);
 				_alloc.deallocate(temp, _size);
 			}
 		};
@@ -283,13 +291,8 @@ class vector
 				for (typename vector<T, Allocator>::iterator it = this->begin(); it != pos; ++it)
 					count++;
 			}
-			if (_capacity < _size + count)
-			{
-				reserve(_size * 2);
-				reserve(_size + count);
-			}
-			// if (_capacity == _size)
-			// 	reserve(_size + 1);
+			if (_capacity == _size)
+				reserve(_size + 1);
 			T *temp = _alloc.allocate(_size);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&temp[i], _array[i]);
@@ -329,6 +332,8 @@ class vector
 				_alloc.construct(&_array[i], value);
 			for (size_type i = c + count; i < _size + count; i++)
 				_alloc.construct(&_array[i], temp[i - count]);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size += count;
 		};
@@ -357,6 +362,8 @@ class vector
 				_alloc.construct(&_array[i], *first++);
 			for (size_type i = c + count; i < _size + count; i++)
 				_alloc.construct(&_array[i], temp[i - count]);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size += count;
 		};
@@ -377,6 +384,8 @@ class vector
 				_alloc.construct(&_array[i], temp[i]);
 			for (size_type i = count + 1; i < _size; i++)
 				_alloc.construct(&_array[i-1], temp[i]);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size--;
 			return pos;
@@ -399,6 +408,8 @@ class vector
 				_alloc.construct(&_array[i], temp[i]);
 			for (size_type i = end; i < _size; i++)
 				_alloc.construct(&_array[i-end + begin], temp[i]);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&temp[i]);
 			_alloc.deallocate(temp, _size);
 			_size -= end - begin;
 			return first;
@@ -430,6 +441,8 @@ class vector
 				for (size_type i = 0; i < count; i++)
 					_alloc.construct(&_array[i], temp[i]);
 				_size = count; 
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&temp[i]);
 				_alloc.deallocate(temp, count);
 			}
 			if (count > _size)
@@ -454,6 +467,8 @@ class vector
 				for (size_type i = _size; i < count; i++)
 					_alloc.construct(&_array[i], value);
 				_size = count;
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&temp[i]);
 				_alloc.deallocate(temp, count);
 			}
 		};

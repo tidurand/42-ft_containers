@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/04 15:16:17 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:06:32 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ class vector
 		};
 		vector( const vector& other )
 		{
+			_size = 0;
+			_capacity = 0;
 			_size = other._size;
 			_capacity = other._size;
 			_alloc = other._alloc;
-			if (other._capacity > 0)
+			_array = NULL;
+			if (_capacity > 0)
 				_array = _alloc.allocate(_capacity);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(&_array[i], other._array[i]);
@@ -115,6 +118,8 @@ class vector
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&_array[i], other._array[i]);
 			}
+			else
+				_array = NULL;
 			return (*this);
 		};
 		void assign( size_type count, const T& value)

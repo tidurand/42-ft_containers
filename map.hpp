@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:43:07 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/04 14:10:22 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:53:50 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,19 @@ class map
 		allocator_type get_allocator() const {return _alloc;};
 		T& at( const Key& key )
 		{
-			return _tree.search(_tree.getRoot(), key);
+			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+			if (n != NULL)
+				return n->data.second;
+			else
+				throw std::out_of_range("Out_of_range");
 		};
 		const T& at( const Key& key ) const
 		{
-			return _tree.search(_tree.getRoot(), key);
+			node<value_type> *n = _tree.node_search(_tree.getRoot(), key);
+			if (n != NULL)
+				return n->data.second;
+			else
+				throw std::out_of_range("Out_of_range");
 		};
 		T& operator[]( const Key& key )
 		{

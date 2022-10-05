@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 07:26:23 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/03 16:03:39 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:50:02 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ class tree
 		};
 		node *getRoot() const {return root;};
 		size_t getSize() const {return size;};
-		Value search(node *node, Key key)
+		Value &search(node *node, Key key)
 		{
 			while (node != NULL && key != node->data.first)
 			{
@@ -235,7 +235,7 @@ class tree
 					node = node->right;
 			}
 			if (node == NULL)
-				return NULL;
+				return ;
 			return node->data.second;
 		};
 		void insert(Data data)

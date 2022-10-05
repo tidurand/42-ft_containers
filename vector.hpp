@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:57:17 by tidurand          #+#    #+#             */
-/*   Updated: 2022/10/04 16:06:32 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:55:12 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -484,18 +484,6 @@ class vector
 			std::swap(_array, other._array);
 			std::swap(_size, other._size);
 			std::swap(_capacity, other._capacity);
-		};
-		class OutOfRange : public std::exception
-		{
-			public:
-				virtual const char* what() const throw()
-				{return ("vector :Out of range");}
-		};
-		class OutOfRangeReserve : public std::exception
-		{
-			public:
-				virtual const char* what() const throw()
-				{return ("vector::reserve");}
 		};
 	private:
 		size_type _size;

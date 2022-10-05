@@ -278,7 +278,6 @@ class tree
 		};
 		void delete_node(node *n)
 		{
-			// std::cout << n->data.first << std::endl;
 			node *x;
 			node *y;
 			node *min;

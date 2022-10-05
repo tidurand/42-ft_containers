@@ -163,4 +163,15 @@ int main()
 	for (TYPE::map<int, std::string>::iterator it = m.begin(); it != m.end(); ++it)
 		std::cout << "KEY : " << it->first << " VALUE : " << it->second << std::endl;
 	
+	m.insert(TYPE::pair<int, std::string>(0, "z"));
+
+	std::cout << "First value : " << m.at(0) << std::endl;
+
+	m.erase(3);
+
+	for (TYPE::map<int, std::string>::iterator it = m.begin(); it != m.end(); ++it)
+		std::cout << "KEY : " << it->first << " VALUE : " << it->second << std::endl;
+
+	std::cout << "Count 2 : " << m.count(2) << std::endl;
+	std::cout << "Count 10 : " << m.count(10) << std::endl;
 }
